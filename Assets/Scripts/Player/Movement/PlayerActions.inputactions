@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Duck",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "3a42a415-827d-4efa-9adf-480e6a09f90b",
                     "expectedControlType": "Button",
@@ -107,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Duck",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

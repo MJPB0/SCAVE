@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 1230723752}
   - component: {fileID: 1230723751}
   - component: {fileID: 1230723750}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -687,7 +687,7 @@ Transform:
   m_GameObject: {fileID: 1554926669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 2, z: 1.5}
+  m_LocalScale: {x: 1.6, y: 1.8, z: 1.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1856156686}
@@ -811,19 +811,22 @@ MonoBehaviour:
   _rightHand: {fileID: 1519301105}
   _head: {fileID: 750625793}
   _eyes: {fileID: 101285816}
-  _canMove: 1
   _isCrouching: 0
   _isGrounded: 0
-  _canJump: 1
-  _canStand: 1
+  _canMove: 1
+  _canJump: 0
+  _canStand: 0
+  _jumpForce: 500
   _movementSpeed: 5
   _crouchMovementSpeed: 2
-  _jumpForce: 450
-  _crouchSpeed: 2
-  _isCrouchingInProccess: 0
+  _changePositionSpeed: 0.7
+  _changingPositionInProgress: 0
   _walkableLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  _collideLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!1 &1637387730
 GameObject:
   m_ObjectHideFlags: 0
