@@ -12,17 +12,21 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rbody;
     private PlayerActions _controls;
-    private Vector2 _move;
+    private Vector2 _movementInput;
+    private Vector2 _mouseInput;
+
+    private CapsuleCollider _playerCollider;
 
     [Header("Body")]
-    [SerializeField] private CapsuleCollider _playerCollider;
-
-    [Space]
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _leftHand;
     [SerializeField] private GameObject _rightHand;
     [SerializeField] private GameObject _head;
-    [SerializeField] private Camera _eyes;
+
+    [Header("Camera")]
+    [SerializeField] private float _sensitivity = 100f;
+    [SerializeField] private float _xRotation = 0f;
+    [SerializeField] private Camera _camera;
 
     [Header("Movement")]
     [SerializeField] private bool _isCrouching = false;
@@ -45,23 +49,26 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         _rbody = GetComponent<Rigidbody>();
+        _playerCollider = _body.GetComponent<CapsuleCollider>();
 
         _controls = new PlayerActions();
 
         _controls.Gameplay.Enable();
 
-        _controls.Gameplay.Movement.performed += ctx => _move = ctx.ReadValue<Vector2>();
-        _controls.Gameplay.Movement.canceled += cts => _move = Vector2.zero;
+        _controls.Gameplay.Movement.performed += ctx => _movementInput = ctx.ReadValue<Vector2>();
+        _controls.Gameplay.Movement.canceled += cts => _movementInput = Vector2.zero;
 
         _controls.Gameplay.Jump.performed += ctx => Jump();
 
         _controls.Gameplay.Crouch.performed += ctx => ToggleCrouch();
+
+        _controls.Gameplay.MouseMovement.performed += ctx => _mouseInput = ctx.ReadValue<Vector2>();
     }
 
     private void Start()
     {        
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         _playerScale = _body.transform.localScale;
         _playerHeight = _playerCollider.height;
@@ -69,13 +76,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update() {
-
-    }
-
-    private void FixedUpdate()
-    {
         if (_isCrouching)
             CanStandUp();
+        CameraFollow();
+    }
+
+    private void FixedUpdate(){
         if (_canMove)
             Move();
     }
@@ -94,10 +100,23 @@ public class PlayerController : MonoBehaviour
             _isGrounded = false;
     }
 
+    private void CameraFollow(){
+        if (_mouseInput.magnitude < .1f) return;
+
+        float cameraX = _mouseInput.x * Time.deltaTime * _sensitivity;
+        float cameraY = _mouseInput.y * Time.deltaTime * _sensitivity;
+
+        _xRotation -= cameraY;
+        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+
+        _head.transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+        transform.Rotate(Vector3.up * cameraX);
+    }
+
     private void Move(){
         if (!_isGrounded) return;
 
-        Vector3 translation = new Vector3(_move.x, 0, _move.y);
+        Vector3 translation = new Vector3(_movementInput.x, 0, _movementInput.y);
 
         gameObject.transform.Translate(translation * Time.deltaTime * (_isCrouching? _crouchMovementSpeed : _movementSpeed));
     }
@@ -105,7 +124,7 @@ public class PlayerController : MonoBehaviour
     private void Jump(){
         if (!_canJump || !_isGrounded) return;
         
-        Vector3 jumpTranslationForce = new Vector3(_move.x * _jumpForce, _jumpForce, _move.y * _jumpForce);
+        Vector3 jumpTranslationForce = new Vector3(_movementInput.x * _jumpForce, _jumpForce, _movementInput.y * _jumpForce);
 
         _rbody.AddForce(jumpTranslationForce);
         _canJump = false;
@@ -127,7 +146,7 @@ public class PlayerController : MonoBehaviour
         _canMove = false;
         _changingPositionInProgress = true;
         while(_body.transform.localScale.y - _playerCrouchScale.y >= .05f){
-            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y - Time.deltaTime*_changePositionSpeed, _body.transform.localScale.z);
+            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y - Time.deltaTime * _changePositionSpeed, _body.transform.localScale.z);
 
             yield return new WaitForFixedUpdate();
         }
