@@ -11,8 +11,11 @@ public class PlayerPickaxe : MonoBehaviour
     public int Tier {get {return tier;}}
     public float Damage {get {return damage;}}
 
+    //Changes player's current pickaxe to the passed one 
     public void ChangePickaxe(PickaxeScriptableObject newPickaxe){
         if (newPickaxe == pickaxeSO) return;
+
+        //set new pickaxe's values
         pickaxeSO = newPickaxe;
         tier = pickaxeSO.Tier;
         damage = pickaxeSO.Damage;

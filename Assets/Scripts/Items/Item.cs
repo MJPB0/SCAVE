@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     public int ItemId {get {return itemSO.ObjectId;}}
     public bool IsPickable {get {return isPickable;}}
 
+    //Set this item's values
     public void Setup(bool pickable, int value){
         isPickable = pickable;
         amount = value;

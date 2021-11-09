@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private float playerHeight;
     private float playerRadius;
+    
     private Vector3 playerScale;
     private Vector3 playerCrouchScale = new Vector3(1f, .6f, 1f);
 
