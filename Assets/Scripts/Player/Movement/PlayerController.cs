@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.Crouch.performed += ctx => ToggleCrouch();
 
         Controls.Gameplay.MouseMovement.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
+
+        Controls.Gameplay.Mine.performed += ctx => SwingPickaxe();
     }
 
     private void Start()
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         if (player.IsCrouching)
             CanStandUp();
         CameraFollow();
+        PlayerReach();
     }
 
     private void FixedUpdate(){
@@ -88,6 +91,34 @@ public class PlayerController : MonoBehaviour
             player.IsGrounded = false;
             player.CanJump = false;
         }
+    }
+
+    private void PlayerReach(){
+        float raycastLength = player.Reach;
+        Vector3 originRay = _camera.transform.position;
+
+        Color rayColor = Color.red;
+        if (!Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength))
+            player.SelectedOre = null; 
+        else if(hit.collider.gameObject.CompareTag(player.MINEABLE_TAG)) {
+            player.SelectedOre = hit.collider.gameObject.GetComponent<Ore>();
+            player.SelectedOre.IsMineable(player.Pickaxe.Tier);
+            rayColor = Color.green;
+        }
+        else
+            player.SelectedOre = null; 
+
+        Debug.DrawRay(originRay, _camera.transform.forward * raycastLength, rayColor);
+    }
+
+    private void SwingPickaxe(){
+        if (!player.CanSwing) return;
+
+        player.CanSwing = false;
+        player.ReduceStamina(player.SwingStaminaLoss);
+
+        if (!player.SelectedOre) return;
+        player.SelectedOre.Mine(player.Pickaxe.Damage + player.Strength);
     }
 
     private void CameraFollow(){
@@ -128,6 +159,8 @@ public class PlayerController : MonoBehaviour
         player.ReduceStamina(player.JumpStaminaLoss);
     }
 
+
+    #region  Sprint
     private void StartSprinting(){
         if (player.CanSprint) 
             StartCoroutine(Sprint());
@@ -147,6 +180,8 @@ public class PlayerController : MonoBehaviour
         }
         player.IsSprinting = false;
     }
+    #endregion
+
 
     #region Crouch
     private void ToggleCrouch(){
