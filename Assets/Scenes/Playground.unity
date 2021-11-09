@@ -254,6 +254,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8c94df015d54b42a3eb79ed14ab7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &110764395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 110764396}
+  m_Layer: 0
+  m_Name: Ores
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &110764396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110764395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1188188568}
+  - {fileID: 966609194}
+  - {fileID: 1721659368}
+  m_Father: {fileID: 761580921}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263763379
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +550,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465149856}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &611240977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 611240979}
+  - component: {fileID: 611240978}
+  m_Layer: 0
+  m_Name: Post Processing Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &611240978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611240977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 1
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: da60de66eab5ce243851bb19a79b60cd, type: 2}
+--- !u!4 &611240979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611240977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &750625793
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761580921}
   m_Layer: 0
-  m_Name: Mineables
+  m_Name: Interactables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -576,10 +659,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1188188568}
-  - {fileID: 966609194}
-  - {fileID: 1721659368}
-  - {fileID: 1203875904}
+  - {fileID: 110764396}
+  - {fileID: 1085420022}
   m_Father: {fileID: 859445680}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -698,7 +779,7 @@ Transform:
   - {fileID: 1270052303}
   - {fileID: 761580921}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &947611175
 GameObject:
@@ -753,7 +834,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 509b79374c684d44d9288cd34ba2ee94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -814,7 +895,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2139268499}
-  m_Father: {fileID: 761580921}
+  m_Father: {fileID: 110764396}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &966609196
@@ -829,10 +910,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af7cf4bf64017542b249799a91b0500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  health: 0
   isMineable: 1
   wasMined: 0
-  health: 0
+  minOnMinedForceMultiplier: 0
+  maxOnMinedForceMultiplier: 15
+  dropRate: 8
+  itemDrop: {fileID: 8370871017503934223, guid: 249e4d7046ab06a4582afdacc8213bad,
+    type: 3}
   mineableSO: {fileID: 11400000, guid: 31d83f1ea4bef254ca7e2bd64a021924, type: 2}
 --- !u!65 &966609197
 BoxCollider:
@@ -879,6 +964,38 @@ Transform:
   m_Father: {fileID: 1856156686}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1085420021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1085420022}
+  m_Layer: 0
+  m_Name: Mineable walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1085420022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085420021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1203875904}
+  m_Father: {fileID: 761580921}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1188188567
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +1027,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 465149857}
-  m_Father: {fileID: 761580921}
+  m_Father: {fileID: 110764396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1188188569
@@ -938,10 +1055,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af7cf4bf64017542b249799a91b0500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
+  health: 0
   isMineable: 1
   wasMined: 0
-  health: 0
+  minOnMinedForceMultiplier: 0
+  maxOnMinedForceMultiplier: 15
+  dropRate: 3
+  itemDrop: {fileID: 8370871017503934223, guid: 249e4d7046ab06a4582afdacc8213bad,
+    type: 3}
   mineableSO: {fileID: 11400000, guid: 553fe84d15340c84988c642475707ff2, type: 2}
 --- !u!1 &1203875903
 GameObject:
@@ -970,12 +1091,12 @@ Transform:
   m_GameObject: {fileID: 1203875903}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 8, y: -2.4500003, z: 8}
-  m_LocalScale: {x: 5, y: 0.8000001, z: 5}
+  m_LocalScale: {x: 5, y: 0.80000013, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1837333555}
-  m_Father: {fileID: 761580921}
-  m_RootOrder: 3
+  m_Father: {fileID: 1085420022}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &1203875905
 MonoBehaviour:
@@ -989,10 +1110,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af7cf4bf64017542b249799a91b0500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 3
+  health: 0
   isMineable: 1
   wasMined: 0
-  health: 0
+  minOnMinedForceMultiplier: 0
+  maxOnMinedForceMultiplier: 15
+  dropRate: 5
+  itemDrop: {fileID: 2295822301366600752, guid: 6a60abf7fe175594caa220d8da031f2c,
+    type: 3}
   mineableSO: {fileID: 11400000, guid: bdb8371408acbc842aa1edd020fea35c, type: 2}
 --- !u!65 &1203875906
 BoxCollider:
@@ -1449,7 +1574,7 @@ Transform:
   m_Children:
   - {fileID: 1856156686}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1566457496
 MonoBehaviour:
@@ -1498,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7952dbbfd45d6834db0b3045979bc2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedOre: {fileID: 0}
+  SelectedObject: {fileID: 0}
   playerPickaxe: {fileID: 1519301107}
   startingPickaxe: {fileID: 11400000, guid: 817821b04d009cc47b81716d3813f07b, type: 2}
   CanSwing: 1
@@ -1713,7 +1838,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 833188726}
-  m_Father: {fileID: 761580921}
+  m_Father: {fileID: 110764396}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1721659369
@@ -1741,10 +1866,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af7cf4bf64017542b249799a91b0500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2
+  health: 0
   isMineable: 1
   wasMined: 0
-  health: 0
+  minOnMinedForceMultiplier: 5
+  maxOnMinedForceMultiplier: 25
+  dropRate: 16
+  itemDrop: {fileID: 8370871017503934223, guid: 249e4d7046ab06a4582afdacc8213bad,
+    type: 3}
   mineableSO: {fileID: 11400000, guid: ee140338ba2bcc14aa447b818381774f, type: 2}
 --- !u!1 &1837333554
 GameObject:

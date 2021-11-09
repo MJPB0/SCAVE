@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.MouseMovement.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
 
         Controls.Gameplay.Mine.performed += ctx => SwingPickaxe();
+        
+        Controls.Gameplay.Pickup.performed += ctx => TryPickingUpItem();
     }
 
     private void Start()
@@ -99,16 +101,32 @@ public class PlayerController : MonoBehaviour
 
         Color rayColor = Color.red;
         if (!Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength))
-            player.SelectedOre = null; 
+            player.SelectedObject = null; 
         else if(hit.collider.gameObject.CompareTag(player.MINEABLE_TAG)) {
-            player.SelectedOre = hit.collider.gameObject.GetComponent<MineableObject>();
-            player.SelectedOre.IsMineable(player.Pickaxe.Tier);
+            player.SelectedObject = hit.collider.gameObject;
+            player.SelectedObject.GetComponent<MineableObject>().IsMineable(player.Pickaxe.Tier);
+            rayColor = Color.green;
+        }
+        else if (hit.collider.gameObject.CompareTag(player.PICKABLE_TAG)){
+            player.SelectedObject = hit.collider.gameObject;
             rayColor = Color.green;
         }
         else
-            player.SelectedOre = null; 
+            player.SelectedObject = null; 
 
         Debug.DrawRay(originRay, _camera.transform.forward * raycastLength, rayColor);
+    }
+
+    private void TryPickingUpItem(){
+        if (!player.IsGrounded) return;
+
+        Item item = player.SelectedObject.GetComponent<Item>();
+        if (item.IsPickable){
+            player.AddItemToInventory(item);
+            Destroy(item.gameObject);
+        }
+        else
+            Debug.Log($"Can't pick up {gameObject.name}!");
     }
 
     private void SwingPickaxe(){
@@ -117,8 +135,9 @@ public class PlayerController : MonoBehaviour
         player.CanSwing = false;
         player.ReduceStamina(player.SwingStaminaLoss);
 
-        if (!player.SelectedOre) return;
-        player.SelectedOre.Mine(player.Pickaxe.Damage + player.Strength);
+        if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) return;
+
+        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength);
     }
 
     private void CameraFollow(){

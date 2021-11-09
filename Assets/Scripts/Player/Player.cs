@@ -5,10 +5,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public string MINEABLE_TAG {get;} = "Mineable";
+    public string PICKABLE_TAG {get;} = "Pickable";
+    
+    //ItemId, amount
+    private Dictionary<int, int> Inventory;
 
+    public GameObject SelectedObject;
 
     [Header("Mining")]
-    public MineableObject SelectedOre;
     [SerializeField] private PlayerPickaxe playerPickaxe;
     [SerializeField] private PickaxeScriptableObject startingPickaxe;
 
@@ -122,6 +126,7 @@ public class Player : MonoBehaviour
     [Space]
     public LayerMask WalkableLayerMask;
 
+    #region  Getters
     public float Health {get {return health;}}
     public float Stamina {get {return stamina;}}
     public float MaxHealth {get {return maxHealth + healthModifier;}}
@@ -143,9 +148,11 @@ public class Player : MonoBehaviour
     public float TimeBetweenSwings {get {return timeBetweenSwings + timeBetweenSwingsModifier;}}
 
     public PlayerPickaxe Pickaxe {get {return playerPickaxe;}}
+    #endregion
 
     private void Awake() {
         PlayerPerks = new List<Perk>();
+        Inventory = new Dictionary<int, int>();
     }
 
     private void Start() {
@@ -279,5 +286,20 @@ public class Player : MonoBehaviour
             health = MaxHealth;
         else
             health += value;
+    }
+
+    public void AddItemToInventory(Item item){
+        if (Inventory.ContainsKey(item.ItemId)){
+            Inventory[item.ItemId] += item.Amount;
+            //Debug.Log($"Increased amount off {item.gameObject.name} to {Inventory[item.ItemId]}!");
+        }
+        else{
+            Inventory.Add(item.ItemId, item.Amount);
+            //Debug.Log($"Added {item.gameObject.name} the the inventory!");
+        }
+
+        //Debug.Log("Inventory:");
+        //foreach (var valuePair in Inventory)
+        //    Debug.Log($"{valuePair.Key}:{valuePair.Value}");
     }
 }

@@ -16,5 +16,6 @@ MonoBehaviour:
   pickaxeTierRequired: 1
   sizeMultiplier: 1
   dropRate: 5
-  itemDrop: {fileID: 0}
+  itemDrop: {fileID: 8370871017503934223, guid: 249e4d7046ab06a4582afdacc8213bad,
+    type: 3}
   material: {fileID: 2100000, guid: cfea17b458e570f4b88afe5a9f5a41e5, type: 2}
