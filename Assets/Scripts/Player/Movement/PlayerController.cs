@@ -5,17 +5,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerActions Controls {get; private set;}
+
     private float playerHeight;
     private float playerRadius;
     private Vector3 playerScale;
     private Vector3 playerCrouchScale = new Vector3(1f, .6f, 1f);
 
     private Rigidbody rbody;
-    private PlayerActions controls;
+    private CapsuleCollider playerCollider;
+    private Player player;
+
     private Vector2 movementInput;
     private Vector2 mouseInput;
-
-    private CapsuleCollider playerCollider;
 
     [Header("Body")]
     [SerializeField] private GameObject _body;
@@ -28,41 +30,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float xRotation = 0f;
     [SerializeField] private Camera _camera;
 
-    [Header("Movement")]
-    [SerializeField] private bool isCrouching;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool canMove;
-    [SerializeField] private bool canJump;
-    [SerializeField] private bool canStand;
-    
-    [Space]
-    [SerializeField] private float jumpForce = 450f;
-
-    [Space]
-    [SerializeField] private float movementSpeed = 4f;
-    [SerializeField] private float crouchMovementSpeed = 2f;
-    [SerializeField] private float changePositionSpeed = 1f;
-    [SerializeField] private bool changingPositionInProgress;
-
-    [Space]
-    [SerializeField] private LayerMask walkableLayerMask;
-
     private void Awake() {
         rbody = GetComponent<Rigidbody>();
         playerCollider = _body.GetComponent<CapsuleCollider>();
+        player = GetComponent<Player>();
+        Controls = new PlayerActions();
 
-        controls = new PlayerActions();
+        Controls.Gameplay.Enable();
 
-        controls.Gameplay.Enable();
+        Controls.Gameplay.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+        Controls.Gameplay.Movement.canceled += cts => movementInput = Vector2.zero;
 
-        controls.Gameplay.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Movement.canceled += cts => movementInput = Vector2.zero;
+        Controls.Gameplay.Sprint.performed += ctx => StartSprinting();
+        Controls.Gameplay.Sprint.canceled += ctx => StopSprinting();
 
-        controls.Gameplay.Jump.performed += ctx => Jump();
+        Controls.Gameplay.Jump.performed += ctx => Jump();
 
-        controls.Gameplay.Crouch.performed += ctx => ToggleCrouch();
+        Controls.Gameplay.Crouch.performed += ctx => ToggleCrouch();
 
-        controls.Gameplay.MouseMovement.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
+        Controls.Gameplay.MouseMovement.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
     }
 
     private void Start()
@@ -76,31 +62,31 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update() {
-        if (isCrouching)
+        if (player.IsCrouching)
             CanStandUp();
         CameraFollow();
     }
 
     private void FixedUpdate(){
-        if (canMove)
+        if (player.CanMove)
             Move();
     }
 
     private void OnCollisionStay(Collision other) {
         int layer = other.gameObject.layer;
         
-        if(walkableLayerMask == (walkableLayerMask | (1 << layer))) {
-            isGrounded = true;
-            canJump = true;
+        if(player.WalkableLayerMask == (player.WalkableLayerMask | (1 << layer))) {
+            player.IsGrounded = true;
+            player.CanJump = true;
         }
     }
 
     private void OnCollisionExit(Collision other) {
         int layer = other.gameObject.layer;
         
-        if(walkableLayerMask == (walkableLayerMask | (1 << layer))) {
-            isGrounded = false;
-            canJump = false;
+        if(player.WalkableLayerMask == (player.WalkableLayerMask | (1 << layer))) {
+            player.IsGrounded = false;
+            player.CanJump = false;
         }
     }
 
@@ -118,61 +104,92 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move(){
-        if (!isGrounded || changingPositionInProgress || movementInput.magnitude < .1f) return;
+        if (movementInput.magnitude < .1f) player.IsMoving = false;
+        if (!player.IsGrounded || player.ChangingPositionInProgress || movementInput.magnitude < .1f) return;
+
+        player.IsMoving = true;
 
         Vector3 newPos = new Vector3(movementInput.x, 0, movementInput.y);
-        rbody.MovePosition(transform.position + transform.rotation * newPos * Time.deltaTime * (isCrouching? crouchMovementSpeed : movementSpeed));
+        newPos *= player.IsCrouching? player.CrouchMultiplier : 1;
+        newPos *= player.IsSprinting? player.SprintMultiplier : 1;
+
+        rbody.MovePosition(transform.position + transform.rotation * newPos * Time.deltaTime * player.MovementSpeed);
     }
 
     private void Jump(){
-        if (!canJump || !isGrounded) return;
+        if (!player.CanJump || !player.IsGrounded) return;
         
-        Vector3 jumpTranslationForce = new Vector3(movementInput.x, 1, movementInput.y);
-        rbody.AddForce(transform.rotation * jumpTranslationForce * jumpForce);
+        Vector3 jumpTranslationForce = new Vector3(movementInput.x, 0, movementInput.y);
+        jumpTranslationForce *= player.IsCrouching? player.CrouchMultiplier : 1;
+        jumpTranslationForce *= player.IsSprinting? player.SprintMultiplier : 1;
+
+        jumpTranslationForce.y = 1f;
+        rbody.AddForce(transform.rotation * jumpTranslationForce * player.JumpForce);
+        player.ReduceStamina(player.JumpStaminaLoss);
+    }
+
+    private void StartSprinting(){
+        if (player.CanSprint) 
+            StartCoroutine(Sprint());
+    }
+
+    private void StopSprinting(){
+        if (player.IsSprinting)
+            player.IsSprinting = false;
+    }
+
+    private IEnumerator Sprint(){
+        player.IsSprinting = true;
+        while(player.IsSprinting && player.CanSprint){
+            if (player.IsGrounded)
+                player.ReduceStamina(player.SprintStaminaLoss * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        player.IsSprinting = false;
     }
 
     #region Crouch
     private void ToggleCrouch(){
-        if (isCrouching)
+        if (player.IsCrouching)
             StopCrouching();
         else
             StartCrouching();
     }
 
     private void StartCrouching(){
-        if (!changingPositionInProgress)
+        if (!player.ChangingPositionInProgress)
             StartCoroutine(Crouch());
     }
 
     private IEnumerator Crouch(){
-        changingPositionInProgress = true;
+        player.ChangingPositionInProgress = true;
         while(_body.transform.localScale.y - playerCrouchScale.y >= .05f){
-            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y - Time.deltaTime * changePositionSpeed, _body.transform.localScale.z);
+            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y - Time.deltaTime * player.ChangePositionSpeed, _body.transform.localScale.z);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
         }
 
         _body.transform.localScale = playerCrouchScale;
-        isCrouching = true;
-        changingPositionInProgress = false;
+        player.IsCrouching = true;
+        player.ChangingPositionInProgress = false;
     }
 
     private void StopCrouching(){
-        if (!changingPositionInProgress && canStand)
+        if (!player.ChangingPositionInProgress && player.CanStand)
             StartCoroutine(StandUp());
     }
 
     private IEnumerator StandUp(){
-        changingPositionInProgress = true;
+        player.ChangingPositionInProgress = true;
         while(playerScale.y - _body.transform.localScale.y >= .05f){
-            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y + Time.deltaTime * changePositionSpeed, _body.transform.localScale.z);
+            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y + Time.deltaTime * player.ChangePositionSpeed, _body.transform.localScale.z);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
         }
         
         _body.transform.localScale = playerScale;
-        isCrouching = false;
-        changingPositionInProgress = false;
+        player.IsCrouching = false;
+        player.ChangingPositionInProgress = false;
     }
 
     private void CanStandUp(){
@@ -183,10 +200,10 @@ public class PlayerController : MonoBehaviour
         Vector3 origin = new Vector3(transform.position.x, originRayY, transform.position.z);
         Vector3 destination = new Vector3(transform.position.x, destinationRayY, transform.position.z);
 
-        canStand = !Physics.Raycast(origin, Vector3.up, out RaycastHit hit2, raycastLength);
+        player.CanStand = !Physics.Raycast(origin, Vector3.up, out RaycastHit hit2, raycastLength);
 
         Color rayColor;
-        if (!canStand)
+        if (!player.CanStand)
             rayColor = Color.red;
         else
             rayColor = Color.green;
