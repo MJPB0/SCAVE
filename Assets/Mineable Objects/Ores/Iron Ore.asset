@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f5adbcf9e2cafd43a7e5bc57021dcbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e46f67cf46bebe4893bfdb485354438, type: 3}
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  sizeMultiplier: 1.5
-  dropRate: 2
+  maxHealth: 300
+  pickaxeTierRequired: 1
+  sizeMultiplier: 1
+  dropRate: 5
   itemDrop: {fileID: 0}
   material: {fileID: 2100000, guid: cfea17b458e570f4b88afe5a9f5a41e5, type: 2}

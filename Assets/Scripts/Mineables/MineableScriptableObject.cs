@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ore", menuName ="Ore", order = 1)]
-public class OreScriptableObject : ScriptableObject
+[CreateAssetMenu(fileName = "Mineable object", menuName ="Mineable object", order = 1)]
+public class MineableScriptableObject : ScriptableObject
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private int pickaxeTierRequired;

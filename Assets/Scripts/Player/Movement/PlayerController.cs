@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         if (!Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength))
             player.SelectedOre = null; 
         else if(hit.collider.gameObject.CompareTag(player.MINEABLE_TAG)) {
-            player.SelectedOre = hit.collider.gameObject.GetComponent<Ore>();
+            player.SelectedOre = hit.collider.gameObject.GetComponent<MineableObject>();
             player.SelectedOre.IsMineable(player.Pickaxe.Tier);
             rayColor = Color.green;
         }

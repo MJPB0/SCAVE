@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Mining")]
-    public Ore SelectedOre;
+    public MineableObject SelectedOre;
     [SerializeField] private PlayerPickaxe playerPickaxe;
     [SerializeField] private PickaxeScriptableObject startingPickaxe;
 
