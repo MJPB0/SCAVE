@@ -34,7 +34,6 @@ public class MineableObject : MonoBehaviour
     private void Setup(){
         health = mineableSO.Health;
         GetComponentInChildren<MeshRenderer>().material = mineableSO.Material;
-        transform.localScale *= mineableSO.SizeMultiplier;
     }
 
     //Usable by the player to mine the object
@@ -78,12 +77,14 @@ public class MineableObject : MonoBehaviour
         float forceZ = Random.Range(0f,1f);
         Vector3 force = new Vector3(forceX, forceY, forceZ);
 
+        float itemScale = Random.Range(.5f,1f)*amount/dropRate;
+
         //Debug.Log($"{amount}x{itemDrop.name} came out of {gameObject.name}!");
         //Spawn the item
         GameObject instance = Instantiate(itemDrop, transform.position, Quaternion.identity, transform.parent);
         //Add force to the item
         instance.GetComponent<Rigidbody>().AddForce(force * Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier));
         //Set variable values of the item
-        instance.GetComponent<Item>().Setup(true, amount);
+        instance.GetComponent<Item>().Setup(true, amount, itemScale);
     }
 }

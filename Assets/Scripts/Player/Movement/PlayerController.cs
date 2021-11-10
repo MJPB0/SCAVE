@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private float sensitivity = 20f;
     [SerializeField] private float xRotation = 0f;
+    [SerializeField] private GameObject _view;
     [SerializeField] private Camera _camera;
 
     private void Awake() {
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (hit.collider.gameObject.CompareTag(player.PICKABLE_TAG)){
             player.SelectedObject = hit.collider.gameObject;
+            StartCoroutine(ItemOutline(player.SelectedObject));
             rayColor = Color.green;
         }
         else
@@ -118,10 +120,20 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(originRay, _camera.transform.forward * raycastLength, rayColor);
     }
 
-    private void TryPickingUpItem(){
-        if (!player.IsGrounded) return;
+    private IEnumerator ItemOutline(GameObject item){
+        Outline outline = item.GetComponent<Outline>();
+        outline.enabled = true;
+        yield return new WaitUntil(() => player.SelectedObject != item);
+        
+        if (item)
+            outline.enabled = false;
+    }
 
-        Item item = player.SelectedObject.GetComponent<Item>();
+    private void TryPickingUpItem(){
+        if (!player.IsGrounded || !player.SelectedObject) return;
+
+        if (!player.SelectedObject.TryGetComponent<Item>(out Item item)) return;
+        
         if (item.IsPickable){
             player.AddItemToInventory(item);
             Destroy(item.gameObject);
@@ -136,12 +148,18 @@ public class PlayerController : MonoBehaviour
         player.CanSwing = false;
         player.ReduceStamina(player.SwingStaminaLoss);
 
-        if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) return;
+        if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
+            player.Pickaxe.SwingPickaxe(false);
+            return;
+        }
 
+        player.Pickaxe.SwingPickaxe(true);
         player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength);
     }
 
     private void CameraFollow(){
+        _view.transform.position = _head.transform.position;
+
         if (mouseInput.magnitude < .1f) return;
 
         float cameraX = mouseInput.x * Time.deltaTime * sensitivity;
@@ -150,7 +168,7 @@ public class PlayerController : MonoBehaviour
         xRotation -= cameraY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        _head.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        _view.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.Rotate(Vector3.up * cameraX);
     }
 

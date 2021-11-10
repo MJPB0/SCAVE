@@ -8,11 +8,9 @@ public class MineableScriptableObject : ScriptableObject
     [SerializeField] private float maxHealth = 100f;
     //Minimal pickaxe tier required to mine this object
     [SerializeField] private int pickaxeTierRequired;
-    [SerializeField] private float sizeMultiplier = 1f;
     [SerializeField] private Material material;
 
     public float Health {get {return maxHealth;}}
-    public float SizeMultiplier {get {return sizeMultiplier;}}
     public int PickaxeTierRequired {get {return pickaxeTierRequired;}}
     public Material Material {get {return material;}}
 }

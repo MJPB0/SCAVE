@@ -13,8 +13,9 @@ public class Item : MonoBehaviour
     public bool IsPickable {get {return isPickable;}}
 
     //Set this item's values
-    public void Setup(bool pickable, int value){
+    public void Setup(bool pickable, int value, float scale){
         isPickable = pickable;
         amount = value;
+        gameObject.transform.localScale *= scale;
     }
 }
