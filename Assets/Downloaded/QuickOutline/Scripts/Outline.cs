@@ -179,9 +179,9 @@ public class Outline : MonoBehaviour {
   }
 
   void LoadSmoothNormals() {
-
     // Retrieve or generate smooth normals
     foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+      if (!meshFilter.sharedMesh) continue;
 
       // Skip if smooth normals have already been adopted
       if (!registeredMeshes.Add(meshFilter.sharedMesh)) {

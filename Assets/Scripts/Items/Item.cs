@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private int amount;
+    [SerializeField] private float weight;
     [SerializeField] private bool isPickable;
     [SerializeField] private ItemScriptableObject itemSO;
 
-    public int Amount {get {return amount;}}
+    public float Weight {get {return weight;}}
     public int ItemId {get {return itemSO.ObjectId;}}
     public bool IsPickable {get {return isPickable;}}
 
+    private void Awake() {
+        Mesh mesh = itemSO.ItemMeshes[Random.Range(0,itemSO.ItemMeshes.Length)];
+        GetComponent<MeshCollider>().sharedMesh = mesh;
+        GetComponentInChildren<MeshFilter>().mesh = mesh;
+    }
+
     //Set this item's values
-    public void Setup(bool pickable, int value, float scale){
+    public void Setup(bool pickable, float sizeValue){
         isPickable = pickable;
-        amount = value;
-        gameObject.transform.localScale *= scale;
+        weight = sizeValue * itemSO.UnitWeight;
+        gameObject.transform.localScale *= sizeValue;
+        GetComponent<SphereCollider>().radius /= sizeValue;
     }
 }

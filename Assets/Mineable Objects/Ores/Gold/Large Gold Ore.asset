@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e46f67cf46bebe4893bfdb485354438, type: 3}
-  m_Name: Large Iron Ore
+  m_Name: Large Gold Ore
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 100
   pickaxeTierRequired: 1
-  material: {fileID: 2100000, guid: e74ba8446dfb56c478c015016ae5e316, type: 2}
+  material: {fileID: 2100000, guid: b2d74bec0e442ff4d991fd5853b45cb3, type: 2}

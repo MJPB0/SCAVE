@@ -7,6 +7,7 @@ public class MineableObject : MonoBehaviour
     [SerializeField] private float health;
     [SerializeField] private bool isMineable = true;
     [SerializeField] private bool wasMined = false;
+    [SerializeField] private bool dropOnMine = true;
 
     [Space]
     //Minimal force multipler used when item is spawned after object's been mined
@@ -17,6 +18,7 @@ public class MineableObject : MonoBehaviour
     [Space]
     //Max amount of items that can drop from this object
     [SerializeField] private int dropRate = 2;
+    [SerializeField] private float sizeMultiplier = 1f;
     //Item that drops from this object
     [SerializeField] private GameObject itemDrop;
     [SerializeField] private MineableScriptableObject mineableSO;
@@ -52,6 +54,8 @@ public class MineableObject : MonoBehaviour
 
     private void ReduceHealth(float value){
         health -= value;
+        if (dropOnMine && itemDrop)
+            DropItems();
         //Debug.Log($"Player hit {gameObject.name} for {value}dmg!");
     }
 
@@ -62,14 +66,15 @@ public class MineableObject : MonoBehaviour
         //Debug.Log($"Player successfuly mined {gameObject.name}!");
         
         //Drop items from this object
-        DropItems();
+        if (itemDrop)
+            DropItems();
         //Hide the object
         gameObject.SetActive(false);
     }
   
     public void DropItems(){
         //Amount of items to be dropped
-        int amount = Random.Range(dropRate/2, dropRate);
+        int amount = Random.Range(dropRate/2, dropRate+1);
 
         //Calculate force applied to the spawned item
         float forceX = Random.Range(0f,1f);
@@ -77,14 +82,16 @@ public class MineableObject : MonoBehaviour
         float forceZ = Random.Range(0f,1f);
         Vector3 force = new Vector3(forceX, forceY, forceZ);
 
-        float itemScale = Random.Range(.5f,1f)*amount/dropRate;
-
         //Debug.Log($"{amount}x{itemDrop.name} came out of {gameObject.name}!");
-        //Spawn the item
-        GameObject instance = Instantiate(itemDrop, transform.position, Quaternion.identity, transform.parent);
-        //Add force to the item
-        instance.GetComponent<Rigidbody>().AddForce(force * Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier));
-        //Set variable values of the item
-        instance.GetComponent<Item>().Setup(true, amount, itemScale);
+        for (int i = 0; i < amount; i++){
+            float itemScale = sizeMultiplier * amount/dropRate;
+
+            //Spawn the item
+            GameObject instance = Instantiate(itemDrop, transform.position, Quaternion.identity, transform.parent);
+            //Add force to the item
+            instance.GetComponent<Rigidbody>().AddForce(force * Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier));
+            //Set variable values of the item
+            instance.GetComponent<Item>().Setup(true, itemScale);
+        }
     }
 }

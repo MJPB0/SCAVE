@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public string PICKABLE_TAG {get;} = "Pickable";
     
     //ItemId, amount
-    private Dictionary<int, int> Inventory;
+    private Dictionary<int, float> Inventory;
 
     public GameObject SelectedObject;
 
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
 
     private void Awake() {
         PlayerPerks = new List<Perk>();
-        Inventory = new Dictionary<int, int>();
+        Inventory = new Dictionary<int, float>();
     }
 
     private void Start() {
@@ -290,11 +290,11 @@ public class Player : MonoBehaviour
 
     public void AddItemToInventory(Item item){
         if (Inventory.ContainsKey(item.ItemId)){
-            Inventory[item.ItemId] += item.Amount;
+            Inventory[item.ItemId] += item.Weight;
             //Debug.Log($"Increased amount off {item.gameObject.name} to {Inventory[item.ItemId]}!");
         }
         else{
-            Inventory.Add(item.ItemId, item.Amount);
+            Inventory.Add(item.ItemId, item.Weight);
             //Debug.Log($"Added {item.gameObject.name} the the inventory!");
         }
 
