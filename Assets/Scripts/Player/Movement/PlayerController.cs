@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
         }
 
         player.Pickaxe.SwingPickaxe(true);
-        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength);
+        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position);
     }
 
     private void CameraFollow(){

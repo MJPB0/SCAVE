@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Gold Nugget
   m_EditorClassIdentifier: 
   id: 1
-  unitWeight: 10
+  unitWeight: 5
   itemMeshes:
-  - {fileID: 4300000, guid: 816c3e37a32a7f34fbefe884f50f54eb, type: 3}
-  - {fileID: 4300000, guid: 3fb396fa24c454046b58bdf27a17e3b0, type: 3}
-  - {fileID: 4300000, guid: 30396a8d74e0ac3468241d49ef28b3a5, type: 3}
-  - {fileID: 4300000, guid: efd9a683f7ac81048922b0a9e35134f3, type: 3}
-  - {fileID: 4300000, guid: 43f971c57f729de4d9f1dc7ea39d9253, type: 3}
+  - {fileID: 4300000, guid: 047600f88f5469546af796971abab300, type: 3}
+  - {fileID: 4300000, guid: 9890153e6e65023439327d96085b88bc, type: 3}
+  - {fileID: 4300000, guid: 43a5f8ca2201b204e8f6b862220979a4, type: 3}
+  - {fileID: 4300000, guid: 6ae3259b8a06be247bf01664f9e5ba85, type: 3}
+  - {fileID: 4300000, guid: d18eb1a94acbc5344bc4902de0efb8eb, type: 3}
   Value: 50
