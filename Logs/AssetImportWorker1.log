@@ -3272,3 +3272,43 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2000.575093 seconds.
+  path: Assets/Items/Prefabs/Ores/Emerald ore.prefab
+  artifactKey: Guid(13f64d393aca8e44490de9beac3cba23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Emerald ore.prefab using Guid(13f64d393aca8e44490de9beac3cba23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ded85c7366531c4fb4afc940ce468fd8') in 0.219275 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Items/Prefabs/Ores/Small iron ore.prefab
+  artifactKey: Guid(38f7d3f1ea1af1b40810e88628a5327b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Small iron ore.prefab using Guid(38f7d3f1ea1af1b40810e88628a5327b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44b369a8e046c9a2a0b8e4397ab1bea0') in 0.017920 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Items/Prefabs/Ores/Small emerald ore.prefab
+  artifactKey: Guid(5b028f92d3e094c4692fc319688d4068) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Small emerald ore.prefab using Guid(5b028f92d3e094c4692fc319688d4068) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e17967bdf392d60f8a9a78a9156fa2ff') in 0.018966 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Items/Prefabs/Ores/Large coal ore.prefab
+  artifactKey: Guid(88c89adf8ed3e4649af5d5d3f24a3b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Large coal ore.prefab using Guid(88c89adf8ed3e4649af5d5d3f24a3b98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8469210dbb62ef58e75adc3f17e7c123') in 0.021760 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Items/Prefabs/Ores/Small gold ore.prefab
+  artifactKey: Guid(232de8cb73fce0c4291ed2e8e7abd3f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Small gold ore.prefab using Guid(232de8cb73fce0c4291ed2e8e7abd3f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a4da8669ea64111d90e39c135a856de') in 0.024744 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Items/Prefabs/Ores/Gold ore.prefab
+  artifactKey: Guid(35655e390c297ed418289fa7c867ea4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Items/Prefabs/Ores/Gold ore.prefab using Guid(35655e390c297ed418289fa7c867ea4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc1c02280740951ea2c4b9aef0be8701') in 0.015188 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

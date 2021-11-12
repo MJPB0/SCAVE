@@ -7,10 +7,11 @@ public class PickaxeScriptableObject : ScriptableObject
 {
     [SerializeField] private int tier;
     [SerializeField] private float damage;
-    //Pickaxe's ingame model
-    [SerializeField] private GameObject model;
+    [SerializeField] private Mesh mesh;
+    [SerializeField] private Material material;
 
     public int Tier {get {return tier;}}
     public float Damage {get {return damage;}}
-    public GameObject Model {get {return model;}}
+    public Mesh Mesh {get {return mesh;}}
+    public Material Material {get {return material;}}
 }
