@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tier: 1
   damage: 10
-  model: {fileID: 0}
+  mesh: {fileID: 4300000, guid: 35682e219136f6b409228d552450a2b2, type: 3}
+  material: {fileID: 2100000, guid: 5bd797e192f46b94b8ae955d3e15ac09, type: 2}
