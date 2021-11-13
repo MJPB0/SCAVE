@@ -108,9 +108,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3118382023329298029}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.429999, y: -3.63, z: -3.86}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3118382023250270741}
@@ -134,14 +134,15 @@ MonoBehaviour:
   wasMined: 0
   dropOnMine: 1
   minOnMinedForceMultiplier: 50
-  maxOnMinedForceMultiplier: 200
+  maxOnMinedForceMultiplier: 150
   dropRate: 6
-  sizeMultiplier: 1
+  sizeMultiplier: 1.5
   itemDrops:
   - {fileID: 6692337966150910294, guid: 6a60abf7fe175594caa220d8da031f2c, type: 3}
   itemDropChances:
   - 0.95
   mineableSO: {fileID: 11400000, guid: ce41a8c1647fb564f9d337635b6cc0d0, type: 2}
+  impactParticles: {fileID: 0}
 --- !u!64 &3118382023329298031
 MeshCollider:
   m_ObjectHideFlags: 0

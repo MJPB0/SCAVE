@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _view;
     [SerializeField] private Camera _camera;
 
+    public Vector3 HitPosition {get {return objectHitPos;}}
+
     private void Awake() {
         rbody = GetComponent<Rigidbody>();
         playerCollider = _body.GetComponent<CapsuleCollider>();
@@ -172,8 +174,10 @@ public class PlayerController : MonoBehaviour
             objectHitPos = reachHitPos;
             objectToHit = player.SelectedObject;
         }
-            
-        objectToHit.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
+
+        var mineable = objectToHit.GetComponent<MineableObject>();    
+        mineable.Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
+        StartCoroutine(mineable.ImpactParticles());
     }
 
     public void PickaxeUnstuck(){

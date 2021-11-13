@@ -25,6 +25,9 @@ public class MineableObject : MonoBehaviour
     [SerializeField] private List<float> itemDropChances;
     [SerializeField] private MineableScriptableObject mineableSO;
 
+    [Space]
+    [SerializeField] private GameObject impactParticles;
+
     private Vector3 playerPos;
     private Vector3 hitPos;
 
@@ -115,5 +118,23 @@ public class MineableObject : MonoBehaviour
                 instance.GetComponent<Item>().Setup(true, itemScale);
             }
         }
+    }
+    
+    public IEnumerator ImpactParticles(){
+        impactParticles.SetActive(true);
+        impactParticles.transform.position = hitPos;
+
+        Vector3 direction = playerPos - hitPos;
+        Vector3 rotation = Vector3.RotateTowards(impactParticles.transform.forward, direction, 360f, 0f);
+        impactParticles.transform.rotation = Quaternion.LookRotation(rotation);
+
+        ParticleSystem system = impactParticles.GetComponent<ParticleSystem>();
+        var mainSystem = system.main;
+        mainSystem.startColor = mineableSO.Material.color;
+        system.Play();
+
+        yield return new WaitUntil(() => !system.isPlaying);
+        impactParticles.SetActive(false);
+        impactParticles.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }
