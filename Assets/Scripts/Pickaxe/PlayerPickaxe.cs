@@ -66,6 +66,7 @@ public class PlayerPickaxe : MonoBehaviour
     }
 
     public void SwingEnd(){
+        Debug.Log("Swing ended!");
         playerController.SwingEnded();
     }
 }
