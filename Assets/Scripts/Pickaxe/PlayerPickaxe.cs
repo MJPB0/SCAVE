@@ -16,13 +16,15 @@ public class PlayerPickaxe : MonoBehaviour
     [SerializeField] private AnimationClip[] swingAnimations;
     [SerializeField] private AnimationClip[] swingHitAnimations;
 
-    private Animator controller;
+    private PlayerController playerController;
+    private Animator animationController;
 
     public int Tier {get {return tier;}}
     public float Damage {get {return damage;}}
 
     private void Awake() {
-        controller = GetComponent<Animator>();
+        animationController = GetComponent<Animator>();
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     //Changes player's current pickaxe to the passed one 
@@ -36,18 +38,18 @@ public class PlayerPickaxe : MonoBehaviour
     }
 
     private void ResetAnimatorParameters(){
-        controller.SetBool(PICKAXE_SWANG, false);
-        controller.SetBool(OBJECT_SELECTED, false);
-        controller.SetInteger(SWING_ANIMATION, 0);
+        animationController.SetBool(PICKAXE_SWANG, false);
+        animationController.SetBool(OBJECT_SELECTED, false);
+        animationController.SetInteger(SWING_ANIMATION, 0);
     }
 
     public void SwingPickaxe(bool hitTarget){
-        controller.SetBool(PICKAXE_SWANG, true);
-        controller.SetBool(OBJECT_SELECTED, hitTarget);
+        animationController.SetBool(PICKAXE_SWANG, true);
+        animationController.SetBool(OBJECT_SELECTED, hitTarget);
         if (hitTarget)
-            controller.SetInteger(SWING_ANIMATION, Random.Range(0,swingHitAnimations.Length));
+            animationController.SetInteger(SWING_ANIMATION, Random.Range(0,swingHitAnimations.Length));
         else
-            controller.SetInteger(SWING_ANIMATION, Random.Range(0,swingAnimations.Length));
+            animationController.SetInteger(SWING_ANIMATION, Random.Range(0,swingAnimations.Length));
     }
 
     public void PickaxeSwang(){
@@ -56,9 +58,14 @@ public class PlayerPickaxe : MonoBehaviour
 
     public void PickaxeHit(){
         ResetAnimatorParameters();
+        playerController.PickaxeHit();
     }
 
-    public void PickaxeStuck(){
+    public void PickaxeUnstuck(){
         
+    }
+
+    public void SwingEnd(){
+        playerController.SwingEnded();
     }
 }

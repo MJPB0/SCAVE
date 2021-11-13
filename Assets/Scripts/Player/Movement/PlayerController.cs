@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerActions Controls {get; private set;}
 
+    private GameObject objectToHit;
+    private Vector3 objectHitPos;
+
     private float playerHeight;
     private float playerRadius;
     
@@ -151,6 +154,7 @@ public class PlayerController : MonoBehaviour
         if (!player.CanSwing) return;
 
         player.CanSwing = false;
+        player.IsSwinging = true;
         player.ReduceStamina(player.SwingStaminaLoss);
 
         if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
@@ -158,8 +162,26 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        objectToHit = player.SelectedObject;
+        objectHitPos = reachHitPos;
         player.Pickaxe.SwingPickaxe(true);
-        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, reachHitPos);
+    }
+
+    public void PickaxeHit(){
+        if (player.SelectedObject){
+            objectHitPos = reachHitPos;
+            objectToHit = player.SelectedObject;
+        }
+            
+        objectToHit.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
+    }
+
+    public void PickaxeUnstuck(){
+        
+    }
+
+    public void SwingEnded(){
+        player.IsSwinging = false;
     }
 
     private void CameraFollow(){

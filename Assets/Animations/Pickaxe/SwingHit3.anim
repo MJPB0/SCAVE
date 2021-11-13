@@ -91,15 +91,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: {x: 1.5, y: 0.28, z: 0.67}
-        inSlope: {x: 0, y: 3.2535002, z: 0}
-        outSlope: {x: 0, y: 3.2535002, z: 0}
+        inSlope: {x: 0, y: 2.7944999, z: 0}
+        outSlope: {x: 0, y: 2.7944999, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.6666667
-        value: {x: 0.25, y: 1.169, z: 1.919}
+        value: {x: -0.039, y: 0.863, z: 1.593}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -108,7 +108,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.75
-        value: {x: 0.25, y: 1.169, z: 1.919}
+        value: {x: -0.039, y: 0.863, z: 1.593}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -117,7 +117,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.9166667
-        value: {x: 0.25, y: 1.169, z: 1.919}
+        value: {x: -0.039, y: 0.863, z: 1.593}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -398,7 +398,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 0.25
+        value: -0.039
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -407,7 +407,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.75
-        value: 0.25
+        value: -0.039
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -416,7 +416,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.9166667
-        value: 0.25
+        value: -0.039
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -454,15 +454,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: 0.28
-        inSlope: 3.2535002
-        outSlope: 3.2535002
+        inSlope: 2.7944999
+        outSlope: 2.7944999
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 1.169
+        value: 0.863
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -471,7 +471,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.75
-        value: 1.169
+        value: 0.863
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -480,7 +480,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.9166667
-        value: 1.169
+        value: 0.863
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -526,7 +526,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 1.919
+        value: 1.593
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -535,7 +535,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.75
-        value: 1.919
+        value: 1.593
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -544,7 +544,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.9166667
-        value: 1.919
+        value: 1.593
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -609,7 +609,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.9166667
-    functionName: PickaxeStuck
+    functionName: PickaxeUnstuck
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.5
+    functionName: SwingEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

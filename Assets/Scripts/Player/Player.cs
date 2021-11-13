@@ -13,14 +13,30 @@ public class Player : MonoBehaviour
     public GameObject SelectedObject;
 
     [Header("Mining")]
+    public bool IsSwinging;
+    public bool CanSwing = true;
     [SerializeField] private PlayerPickaxe playerPickaxe;
     [SerializeField] private PickaxeScriptableObject startingPickaxe;
 
     [Space]
-    public bool CanSwing = true;
     [SerializeField] private float timeBetweenSwings = 3f;
     public float TimeToNextSwing = 3f;
     [SerializeField] private float timeBetweenSwingsModifier = 0f;
+    
+    [Header("Swing strength")]
+    [SerializeField] private float defaultStrength = 15f;
+    [SerializeField] private float strength = 15f;
+    [SerializeField] private float strengthModifier = 0f;
+
+    [Header("Pickaxe Swing speed")]
+    [SerializeField] private float defaultSwingSpeed = 2f;
+    [SerializeField] private float swingSpeed = 2f;
+    [SerializeField] private float swingSpeedModifier = 0f;
+
+    [Header("Pickaxe Stamina loss")]
+    [SerializeField] private float defaultSwingStaminaLoss = 10f;
+    [SerializeField] private float swingStaminaLoss = 10f;
+    [SerializeField] private float swingStaminaLossModifier = 0f;
 
     [Header("Score")]
     public float CurrentScore = 0f;
@@ -42,22 +58,6 @@ public class Player : MonoBehaviour
     [Space]
     [SerializeField] private float staminaRegeneration = 15f;
     [SerializeField] private float staminaRegenerationModifier = 0f;
-    
-    
-    [Header("Swing strength")]
-    [SerializeField] private float defaultStrength = 15f;
-    [SerializeField] private float strength = 15f;
-    [SerializeField] private float strengthModifier = 0f;
-
-    [Header("Pickaxe Swing speed")]
-    [SerializeField] private float defaultSwingSpeed = 2f;
-    [SerializeField] private float swingSpeed = 2f;
-    [SerializeField] private float swingSpeedModifier = 0f;
-
-    [Header("Pickaxe Stamina loss")]
-    [SerializeField] private float defaultSwingStaminaLoss = 10f;
-    [SerializeField] private float swingStaminaLoss = 10f;
-    [SerializeField] private float swingStaminaLossModifier = 0f;
 
     [Header("Perks")]
     [SerializeField] private int defaultPerksMaxAmount = 5;
