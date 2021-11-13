@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PickaxeHit(){
-        if (player.SelectedObject){
+        if (player.SelectedObject && player.SelectedObject.CompareTag(player.MINEABLE_TAG)){
             objectHitPos = reachHitPos;
             objectToHit = player.SelectedObject;
         }
