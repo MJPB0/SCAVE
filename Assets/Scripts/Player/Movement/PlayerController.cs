@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 movementInput;
     private Vector2 mouseInput;
+    
+    [Header("Reach")]
+    //Position in which player reach ray hit a mineable object's collider
+    [SerializeField] private Vector3 reachHitPos;
 
     [Header("Body")]
     [SerializeField] private GameObject _body;
@@ -106,6 +110,7 @@ public class PlayerController : MonoBehaviour
             player.SelectedObject = null; 
         else if(hit.collider.gameObject.CompareTag(player.MINEABLE_TAG)) {
             player.SelectedObject = hit.collider.gameObject;
+            reachHitPos = hit.point;
             player.SelectedObject.GetComponent<MineableObject>().IsMineable(player.Pickaxe.Tier);
             rayColor = Color.green;
         }
@@ -154,7 +159,7 @@ public class PlayerController : MonoBehaviour
         }
 
         player.Pickaxe.SwingPickaxe(true);
-        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position);
+        player.SelectedObject.GetComponent<MineableObject>().Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, reachHitPos);
     }
 
     private void CameraFollow(){

@@ -9,7 +9,9 @@ public class MineableScriptableObject : ScriptableObject
     //Minimal pickaxe tier required to mine this object
     [SerializeField] private int pickaxeTierRequired;
     [SerializeField] private Material material;
+    [SerializeField] private Mesh[] meshes;
 
+    public Mesh[] Meshes {get {return meshes;}}
     public float Health {get {return maxHealth;}}
     public int PickaxeTierRequired {get {return pickaxeTierRequired;}}
     public Material Material {get {return material;}}

@@ -26,6 +26,7 @@ public class MineableObject : MonoBehaviour
     [SerializeField] private MineableScriptableObject mineableSO;
 
     private Vector3 playerPos;
+    private Vector3 hitPos;
 
     private void Start() {
         Setup();
@@ -38,20 +39,28 @@ public class MineableObject : MonoBehaviour
 
     //Values set at start
     private void Setup(){
-        health = mineableSO.Health;
-        GetComponentInChildren<MeshRenderer>().material = mineableSO.Material;
         if (itemDropChances.Count != itemDrops.Count)
             Debug.LogError($"{gameObject.name}'s drops are not properly set!");
+
+        health = mineableSO.Health;
+        GetComponentInChildren<MeshRenderer>().material = mineableSO.Material;
+
+        if (mineableSO.Meshes.Length < 1) return;
+        
+        Mesh mesh = mineableSO.Meshes[Random.Range(0, mineableSO.Meshes.Length - 1)];
+        GetComponentInChildren<MeshFilter>().mesh = mesh;
+        GetComponent<MeshCollider>().sharedMesh = mesh; 
     }
 
     //Usable by the player to mine the object
-    public void Mine(float damage, Vector3 currentPlayerPos){
+    public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos){
         if (!isMineable) {
             //Debug.Log($"Can't mine {gameObject.name}! Required pickaxe tier: {mineableSO.PickaxeTierRequired}.");
             return;
         }
 
         playerPos = currentPlayerPos;
+        hitPos = currentHitPos;
         //Reduce health or mark this object as mined
         if (health > damage)
             ReduceHealth(damage);
@@ -85,13 +94,13 @@ public class MineableObject : MonoBehaviour
 
         for (int i = 0; i < amount; i++){
             for (int j = 0; j < itemDrops.Count; j++){
-                float itemScale = sizeMultiplier * amount/dropRate;
+                float itemScale = sizeMultiplier * Random.Range(.5f,1.5f);
                 float chance = Random.Range(0f,1f);
 
                 if (chance < 1 - itemDropChances[j]) continue;
-                
+
                 //Try to spawn the item
-                GameObject instance = Instantiate(itemDrops[j], transform.position, Quaternion.identity, transform.parent);
+                GameObject instance = Instantiate(itemDrops[j], hitPos, Quaternion.identity, transform.parent);
                 
                 //Calculate force applied to the spawned item
                 Vector3 forceDirection = playerPos - instance.transform.position;

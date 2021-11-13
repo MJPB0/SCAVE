@@ -15,3 +15,7 @@ MonoBehaviour:
   maxHealth: 30
   pickaxeTierRequired: 1
   material: {fileID: 2100000, guid: 8f624d84fcd74694b8b9283a7f6c33fb, type: 2}
+  meshes:
+  - {fileID: 4300002, guid: 08746d293fd827e429733f5c209aee54, type: 3}
+  - {fileID: 4300000, guid: 60c9c19ace4c522459fb5d2243213bd5, type: 3}
+  - {fileID: 4300002, guid: a0071168e779c6a4591fac5de3ee9957, type: 3}
