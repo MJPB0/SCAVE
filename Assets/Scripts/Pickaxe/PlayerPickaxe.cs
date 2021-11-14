@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPickaxe : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerPickaxe : MonoBehaviour
 
     [SerializeField] private int tier;
     [SerializeField] private float damage;
+    [SerializeField] private Sprite icon;
     [SerializeField] private PickaxeScriptableObject pickaxeSO;
 
     [Space]
@@ -21,6 +23,7 @@ public class PlayerPickaxe : MonoBehaviour
 
     public int Tier {get {return tier;}}
     public float Damage {get {return damage;}}
+    public Sprite Icon {get {return icon;}}
 
     private void Awake() {
         animationController = GetComponent<Animator>();
@@ -35,6 +38,9 @@ public class PlayerPickaxe : MonoBehaviour
         pickaxeSO = newPickaxe;
         tier = pickaxeSO.Tier;
         damage = pickaxeSO.Damage;
+        icon = pickaxeSO.Icon;
+
+        PlayerController.OnPickaxeChange?.Invoke();
     }
 
     private void ResetAnimatorParameters(){
@@ -66,7 +72,6 @@ public class PlayerPickaxe : MonoBehaviour
     }
 
     public void SwingEnd(){
-        Debug.Log("Swing ended!");
         playerController.SwingEnded();
     }
 }

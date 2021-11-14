@@ -98,6 +98,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""70bf8df2-b0d7-4f7a-b984-a768d19b3cf2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Pickup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""455cc688-26aa-4392-98c6-802349ac715d"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_Mine = m_Gameplay.FindAction("Mine", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_Pickup = m_Gameplay.FindAction("Pickup", throwIfNotFound: true);
+        m_Gameplay_Inventory = m_Gameplay.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +336,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Mine;
     private readonly InputAction m_Gameplay_Interact;
     private readonly InputAction m_Gameplay_Pickup;
+    private readonly InputAction m_Gameplay_Inventory;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Mine => m_Wrapper.m_Gameplay_Mine;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputAction @Pickup => m_Wrapper.m_Gameplay_Pickup;
+        public InputAction @Inventory => m_Wrapper.m_Gameplay_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Pickup.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickup;
                 @Pickup.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickup;
                 @Pickup.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickup;
+                @Inventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Pickup.started += instance.OnPickup;
                 @Pickup.performed += instance.OnPickup;
                 @Pickup.canceled += instance.OnPickup;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -402,5 +431,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnMine(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

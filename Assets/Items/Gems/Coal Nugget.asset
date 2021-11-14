@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dea9510832b1224a9bc61448e5e828e, type: 3}
   m_Name: Coal Nugget
   m_EditorClassIdentifier: 
-  id: 2
+  id: 0
   unitWeight: 2
   itemMeshes:
   - {fileID: 4300000, guid: a59faa6df8bd9cd4c8779604face71a1, type: 3}
@@ -31,4 +31,4 @@ MonoBehaviour:
   - {fileID: 4300000, guid: 973011b81536fe2408cc13aa49700e3b, type: 3}
   - {fileID: 4300000, guid: 486351f15650ce5408452352641fc317, type: 3}
   - {fileID: 4300000, guid: 3be870bd3141f9741b70abdfb4242cb6, type: 3}
-  Value: 5
+  Value: 0.2

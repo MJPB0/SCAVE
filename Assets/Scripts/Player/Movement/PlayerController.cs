@@ -2,9 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    public static UnityAction OnPickaxeSwing;
+    public static UnityAction OnSwingTimeChanged;
+    public static UnityAction OnPickaxeHit;
+    public static UnityAction OnPickaxeChange;
+
+    public static UnityAction OnMineableObjectSelected;
+    public static UnityAction OnPickableObjectSelected;
+    public static UnityAction OnItemPickup;
+    public static UnityAction OnObjectInteract;
+
+    public static UnityAction OnPlayerHealthLost;
+    public static UnityAction OnPlayerStaminaLost;
+    public static UnityAction OnPlayerHealthRestored;
+    public static UnityAction OnPlayerStaminaRestored;
+
+    public static UnityAction OnInventoryToggle;
+
     public PlayerActions Controls {get; private set;}
 
     private GameObject objectToHit;
@@ -25,7 +43,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Reach")]
     //Position in which player reach ray hit a mineable object's collider
-    [SerializeField] private Vector3 reachHitPos;
+    [SerializeField] private Vector3 reachMineableHitPos;
 
     [Header("Body")]
     [SerializeField] private GameObject _body;
@@ -64,6 +82,8 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.Mine.performed += ctx => SwingPickaxe();
         
         Controls.Gameplay.Pickup.performed += ctx => TryPickingUpItem();
+
+        Controls.Gameplay.Inventory.performed += ctx => OnInventoryToggle?.Invoke();
     }
 
     private void Start()
@@ -111,23 +131,30 @@ public class PlayerController : MonoBehaviour
         Vector3 originRay = _camera.transform.position;
 
         Color rayColor = Color.red;
-        if (!Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength))
-            player.SelectedObject = null; 
-        else if(hit.collider.gameObject.CompareTag(player.MINEABLE_TAG)) {
-            player.SelectedObject = hit.collider.gameObject;
-            reachHitPos = hit.point;
-            player.SelectedObject.GetComponent<MineableObject>().IsMineable(player.Pickaxe.Tier);
+        player.SelectedObject = null; 
+        player.SelectedObject = Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength)?hit.collider.gameObject:null;
+        
+        if(player.SelectedObject && player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
+            MineableSelected(hit);
             rayColor = Color.green;
         }
-        else if (hit.collider.gameObject.CompareTag(player.PICKABLE_TAG)){
-            player.SelectedObject = hit.collider.gameObject;
-            StartCoroutine(ItemOutline(player.SelectedObject));
+        else if (player.SelectedObject && player.SelectedObject.CompareTag(player.PICKABLE_TAG)){
+            PickableSelected();
             rayColor = Color.green;
         }
-        else
-            player.SelectedObject = null; 
 
         Debug.DrawRay(originRay, _camera.transform.forward * raycastLength, rayColor);
+    }
+
+    private void MineableSelected(RaycastHit hit){
+        reachMineableHitPos = hit.point;
+        player.SelectedObject.GetComponent<MineableObject>().IsMineable(player.Pickaxe.Tier);
+        OnMineableObjectSelected?.Invoke();
+    }
+
+    private void PickableSelected(){
+        StartCoroutine(ItemOutline(player.SelectedObject));
+        OnPickableObjectSelected?.Invoke();
     }
 
     private IEnumerator ItemOutline(GameObject item){
@@ -146,6 +173,7 @@ public class PlayerController : MonoBehaviour
         
         if (item.IsPickable){
             player.AddItemToInventory(item);
+            OnItemPickup?.Invoke();
             Destroy(item.gameObject);
         }
         else
@@ -153,11 +181,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void SwingPickaxe(){
-        if (!player.CanSwing) return;
+        if (!player.CanSwing || player.Stamina < player.SwingStaminaLoss) return;
 
         player.CanSwing = false;
         player.IsSwinging = true;
         player.ReduceStamina(player.SwingStaminaLoss);
+
+        OnPickaxeSwing?.Invoke();
 
         if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
             player.Pickaxe.SwingPickaxe(false);
@@ -165,23 +195,21 @@ public class PlayerController : MonoBehaviour
         }
 
         objectToHit = player.SelectedObject;
-        objectHitPos = reachHitPos;
+        objectHitPos = reachMineableHitPos;
         player.Pickaxe.SwingPickaxe(true);
     }
 
     public void PickaxeHit(){
         if (player.SelectedObject && player.SelectedObject.CompareTag(player.MINEABLE_TAG)){
-            objectHitPos = reachHitPos;
+            objectHitPos = reachMineableHitPos;
             objectToHit = player.SelectedObject;
         }
+
+        OnPickaxeHit?.Invoke();
 
         var mineable = objectToHit.GetComponent<MineableObject>();    
         mineable.Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
         StartCoroutine(mineable.ImpactParticles());
-    }
-
-    public void PickaxeUnstuck(){
-        
     }
 
     public void SwingEnded(){
@@ -217,7 +245,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump(){
-        if (!player.CanJump || !player.IsGrounded) return;
+        if (!player.CanJump || !player.IsGrounded || player.Stamina < player.JumpStaminaLoss) return;
         
         Vector3 jumpTranslationForce = new Vector3(movementInput.x, 0, movementInput.y);
         jumpTranslationForce *= player.IsCrouching? player.CrouchMultiplier : 1;

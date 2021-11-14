@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public string PICKABLE_TAG {get;} = "Pickable";
     
     //ItemId, amount
-    private Dictionary<int, float> Inventory;
+    private Dictionary<int, float> inventory;
 
     public GameObject SelectedObject;
 
@@ -128,31 +128,54 @@ public class Player : MonoBehaviour
 
     #region  Getters
     public float Health {get {return health;}}
-    public float Stamina {get {return stamina;}}
+    public float BaseHealth {get {return maxHealth;}}
     public float MaxHealth {get {return maxHealth + healthModifier;}}
+
+    public float Stamina {get {return stamina;}}
+    public float BaseStamina {get {return maxStamina;}}
     public float MaxStamina {get {return maxStamina + staminaModifier;}}
+
+    public float BaseStrength {get {return strength;}}
     public float Strength {get {return strength + strengthModifier;}}
+
+    public float BaseSwingSpeed {get {return swingSpeed;}}
     public float SwingSpeed {get {return swingSpeed + swingSpeedModifier;}}
-    public float SwingStaminaLoss {get {return swingStaminaLoss + swingStaminaLossModifier;}}
+    
+    public float BasePerksAmount {get {return perksMaxAmount;}}
     public int PerksMaxAmount {get {return perksMaxAmount + perksMaxAmountModifier;}}
+
+    public float BaseJumpForce {get {return jumpForce;}}
     public float JumpForce {get {return jumpForce + jumpForceModifier;}}
+
+    public float BaseMovementSpeed {get {return movementSpeed;}}
     public float MovementSpeed {get {return movementSpeed + movementSpeedModifier;}}
+
     public float SprintMultiplier {get {return sprintMultiplier + sprintSpeedModifier;}}
     public float CrouchMultiplier {get {return crouchMultiplier + crouchSpeedModifier;}}
     public float ChangePositionSpeed {get {return changePositionSpeed + changePositionSpeedModifier;}}
+
+    public float SwingStaminaLoss {get {return swingStaminaLoss + swingStaminaLossModifier;}}
     public float SprintStaminaLoss {get {return sprintStaminaLoss + sprintStaminaLossModifier;}}
     public float JumpStaminaLoss {get {return jumpStaminaLoss + jumpStaminaLossModifier;}}
+
+    public float BaseStaminaRegenerationRate {get {return staminaRegeneration;}}
     public float StaminaRegenerationRate {get {return staminaRegeneration + staminaRegenerationModifier;}}
+
+    public float BaseHealthRegenerationRate {get {return healthRegeneration;}}
     public float HealthRegenerationRate {get {return healthRegeneration + healthRegenerationModifier;}}
+
+    public float BaseReach {get {return reach;}}
     public float Reach {get {return reach + reachModifier;}}
+
     public float TimeBetweenSwings {get {return timeBetweenSwings + timeBetweenSwingsModifier;}}
 
     public PlayerPickaxe Pickaxe {get {return playerPickaxe;}}
+    public Dictionary<int, float> Inventory {get {return inventory;}}
     #endregion
 
     private void Awake() {
         PlayerPerks = new List<Perk>();
-        Inventory = new Dictionary<int, float>();
+        inventory = new Dictionary<int, float>();
     }
 
     private void Start() {
@@ -226,6 +249,8 @@ public class Player : MonoBehaviour
         }
         else
             stamina = MaxStamina;
+            
+        PlayerController.OnPlayerStaminaRestored?.Invoke();
     }
 
     private void RegenerateHealth(){
@@ -240,6 +265,8 @@ public class Player : MonoBehaviour
         }
         else
             health = MaxHealth;
+            
+        PlayerController.OnPlayerHealthRestored?.Invoke();
     }
 
     private void ManageCanSprint(){
@@ -258,6 +285,8 @@ public class Player : MonoBehaviour
             TimeToNextSwing = TimeBetweenSwings;
             CanSwing = true;
         }
+
+        PlayerController.OnSwingTimeChanged?.Invoke();
     }
 
     public void ReduceStamina(float value){
@@ -265,6 +294,8 @@ public class Player : MonoBehaviour
             stamina = 0f;
         else
             stamina -= value;
+            
+        PlayerController.OnPlayerStaminaLost?.Invoke();
     }
 
     public void ReduceHealth(float value){
@@ -272,6 +303,8 @@ public class Player : MonoBehaviour
             health = 0f;
         else
             health -= value;
+            
+        PlayerController.OnPlayerHealthLost?.Invoke();
     }
 
     public void RestoreStamina(float value){
@@ -279,6 +312,8 @@ public class Player : MonoBehaviour
             stamina = MaxStamina;
         else
             stamina += value;
+            
+        PlayerController.OnPlayerStaminaRestored?.Invoke();
     }
 
     public void RestoreHealth(float value){
@@ -286,20 +321,18 @@ public class Player : MonoBehaviour
             health = MaxHealth;
         else
             health += value;
+            
+        PlayerController.OnPlayerHealthRestored?.Invoke();
     }
 
     public void AddItemToInventory(Item item){
-        if (Inventory.ContainsKey(item.ItemId)){
-            Inventory[item.ItemId] += item.Weight;
+        if (inventory.ContainsKey(item.ItemId)){
+            inventory[item.ItemId] += item.Weight;
             //Debug.Log($"Increased amount off {item.gameObject.name} to {Inventory[item.ItemId]}!");
         }
         else{
-            Inventory.Add(item.ItemId, item.Weight);
+            inventory.Add(item.ItemId, item.Weight);
             //Debug.Log($"Added {item.gameObject.name} the the inventory!");
         }
-
-        //Debug.Log("Inventory:");
-        //foreach (var valuePair in Inventory)
-        //    Debug.Log($"{valuePair.Key}:{valuePair.Value}");
     }
 }

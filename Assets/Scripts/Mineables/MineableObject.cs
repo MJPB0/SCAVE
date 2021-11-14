@@ -129,8 +129,9 @@ public class MineableObject : MonoBehaviour
         impactParticles.transform.rotation = Quaternion.LookRotation(rotation);
 
         ParticleSystem system = impactParticles.GetComponent<ParticleSystem>();
+        Color col = mineableSO.Material.color;
         var mainSystem = system.main;
-        mainSystem.startColor = mineableSO.Material.color;
+        mainSystem.startColor = new Color(col.r, col.g, col.b);
         system.Play();
 
         yield return new WaitUntil(() => !system.isPlaying);
