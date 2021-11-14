@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     public float Weight {get {return weight;}}
     public int ItemId {get {return itemSO.ObjectId;}}
     public bool IsPickable {get {return isPickable;}}
+    public float BaseValue {get {return itemSO.Value;}}
 
     private void Awake() {
         Mesh mesh = itemSO.ItemMeshes[Random.Range(0,itemSO.ItemMeshes.Length)];

@@ -183,6 +183,8 @@ public class Player : MonoBehaviour
 
         TimeToNextSwing = timeBetweenSwings;
         playerPickaxe.ChangePickaxe(startingPickaxe);
+
+        PlayerController.OnItemPickup += CalculateScore;
     }
 
     private void Update() {
@@ -334,5 +336,12 @@ public class Player : MonoBehaviour
             inventory.Add(item.ItemId, item.Weight);
             //Debug.Log($"Added {item.gameObject.name} the the inventory!");
         }
+
+        //todo delete this code once game manager is implemented
+        CurrentScore += item.Weight * item.BaseValue;
+    }
+
+    public void CalculateScore(){
+
     }
 }

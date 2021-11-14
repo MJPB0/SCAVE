@@ -118,20 +118,22 @@ public class GameUI : MonoBehaviour
         Dictionary<int, float> inv = player.Inventory;
 
         //todo restructure this when game manager is introduced
-        _coalWeight.text = $"{(inv.ContainsKey(0)?inv[0]:0)}kg";
-        _ironWeight.text = $"{(inv.ContainsKey(1)?inv[1]:0)}kg";
-        _goldWeight.text = $"{(inv.ContainsKey(2)?inv[2]:0)}kg";
-        _emeraldWeight.text = $"{(inv.ContainsKey(3)?inv[3]:0)}kg";
-        
-        _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} {player.MaxHealth}";
-        _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} {player.HealthRegenerationRate}";
-        _staminaValue.text = $"{player.BaseStamina} + {player.Stamina - player.BaseStamina} {player.Stamina}";
-        _staminaRegenerationValue.text = $"{player.BaseStaminaRegenerationRate} + {player.StaminaRegenerationRate - player.BaseStaminaRegenerationRate} {player.StaminaRegenerationRate}";
-        _strengthValue.text = $"{player.BaseStrength} + {player.Strength - player.BaseStrength} {player.Strength}";
-        _perksValue.text = $"{player.BasePerksAmount} + {player.PerksMaxAmount - player.BasePerksAmount} {player.PerksMaxAmount}";
-        _reachValue.text = $"{player.BaseReach} + {player.Reach - player.BaseReach} {player.Reach}";
-        _movementSpeedValue.text = $"{player.BaseMovementSpeed} + {player.MovementSpeed - player.BaseMovementSpeed} {player.MovementSpeed}";
-        _jumpForceValue.text = $"{player.BaseJumpForce} + {player.JumpForce - player.BaseJumpForce} {player.JumpForce}";
+        _coalWeight.text = $"{(inv.ContainsKey(0)?inv[0]:0).ToString("F2")}kg";
+        _ironWeight.text = $"{(inv.ContainsKey(1)?inv[1]:0).ToString("F2")}kg";
+        _goldWeight.text = $"{(inv.ContainsKey(2)?inv[2]:0).ToString("F2")}kg";
+        _emeraldWeight.text = $"{(inv.ContainsKey(3)?inv[3]:0).ToString("F2")}kg";
+
+        _scoreValue.text = player.CurrentScore.ToString();
+     
+        _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
+        _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
+        _staminaValue.text = $"{player.BaseStamina} + {player.MaxStamina - player.BaseStamina} - {player.MaxStamina}";
+        _staminaRegenerationValue.text = $"{player.BaseStaminaRegenerationRate} + {player.StaminaRegenerationRate - player.BaseStaminaRegenerationRate} - {player.StaminaRegenerationRate}";
+        _strengthValue.text = $"{player.BaseStrength} + {player.Strength - player.BaseStrength} - {player.Strength}";
+        _perksValue.text = $"{player.BasePerksAmount} + {player.PerksMaxAmount - player.BasePerksAmount} - {player.PerksMaxAmount}";
+        _reachValue.text = $"{player.BaseReach} + {player.Reach - player.BaseReach} - {player.Reach}";
+        _movementSpeedValue.text = $"{player.BaseMovementSpeed} + {player.MovementSpeed - player.BaseMovementSpeed} - {player.MovementSpeed}";
+        _jumpForceValue.text = $"{player.BaseJumpForce} + {player.JumpForce - player.BaseJumpForce} - {player.JumpForce}";
     }
 
     private void SlidersSetup(){
