@@ -31,6 +31,10 @@ public class MineableObject : MonoBehaviour
     private Vector3 playerPos;
     private Vector3 hitPos;
 
+    public string Name() {
+        return mineableSO.name;
+    }
+
     private void Start() {
         Setup();
     }
@@ -84,6 +88,8 @@ public class MineableObject : MonoBehaviour
         wasMined = true;
         //Debug.Log($"Player successfuly mined {gameObject.name}!");
         
+        PlayerController.OnObjectMined?.Invoke();
+
         //Drop items from this object
         if (itemDrops.Count > 0)
             DropItems();

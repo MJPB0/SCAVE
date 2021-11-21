@@ -66,12 +66,4 @@ public class PlayerPickaxe : MonoBehaviour
         ResetAnimatorParameters();
         playerController.PickaxeHit();
     }
-
-    public void PickaxeUnstuck(){
-        
-    }
-
-    public void SwingEnd(){
-        playerController.SwingEnded();
-    }
 }

@@ -10,10 +10,11 @@ public class Player : MonoBehaviour
     //ItemId, amount
     private Dictionary<int, float> inventory;
 
+    private Dictionary<string, int> minedTracker;
+
     public GameObject SelectedObject;
 
     [Header("Mining")]
-    public bool IsSwinging;
     public bool CanSwing = true;
     [SerializeField] private PlayerPickaxe playerPickaxe;
     [SerializeField] private PickaxeScriptableObject startingPickaxe;
@@ -176,6 +177,7 @@ public class Player : MonoBehaviour
     private void Awake() {
         PlayerPerks = new List<Perk>();
         inventory = new Dictionary<int, float>();
+        minedTracker = new Dictionary<string, int>();
     }
 
     private void Start() {
@@ -328,20 +330,24 @@ public class Player : MonoBehaviour
     }
 
     public void AddItemToInventory(Item item){
-        if (inventory.ContainsKey(item.ItemId)){
+        if (inventory.ContainsKey(item.ItemId))
             inventory[item.ItemId] += item.Weight;
-            //Debug.Log($"Increased amount off {item.gameObject.name} to {Inventory[item.ItemId]}!");
-        }
-        else{
+        else
             inventory.Add(item.ItemId, item.Weight);
-            //Debug.Log($"Added {item.gameObject.name} the the inventory!");
-        }
 
         //todo delete this code once game manager is implemented
         CurrentScore += item.Weight * item.BaseValue;
     }
 
     public void CalculateScore(){
+        // todo: calculating score
+    }
 
+    public void AddMinedObjectToTracker(){
+        string objName = SelectedObject.gameObject.GetComponent<MineableObject>().Name();
+        if (minedTracker.ContainsKey(objName))
+            minedTracker[objName]++;
+        else
+            minedTracker.Add(objName, 1);
     }
 }

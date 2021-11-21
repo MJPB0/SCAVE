@@ -100,7 +100,6 @@ public class GameUI : MonoBehaviour
     private void PlayerDebug(){
         _selectedObject.text = $"selected object: {player.SelectedObject}";
         _canSwing.text = $"can swing: {player.CanSwing}";
-        _isSwinging.text = $"is swinging: {player.IsSwinging}";
         _canStand.text = $"can stand: {player.CanStand}";
         _isCrouching.text = $"is crouching: {player.IsCrouching}";
         _canSprint.text = $"can sprint: {player.CanSprint}";

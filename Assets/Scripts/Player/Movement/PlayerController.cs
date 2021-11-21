@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public static UnityAction OnSwingTimeChanged;
     public static UnityAction OnPickaxeHit;
     public static UnityAction OnPickaxeChange;
+    public static UnityAction OnObjectMined;
 
     public static UnityAction OnMineableObjectSelected;
     public static UnityAction OnPickableObjectSelected;
@@ -94,6 +95,8 @@ public class PlayerController : MonoBehaviour
         playerScale = _body.transform.localScale;
         playerHeight = playerCollider.height;
         playerRadius = playerCollider.radius;
+
+        OnObjectMined += ObjectMined;
     }
 
     private void Update() {
@@ -184,7 +187,6 @@ public class PlayerController : MonoBehaviour
         if (!player.CanSwing || player.Stamina < player.SwingStaminaLoss) return;
 
         player.CanSwing = false;
-        player.IsSwinging = true;
         player.ReduceStamina(player.SwingStaminaLoss);
 
         OnPickaxeSwing?.Invoke();
@@ -212,8 +214,8 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(mineable.ImpactParticles());
     }
 
-    public void SwingEnded(){
-        player.IsSwinging = false;
+    public void ObjectMined() {
+        player.AddMinedObjectToTracker();
     }
 
     private void CameraFollow(){
