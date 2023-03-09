@@ -1,0 +1,4 @@
+repository "SCAVE@MJPB@cloud"
+  path "/"
+    smartbranch "/main/develop" 
+     
