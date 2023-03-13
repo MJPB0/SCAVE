@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Unity.VisualScripting;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,14 +31,9 @@ public class PlayerController : MonoBehaviour
     private GameObject objectToHit;
     private Vector3 objectHitPos;
 
-    private float playerHeight;
-    private float playerRadius;
-    
-    private Vector3 playerScale;
-    private Vector3 playerCrouchScale = new Vector3(1f, .6f, 1f);
-
     private Rigidbody rbody;
-    private CapsuleCollider playerCollider;
+    [SerializeField] private GameObject playerBody;
+    [SerializeField] private GameObject playerCrouchBody;
     private Player player;
 
     private Vector2 movementInput;
@@ -57,11 +54,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _view;
     [SerializeField] private Camera _camera;
 
+    [Header("Gravity")]
+    [SerializeField] private float gravityMultiplier = 1.75f;
+
     public Vector3 HitPosition {get {return objectHitPos;}}
 
     private void Awake() {
         rbody = GetComponent<Rigidbody>();
-        playerCollider = _body.GetComponent<CapsuleCollider>();
         player = GetComponent<Player>();
         Controls = new PlayerActions();
 
@@ -91,10 +90,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        playerScale = _body.transform.localScale;
-        playerHeight = playerCollider.height;
-        playerRadius = playerCollider.radius;
-
         OnObjectMined += ObjectMined;
     }
 
@@ -108,6 +103,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate(){
         if (player.CanMove)
             Move();
+        if (!player.IsGrounded)
+            ApplyGravity();
     }
 
     private void OnCollisionStay(Collision other) {
@@ -233,28 +230,40 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move(){
-        if (movementInput.magnitude < .1f) player.IsMoving = false;
-        if (!player.IsGrounded || player.ChangingPositionInProgress || movementInput.magnitude < .1f) return;
+        if (movementInput.magnitude < .1f)
+        {
+            player.IsMoving = false;
+            return;
+        }
 
         player.IsMoving = true;
 
         Vector3 newPos = new Vector3(movementInput.x, 0, movementInput.y);
-        newPos *= player.IsCrouching? player.CrouchMultiplier : 1;
-        newPos *= player.IsSprinting? player.SprintMultiplier : 1;
+
+        if (player.IsGrounded)
+        {
+            newPos *= player.IsCrouching ? player.CrouchMultiplier : 1;
+            newPos *= player.IsSprinting ? player.SprintMultiplier : 1;
+        }
 
         rbody.MovePosition(transform.position + transform.rotation * newPos * Time.deltaTime * player.MovementSpeed);
     }
 
     private void Jump(){
-        if (!player.CanJump || !player.IsGrounded || player.Stamina < player.JumpStaminaLoss) return;
+        if (!player.CanJump || player.IsCrouching || !player.IsGrounded || player.Stamina < player.JumpStaminaLoss) return;
         
-        Vector3 jumpTranslationForce = new Vector3(movementInput.x, 0, movementInput.y);
-        jumpTranslationForce *= player.IsCrouching? player.CrouchMultiplier : 1;
-        jumpTranslationForce *= player.IsSprinting? player.SprintMultiplier : 1;
+        Vector3 jumpTranslationForce = new Vector3(movementInput.x, 1, movementInput.y);
+        jumpTranslationForce.y *= player.JumpForce * (player.IsSprinting ? player.SprintJumpForce : 1);
 
-        jumpTranslationForce.y = 1f;
-        rbody.AddForce(transform.rotation * jumpTranslationForce * player.JumpForce);
+        rbody.AddForce(transform.rotation * jumpTranslationForce, ForceMode.Impulse);
         player.ReduceStamina(player.JumpStaminaLoss);
+    }
+
+    private void ApplyGravity()
+    {
+        if (rbody.velocity.y > 0) return;
+
+        rbody.AddForce(new Vector3(0f, -gravityMultiplier, 0f), ForceMode.Force);
     }
 
 
@@ -290,44 +299,22 @@ public class PlayerController : MonoBehaviour
     }
 
     private void StartCrouching(){
-        if (!player.ChangingPositionInProgress)
-            StartCoroutine(Crouch());
-    }
-
-    private IEnumerator Crouch(){
-        player.ChangingPositionInProgress = true;
-        while(_body.transform.localScale.y - playerCrouchScale.y >= .05f){
-            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y - Time.deltaTime * player.ChangePositionSpeed, _body.transform.localScale.z);
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        _body.transform.localScale = playerCrouchScale;
+        playerBody.SetActive(false);
+        playerCrouchBody.SetActive(true);
         player.IsCrouching = true;
-        player.ChangingPositionInProgress = false;
     }
 
     private void StopCrouching(){
-        if (!player.ChangingPositionInProgress && player.CanStand)
-            StartCoroutine(StandUp());
-    }
-
-    private IEnumerator StandUp(){
-        player.ChangingPositionInProgress = true;
-        while(playerScale.y - _body.transform.localScale.y >= .05f){
-            _body.transform.localScale = new Vector3(_body.transform.localScale.x, _body.transform.localScale.y + Time.deltaTime * player.ChangePositionSpeed, _body.transform.localScale.z);
-
-            yield return new WaitForEndOfFrame();
+        if (player.CanStand){
+            playerBody.SetActive(true);
+            playerCrouchBody.SetActive(false);
+            player.IsCrouching = false;
         }
-        
-        _body.transform.localScale = playerScale;
-        player.IsCrouching = false;
-        player.ChangingPositionInProgress = false;
     }
 
     private void CanStandUp(){
-        float raycastLength = playerHeight/2 + .1f;
-        float originRayY = transform.position.y + playerCollider.height/2 * playerCrouchScale.y;
+        float raycastLength = playerBody.GetComponent<CapsuleCollider>().height / 2 + .1f;
+        float originRayY = transform.position.y + playerBody.GetComponent<CapsuleCollider>().height/2;
         float destinationRayY = transform.position.y + raycastLength;
         
         Vector3 origin = new Vector3(transform.position.x, originRayY, transform.position.z);

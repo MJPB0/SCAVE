@@ -6,7 +6,7 @@ public class MineableObject : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private bool isMineable = true;
-    [SerializeField] private bool wasMined = false;
+    [SerializeField] private bool wasMined = true;
     [SerializeField] private bool dropOnMine = true;
 
     [Space]
@@ -17,9 +17,8 @@ public class MineableObject : MonoBehaviour
     [SerializeField] private int dropRate = 2;
     [SerializeField] private float sizeMultiplier = 1f;
     [SerializeField] private List<GameObject> itemDrops;
-    [Range(0,1)]
-    [SerializeField] private List<float> itemDropChances;
     [SerializeField] private MineableScriptableObject mineableSO;
+    [Range(0, 1)][SerializeField] private List<float> itemDropChances;
 
     [Space]
     [SerializeField] private GameObject impactParticles;
@@ -111,22 +110,20 @@ public class MineableObject : MonoBehaviour
         }
     }
     
-    public IEnumerator ImpactParticles(){
-        impactParticles.SetActive(true);
-        impactParticles.transform.position = hitPos;
-
+    public IEnumerator ImpactParticles()
+    {
         Vector3 direction = playerPos - hitPos;
-        Vector3 rotation = Vector3.RotateTowards(impactParticles.transform.forward, direction, 360f, 0f);
-        impactParticles.transform.rotation = Quaternion.LookRotation(rotation);
+        Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
 
-        ParticleSystem system = impactParticles.GetComponent<ParticleSystem>();
+        GameObject particles = Instantiate(impactParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
+
+        ParticleSystem system = particles.GetComponent<ParticleSystem>();
         Color col = mineableSO.Material.color;
         var mainSystem = system.main;
         mainSystem.startColor = new Color(col.r, col.g, col.b);
         system.Play();
 
         yield return new WaitUntil(() => !system.isPlaying);
-        impactParticles.SetActive(false);
-        impactParticles.transform.rotation = Quaternion.Euler(Vector3.zero);
+        Destroy(particles);
     }
 }

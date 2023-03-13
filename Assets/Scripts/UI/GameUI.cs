@@ -104,7 +104,6 @@ public class GameUI : MonoBehaviour
         _isGrounded.text = $"is grounded: {player.IsGrounded}";
         _canMove.text = $"can move: {player.CanMove}";
         _isMoving.text = $"is moving: {player.IsMoving}";
-        _isChangingPosition.text = $"is changing position: {player.ChangingPositionInProgress}";
         _isRegeneratingHealth.text = $"is regenerating health: {player.IsRegeneratingHealth}";
         _isRegeneratingStamina.text = $"is regenerating stamina: {player.IsRegeneratingStamina}";
     }

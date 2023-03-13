@@ -33,7 +33,6 @@ public class PlayerPickaxe : MonoBehaviour
     public void ChangePickaxe(PickaxeScriptableObject newPickaxe){
         if (newPickaxe == pickaxeSO) return;
 
-        //set new pickaxe's values
         pickaxeSO = newPickaxe;
         tier = pickaxeSO.Tier;
         damage = pickaxeSO.Damage;

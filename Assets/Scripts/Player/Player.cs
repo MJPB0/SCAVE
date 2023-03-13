@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
     public bool IsSprinting;
     public bool IsGrounded;
     public bool IsMoving;
-    public bool ChangingPositionInProgress;
     
     [Space]
     public bool CanMove = true;
@@ -80,6 +79,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float defaultJumpForce = 450f;
     [SerializeField] private float jumpForce = 450f;
     [SerializeField] private float jumpForceModifier = 0f;
+    [SerializeField] private float sprintJumpForceModifier = 1.5f;
 
     [Header("Movement speeds")]
     [SerializeField] private float defaultMovementSpeed = 4f;
@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
     
     public float BaseJumpForce {get {return jumpForce;}}
     public float JumpForce {get {return jumpForce + jumpForceModifier;}}
+    public float SprintJumpForce {get {return sprintJumpForceModifier;}}
 
     public float BaseMovementSpeed {get {return movementSpeed;}}
     public float MovementSpeed {get {return movementSpeed + movementSpeedModifier;}}
