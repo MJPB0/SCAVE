@@ -10,16 +10,12 @@ public class MineableObject : MonoBehaviour
     [SerializeField] private bool dropOnMine = true;
 
     [Space]
-    //Minimal force multipler used when item is spawned after object's been mined
     [SerializeField] private float minOnMinedForceMultiplier = 0f;
-    //Maximum force multipler used when item is spawned after object's been mined
     [SerializeField] private float maxOnMinedForceMultiplier = 15f;
     
     [Space]
-    //Max amount of items that can drop from this object
     [SerializeField] private int dropRate = 2;
     [SerializeField] private float sizeMultiplier = 1f;
-    //Items that drop from this object
     [SerializeField] private List<GameObject> itemDrops;
     [Range(0,1)]
     [SerializeField] private List<float> itemDropChances;
@@ -39,12 +35,10 @@ public class MineableObject : MonoBehaviour
         Setup();
     }
 
-    //Checks if player's pickaxe is good enough for this object to be mined by it
     public void IsMineable(int pickaxeTier){
         isMineable = pickaxeTier >= mineableSO.PickaxeTierRequired;
     }
 
-    //Values set at start
     private void Setup(){
         if (itemDropChances.Count != itemDrops.Count)
             Debug.LogError($"{gameObject.name}'s drops are not properly set!");
@@ -59,7 +53,6 @@ public class MineableObject : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = mesh; 
     }
 
-    //Usable by the player to mine the object
     public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos){
         if (!isMineable) {
             //Debug.Log($"Can't mine {gameObject.name}! Required pickaxe tier: {mineableSO.PickaxeTierRequired}.");
@@ -68,7 +61,7 @@ public class MineableObject : MonoBehaviour
 
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
-        //Reduce health or mark this object as mined
+
         if (health > damage)
             ReduceHealth(damage);
         else
@@ -82,7 +75,6 @@ public class MineableObject : MonoBehaviour
         //Debug.Log($"Player hit {gameObject.name} for {value}dmg!");
     }
 
-    //Marks this object as mined
     private void WasMined(){
         isMineable = false;
         wasMined = true;
@@ -90,15 +82,12 @@ public class MineableObject : MonoBehaviour
         
         PlayerController.OnObjectMined?.Invoke();
 
-        //Drop items from this object
         if (itemDrops.Count > 0)
             DropItems();
-        //Hide the object
         gameObject.SetActive(false);
     }
   
     public void DropItems(){
-        //Amount of items to be dropped
         int amount = Random.Range(dropRate/2, dropRate+1);
 
         for (int i = 0; i < amount; i++){
@@ -108,19 +97,15 @@ public class MineableObject : MonoBehaviour
 
                 if (chance < 1 - itemDropChances[j]) continue;
 
-                //Try to spawn the item
                 GameObject instance = Instantiate(itemDrops[j], hitPos, Quaternion.identity, transform.parent);
                 
-                //Calculate force applied to the spawned item
                 Vector3 forceDirection = playerPos - instance.transform.position;
                 float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
                 float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
                 float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
                 Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
 
-                //Add force to the item
                 instance.GetComponent<Rigidbody>().AddForce(force);
-                //Set variable values of the item
                 instance.GetComponent<Item>().Setup(true, itemScale);
             }
         }

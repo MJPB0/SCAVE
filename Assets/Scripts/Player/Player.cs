@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public string MINEABLE_TAG {get;} = "Mineable";
-    public string PICKABLE_TAG {get;} = "Pickable";
-    
     //ItemId, amount
     private Dictionary<int, float> inventory;
 

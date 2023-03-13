@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseInput;
     
     [Header("Reach")]
-    //Position in which player reach ray hit a mineable object's collider
     [SerializeField] private Vector3 reachMineableHitPos;
 
     [Header("Body")]
@@ -137,11 +136,11 @@ public class PlayerController : MonoBehaviour
         player.SelectedObject = null; 
         player.SelectedObject = Physics.Raycast(originRay, _camera.transform.forward, out RaycastHit hit, raycastLength)?hit.collider.gameObject:null;
         
-        if(player.SelectedObject && player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
+        if(player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
             MineableSelected(hit);
             rayColor = Color.green;
         }
-        else if (player.SelectedObject && player.SelectedObject.CompareTag(player.PICKABLE_TAG)){
+        else if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.PICKABLE_TAG)){
             PickableSelected();
             rayColor = Color.green;
         }
@@ -191,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
         OnPickaxeSwing?.Invoke();
 
-        if (!player.SelectedObject || !player.SelectedObject.CompareTag(player.MINEABLE_TAG)) {
+        if (!player.SelectedObject || !player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
             player.Pickaxe.SwingPickaxe(false);
             return;
         }
@@ -202,7 +201,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PickaxeHit(){
-        if (player.SelectedObject && player.SelectedObject.CompareTag(player.MINEABLE_TAG)){
+        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)){
             objectHitPos = reachMineableHitPos;
             objectToHit = player.SelectedObject;
         }

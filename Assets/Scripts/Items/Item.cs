@@ -19,7 +19,6 @@ public class Item : MonoBehaviour
         GetComponentInChildren<MeshFilter>().mesh = mesh;
     }
 
-    //Set this item's values
     public void Setup(bool pickable, float sizeValue){
         isPickable = pickable;
         weight = sizeValue * itemSO.UnitWeight;

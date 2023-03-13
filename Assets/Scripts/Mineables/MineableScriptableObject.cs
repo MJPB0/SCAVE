@@ -6,7 +6,6 @@ using UnityEngine;
 public class MineableScriptableObject : ScriptableObject
 {
     [SerializeField] private float maxHealth = 100f;
-    //Minimal pickaxe tier required to mine this object
     [SerializeField] private int pickaxeTierRequired;
     [SerializeField] private Material material;
     [SerializeField] private Mesh[] meshes;
