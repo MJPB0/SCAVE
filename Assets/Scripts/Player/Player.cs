@@ -60,16 +60,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float staminaRegeneration = 15f;
     [SerializeField] private float staminaRegenerationModifier = 0f;
 
-    [Header("Perks")]
-    [SerializeField] private int defaultPerksMaxAmount = 5;
-    [SerializeField] private int perksMaxAmount = 5;
-    [SerializeField] private int perksMaxAmountModifier = 0;
-    public List<Perk> PlayerPerks;
-
     [Header("Regeneration")]
     public bool IsRegeneratingStamina;
     public bool IsRegeneratingHealth;
-    
     
     [Header("Reach")]
     [SerializeField] private float defaultReach = 3f;
@@ -142,9 +135,6 @@ public class Player : MonoBehaviour
     public float BaseSwingSpeed {get {return swingSpeed;}}
     public float SwingSpeed {get {return swingSpeed + swingSpeedModifier;}}
     
-    public float BasePerksAmount {get {return perksMaxAmount;}}
-    public int PerksMaxAmount {get {return perksMaxAmount + perksMaxAmountModifier;}}
-
     public float BaseJumpForce {get {return jumpForce;}}
     public float JumpForce {get {return jumpForce + jumpForceModifier;}}
 
@@ -175,7 +165,6 @@ public class Player : MonoBehaviour
     #endregion
 
     private void Awake() {
-        PlayerPerks = new List<Perk>();
         inventory = new Dictionary<int, float>();
         minedTracker = new Dictionary<string, int>();
     }
@@ -208,7 +197,6 @@ public class Player : MonoBehaviour
         staminaModifier = 0f;
         swingSpeedModifier = 0f;
         swingStaminaLossModifier = 0f;
-        perksMaxAmountModifier = 0;
         jumpForceModifier = 0f;
         movementSpeedModifier = 0f;
         sprintSpeedModifier = 0f;
@@ -228,7 +216,6 @@ public class Player : MonoBehaviour
         stamina = MaxStamina;
         swingSpeed = SwingSpeed;
         swingStaminaLoss = SwingStaminaLoss;
-        perksMaxAmount = PerksMaxAmount;
         jumpForce = JumpForce;
         movementSpeed = MovementSpeed;
         sprintMultiplier = SprintMultiplier;

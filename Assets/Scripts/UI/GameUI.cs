@@ -129,7 +129,6 @@ public class GameUI : MonoBehaviour
         _staminaValue.text = $"{player.BaseStamina} + {player.MaxStamina - player.BaseStamina} - {player.MaxStamina}";
         _staminaRegenerationValue.text = $"{player.BaseStaminaRegenerationRate} + {player.StaminaRegenerationRate - player.BaseStaminaRegenerationRate} - {player.StaminaRegenerationRate}";
         _strengthValue.text = $"{player.BaseStrength} + {player.Strength - player.BaseStrength} - {player.Strength}";
-        _perksValue.text = $"{player.BasePerksAmount} + {player.PerksMaxAmount - player.BasePerksAmount} - {player.PerksMaxAmount}";
         _reachValue.text = $"{player.BaseReach} + {player.Reach - player.BaseReach} - {player.Reach}";
         _movementSpeedValue.text = $"{player.BaseMovementSpeed} + {player.MovementSpeed - player.BaseMovementSpeed} - {player.MovementSpeed}";
         _jumpForceValue.text = $"{player.BaseJumpForce} + {player.JumpForce - player.BaseJumpForce} - {player.JumpForce}";
