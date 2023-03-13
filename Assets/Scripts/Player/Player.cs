@@ -39,9 +39,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float swingStaminaLoss = 10f;
     [SerializeField] private float swingStaminaLossModifier = 0f;
 
-    [Header("Score")]
-    public float CurrentScore = 0f;
-
     [Header("Player health")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float health = 100f;
@@ -174,8 +171,6 @@ public class Player : MonoBehaviour
 
         TimeToNextSwing = timeBetweenSwings;
         playerPickaxe.ChangePickaxe(startingPickaxe);
-
-        PlayerController.OnItemPickup += CalculateScore;
     }
 
     private void Update() {
@@ -321,13 +316,6 @@ public class Player : MonoBehaviour
             inventory[item.ItemId] += item.Weight;
         else
             inventory.Add(item.ItemId, item.Weight);
-
-        //todo delete this code once game manager is implemented
-        CurrentScore += item.Weight * item.BaseValue;
-    }
-
-    public void CalculateScore(){
-        // todo: calculating score
     }
 
     public void AddMinedObjectToTracker(){

@@ -29,15 +29,11 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text _emeraldWeight;
 
     [Space]
-    [SerializeField] private Text _scoreValue;
-
-    [Space]
     [SerializeField] private Text _healthValue;
     [SerializeField] private Text _healthRegenerationValue;
     [SerializeField] private Text _staminaValue;
     [SerializeField] private Text _staminaRegenerationValue;
     [SerializeField] private Text _strengthValue;
-    [SerializeField] private Text _perksValue;
     [SerializeField] private Text _reachValue;
     [SerializeField] private Text _movementSpeedValue;
     [SerializeField] private Text _jumpForceValue;
@@ -122,8 +118,6 @@ public class GameUI : MonoBehaviour
         _goldWeight.text = $"{(inv.ContainsKey(2)?inv[2]:0).ToString("F2")}kg";
         _emeraldWeight.text = $"{(inv.ContainsKey(3)?inv[3]:0).ToString("F2")}kg";
 
-        _scoreValue.text = player.CurrentScore.ToString("F2");
-     
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
         _staminaValue.text = $"{player.BaseStamina} + {player.MaxStamina - player.BaseStamina} - {player.MaxStamina}";
