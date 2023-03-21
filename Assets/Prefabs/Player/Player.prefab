@@ -641,6 +641,7 @@ GameObject:
   - component: {fileID: 3819177532989640669}
   - component: {fileID: 3819177532989640670}
   - component: {fileID: 3819177532989640668}
+  - component: {fileID: 1588136953}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -681,7 +682,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3819177532989640670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,12 +715,12 @@ MonoBehaviour:
   health: 100
   healthModifier: 0
   healthRegeneration: 2
-  healthRegenerationModifier: 2
+  healthRegenerationModifier: 0
   maxStamina: 100
   stamina: 100
   staminaModifier: 0
   staminaRegeneration: 15
-  staminaRegenerationModifier: 15
+  staminaRegenerationModifier: 0
   IsRegeneratingStamina: 0
   IsRegeneratingHealth: 0
   defaultReach: 3.5
@@ -730,18 +731,20 @@ MonoBehaviour:
   IsGrounded: 0
   IsMoving: 0
   CanMove: 1
-  CanSprint: 0
-  CanJump: 0
+  CanSprint: 1
+  CanJump: 1
   CanStand: 0
-  defaultJumpForce: 400
-  jumpForce: 400
+  defaultJumpForce: 700
+  jumpForce: 700
   jumpForceModifier: 0
   sprintJumpForceModifier: 1.15
-  defaultMovementSpeed: 4
-  movementSpeed: 4
+  defaultMovementSpeed: 6
+  movementSpeed: 6
   movementSpeedModifier: 0
-  defaultSprintMultiplier: 1.5
-  sprintMultiplier: 1.5
+  movementSpeedForceMultiplier: 1000
+  groundDrag: 10
+  defaultSprintMultiplier: 3
+  sprintMultiplier: 3
   sprintSpeedModifier: 0
   defaultCrouchMultiplier: 0.5
   crouchMultiplier: 0.5
@@ -770,18 +773,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a85a8ba156c4141ad05e7a52984060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBody: {fileID: 3819177532251211081}
-  playerCrouchBody: {fileID: 1762390028}
+  _camera: {fileID: 3819177533716778748}
   reachMineableHitPos: {x: 0, y: 0, z: 0}
   _body: {fileID: 3819177532251211081}
   _leftHand: {fileID: 3819177532550312568}
   _rightHand: {fileID: 3819177532986523829}
-  _head: {fileID: 3819177532396062735}
-  sensitivity: 10
+--- !u!114 &1588136953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819177532989640656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bdc1eadc5491c046af7c1cb01c9cd9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBody: {fileID: 3819177532251211081}
+  playerCrouchBody: {fileID: 1762390028}
+  sensitivity: 20
   xRotation: 0
   _view: {fileID: 3819177533289764165}
   _camera: {fileID: 3819177533716778748}
-  gravityMultiplier: 5
+  gravityMultiplier: 30
+  _head: {fileID: 3819177532396062735}
+  maxSlopeAngle: 35
 --- !u!1 &3819177533022174473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1065,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 503
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

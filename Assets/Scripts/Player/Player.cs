@@ -87,6 +87,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float movementSpeedModifier = 0f;
 
     [Space]
+    [SerializeField] private float movementSpeedForceMultiplier = 4f;
+    [SerializeField] private float groundDrag = 10f;
+
+    [Space]
     [SerializeField] private float defaultSprintMultiplier = 1.5f;
     [SerializeField] private float sprintMultiplier = 1.5f;
     [SerializeField] private float sprintSpeedModifier = 0f;
@@ -135,6 +139,10 @@ public class Player : MonoBehaviour
 
     public float BaseMovementSpeed {get {return movementSpeed;}}
     public float MovementSpeed {get {return movementSpeed + movementSpeedModifier;}}
+
+    public float MovementSpeedForceMultiplier { get { return movementSpeedForceMultiplier; } }
+    public float GroundDrag { get { return groundDrag; } }
+
 
     public float SprintMultiplier {get {return sprintMultiplier + sprintSpeedModifier;}}
     public float CrouchMultiplier {get {return crouchMultiplier + crouchSpeedModifier;}}
