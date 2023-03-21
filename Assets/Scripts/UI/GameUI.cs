@@ -29,15 +29,11 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text _emeraldWeight;
 
     [Space]
-    [SerializeField] private Text _scoreValue;
-
-    [Space]
     [SerializeField] private Text _healthValue;
     [SerializeField] private Text _healthRegenerationValue;
     [SerializeField] private Text _staminaValue;
     [SerializeField] private Text _staminaRegenerationValue;
     [SerializeField] private Text _strengthValue;
-    [SerializeField] private Text _perksValue;
     [SerializeField] private Text _reachValue;
     [SerializeField] private Text _movementSpeedValue;
     [SerializeField] private Text _jumpForceValue;
@@ -108,7 +104,6 @@ public class GameUI : MonoBehaviour
         _isGrounded.text = $"is grounded: {player.IsGrounded}";
         _canMove.text = $"can move: {player.CanMove}";
         _isMoving.text = $"is moving: {player.IsMoving}";
-        _isChangingPosition.text = $"is changing position: {player.ChangingPositionInProgress}";
         _isRegeneratingHealth.text = $"is regenerating health: {player.IsRegeneratingHealth}";
         _isRegeneratingStamina.text = $"is regenerating stamina: {player.IsRegeneratingStamina}";
     }
@@ -122,14 +117,11 @@ public class GameUI : MonoBehaviour
         _goldWeight.text = $"{(inv.ContainsKey(2)?inv[2]:0).ToString("F2")}kg";
         _emeraldWeight.text = $"{(inv.ContainsKey(3)?inv[3]:0).ToString("F2")}kg";
 
-        _scoreValue.text = player.CurrentScore.ToString("F2");
-     
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
         _staminaValue.text = $"{player.BaseStamina} + {player.MaxStamina - player.BaseStamina} - {player.MaxStamina}";
         _staminaRegenerationValue.text = $"{player.BaseStaminaRegenerationRate} + {player.StaminaRegenerationRate - player.BaseStaminaRegenerationRate} - {player.StaminaRegenerationRate}";
         _strengthValue.text = $"{player.BaseStrength} + {player.Strength - player.BaseStrength} - {player.Strength}";
-        _perksValue.text = $"{player.BasePerksAmount} + {player.PerksMaxAmount - player.BasePerksAmount} - {player.PerksMaxAmount}";
         _reachValue.text = $"{player.BaseReach} + {player.Reach - player.BaseReach} - {player.Reach}";
         _movementSpeedValue.text = $"{player.BaseMovementSpeed} + {player.MovementSpeed - player.BaseMovementSpeed} - {player.MovementSpeed}";
         _jumpForceValue.text = $"{player.BaseJumpForce} + {player.JumpForce - player.BaseJumpForce} - {player.JumpForce}";

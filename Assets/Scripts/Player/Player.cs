@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public string MINEABLE_TAG {get;} = "Mineable";
-    public string PICKABLE_TAG {get;} = "Pickable";
-    
     //ItemId, amount
     private Dictionary<int, float> inventory;
 
@@ -39,9 +36,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float swingStaminaLoss = 10f;
     [SerializeField] private float swingStaminaLossModifier = 0f;
 
-    [Header("Score")]
-    public float CurrentScore = 0f;
-
     [Header("Player health")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float health = 100f;
@@ -60,16 +54,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float staminaRegeneration = 15f;
     [SerializeField] private float staminaRegenerationModifier = 0f;
 
-    [Header("Perks")]
-    [SerializeField] private int defaultPerksMaxAmount = 5;
-    [SerializeField] private int perksMaxAmount = 5;
-    [SerializeField] private int perksMaxAmountModifier = 0;
-    public List<Perk> PlayerPerks;
-
     [Header("Regeneration")]
     public bool IsRegeneratingStamina;
     public bool IsRegeneratingHealth;
-    
     
     [Header("Reach")]
     [SerializeField] private float defaultReach = 3f;
@@ -81,7 +68,6 @@ public class Player : MonoBehaviour
     public bool IsSprinting;
     public bool IsGrounded;
     public bool IsMoving;
-    public bool ChangingPositionInProgress;
     
     [Space]
     public bool CanMove = true;
@@ -93,11 +79,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float defaultJumpForce = 450f;
     [SerializeField] private float jumpForce = 450f;
     [SerializeField] private float jumpForceModifier = 0f;
+    [SerializeField] private float sprintJumpForceModifier = 1.5f;
 
     [Header("Movement speeds")]
     [SerializeField] private float defaultMovementSpeed = 4f;
     [SerializeField] private float movementSpeed = 4f;
     [SerializeField] private float movementSpeedModifier = 0f;
+
+    [Space]
+    [SerializeField] private float movementSpeedForceMultiplier = 4f;
+    [SerializeField] private float groundDrag = 10f;
 
     [Space]
     [SerializeField] private float defaultSprintMultiplier = 1.5f;
@@ -142,14 +133,16 @@ public class Player : MonoBehaviour
     public float BaseSwingSpeed {get {return swingSpeed;}}
     public float SwingSpeed {get {return swingSpeed + swingSpeedModifier;}}
     
-    public float BasePerksAmount {get {return perksMaxAmount;}}
-    public int PerksMaxAmount {get {return perksMaxAmount + perksMaxAmountModifier;}}
-
     public float BaseJumpForce {get {return jumpForce;}}
     public float JumpForce {get {return jumpForce + jumpForceModifier;}}
+    public float SprintJumpForce {get {return sprintJumpForceModifier;}}
 
     public float BaseMovementSpeed {get {return movementSpeed;}}
     public float MovementSpeed {get {return movementSpeed + movementSpeedModifier;}}
+
+    public float MovementSpeedForceMultiplier { get { return movementSpeedForceMultiplier; } }
+    public float GroundDrag { get { return groundDrag; } }
+
 
     public float SprintMultiplier {get {return sprintMultiplier + sprintSpeedModifier;}}
     public float CrouchMultiplier {get {return crouchMultiplier + crouchSpeedModifier;}}
@@ -175,7 +168,6 @@ public class Player : MonoBehaviour
     #endregion
 
     private void Awake() {
-        PlayerPerks = new List<Perk>();
         inventory = new Dictionary<int, float>();
         minedTracker = new Dictionary<string, int>();
     }
@@ -185,8 +177,6 @@ public class Player : MonoBehaviour
 
         TimeToNextSwing = timeBetweenSwings;
         playerPickaxe.ChangePickaxe(startingPickaxe);
-
-        PlayerController.OnItemPickup += CalculateScore;
     }
 
     private void Update() {
@@ -208,7 +198,6 @@ public class Player : MonoBehaviour
         staminaModifier = 0f;
         swingSpeedModifier = 0f;
         swingStaminaLossModifier = 0f;
-        perksMaxAmountModifier = 0;
         jumpForceModifier = 0f;
         movementSpeedModifier = 0f;
         sprintSpeedModifier = 0f;
@@ -228,7 +217,6 @@ public class Player : MonoBehaviour
         stamina = MaxStamina;
         swingSpeed = SwingSpeed;
         swingStaminaLoss = SwingStaminaLoss;
-        perksMaxAmount = PerksMaxAmount;
         jumpForce = JumpForce;
         movementSpeed = MovementSpeed;
         sprintMultiplier = SprintMultiplier;
@@ -334,13 +322,6 @@ public class Player : MonoBehaviour
             inventory[item.ItemId] += item.Weight;
         else
             inventory.Add(item.ItemId, item.Weight);
-
-        //todo delete this code once game manager is implemented
-        CurrentScore += item.Weight * item.BaseValue;
-    }
-
-    public void CalculateScore(){
-        // todo: calculating score
     }
 
     public void AddMinedObjectToTracker(){

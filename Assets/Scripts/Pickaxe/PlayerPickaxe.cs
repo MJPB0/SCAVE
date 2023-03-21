@@ -30,11 +30,9 @@ public class PlayerPickaxe : MonoBehaviour
         playerController = GetComponentInParent<PlayerController>();
     }
 
-    //Changes player's current pickaxe to the passed one 
     public void ChangePickaxe(PickaxeScriptableObject newPickaxe){
         if (newPickaxe == pickaxeSO) return;
 
-        //set new pickaxe's values
         pickaxeSO = newPickaxe;
         tier = pickaxeSO.Tier;
         damage = pickaxeSO.Damage;

@@ -139,10 +139,11 @@ MonoBehaviour:
   sizeMultiplier: 0.8
   itemDrops:
   - {fileID: 5878020293945260852, guid: 77c8852094674764793610353b359432, type: 3}
+  mineableSO: {fileID: 11400000, guid: 337d096588ebc374daff4f694da5eca1, type: 2}
   itemDropChances:
   - 0.5
-  mineableSO: {fileID: 11400000, guid: 337d096588ebc374daff4f694da5eca1, type: 2}
-  impactParticles: {fileID: 0}
+  impactParticles: {fileID: 7401108098672244588, guid: 6393c541907fe49409186bf925727059,
+    type: 3}
 --- !u!64 &1025115883458667072
 MeshCollider:
   m_ObjectHideFlags: 0
