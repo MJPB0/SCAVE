@@ -6,7 +6,6 @@ public class MineableObject : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private bool isMineable = true;
-    [SerializeField] private bool wasMined = true;
     [SerializeField] private bool dropOnMine = true;
 
     [Space]
@@ -15,7 +14,7 @@ public class MineableObject : MonoBehaviour
     
     [Space]
     [SerializeField] private int dropRate = 2;
-    [SerializeField] private float sizeMultiplier = 1f;
+    [SerializeField] private float dropItemSizeMultiplier = 1f;
     [SerializeField] private List<GameObject> itemDrops;
     [SerializeField] private MineableScriptableObject mineableSO;
     [Range(0, 1)][SerializeField] private List<float> itemDropChances;
@@ -54,7 +53,6 @@ public class MineableObject : MonoBehaviour
 
     public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos){
         if (!isMineable) {
-            //Debug.Log($"Can't mine {gameObject.name}! Required pickaxe tier: {mineableSO.PickaxeTierRequired}.");
             return;
         }
 
@@ -71,13 +69,10 @@ public class MineableObject : MonoBehaviour
         health -= value;
         if (dropOnMine && itemDrops.Count > 0)
             DropItems();
-        //Debug.Log($"Player hit {gameObject.name} for {value}dmg!");
     }
 
     private void WasMined(){
         isMineable = false;
-        wasMined = true;
-        //Debug.Log($"Player successfuly mined {gameObject.name}!");
         
         PlayerController.OnObjectMined?.Invoke();
 
@@ -91,7 +86,7 @@ public class MineableObject : MonoBehaviour
 
         for (int i = 0; i < amount; i++){
             for (int j = 0; j < itemDrops.Count; j++){
-                float itemScale = sizeMultiplier * Random.Range(.5f,1.5f);
+                float itemScale = dropItemSizeMultiplier * Random.Range(.5f,1.5f);
                 float chance = Random.Range(0f,1f);
 
                 if (chance < 1 - itemDropChances[j]) continue;
