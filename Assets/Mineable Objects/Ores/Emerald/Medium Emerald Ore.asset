@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e46f67cf46bebe4893bfdb485354438, type: 3}
-  m_Name: Large Emerald
+  m_Name: Medium Emerald Ore
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  pickaxeTierRequired: 1
-  material: {fileID: 2100000, guid: 673f706a4fb5d8540a1cfc264d49493b, type: 2}
-  meshes:
-  - {fileID: 4300002, guid: e46931e5fb541ca4a87fba28db805a06, type: 3}
-  - {fileID: 4300002, guid: 8beff6b3bf60d5940abef1e0eb42fb70, type: 3}
-  - {fileID: 4300002, guid: f5eb667268ae2ed40a94e47752030ce5, type: 3}
+  maxHealth: 500
+  pickaxeTierRequired: 7
+  mesh: {fileID: 4300000, guid: f95141b91f43cbd45b092765623f91d9, type: 3}

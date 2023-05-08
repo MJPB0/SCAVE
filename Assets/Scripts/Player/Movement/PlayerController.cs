@@ -166,9 +166,12 @@ public class PlayerController : MonoBehaviour
 
         OnPickaxeHit?.Invoke();
 
+        // TODO fix error - move camera after triggering mine but before pickaxe hits the ore
         var mineable = objectToHit.GetComponent<MineableObject>();    
         mineable.Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
-        StartCoroutine(mineable.ImpactParticles());
+
+        // TODO new impact system
+        // StartCoroutine(mineable.ImpactParticles());
     }
 
     public void ObjectMined() {

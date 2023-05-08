@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4802107819761657020}
   - component: {fileID: 3462163936594533076}
   m_Layer: 7
-  m_Name: Gold nugget
+  m_Name: Medium Gold Nugget
   m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,12 +6,12 @@ using UnityEngine;
 public class MineableScriptableObject : ScriptableObject
 {
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private int pickaxeTierRequired;
-    [SerializeField] private Material material;
-    [SerializeField] private Mesh[] meshes;
 
-    public Mesh[] Meshes {get {return meshes;}}
+    [SerializeField] private int pickaxeTierRequired;
+
+    [SerializeField] private Mesh mesh;
+
     public float Health {get {return maxHealth;}}
     public int PickaxeTierRequired {get {return pickaxeTierRequired;}}
-    public Material Material {get {return material;}}
+    public Mesh Mesh {get {return mesh;}}
 }
