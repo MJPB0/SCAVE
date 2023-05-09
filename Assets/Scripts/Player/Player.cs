@@ -124,6 +124,8 @@ public class Player : MonoBehaviour
     [Space]
     public LayerMask WalkableLayerMask;
 
+    private PlayerController playerController;
+
     #region  Getters
     public float Health {get {return health;}}
     public float BaseHealth {get {return maxHealth;}}
@@ -179,6 +181,8 @@ public class Player : MonoBehaviour
     private void Awake() {
         inventory = new Dictionary<int, float>();
         minedTracker = new Dictionary<string, int>();
+
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Start() {
@@ -334,7 +338,7 @@ public class Player : MonoBehaviour
     }
 
     public void AddMinedObjectToTracker(){
-        string objName = SelectedObject.gameObject.GetComponent<MineableObject>().Name();
+        string objName = playerController.ObjectToHit.gameObject.GetComponent<MineableObject>().Name();
         if (minedTracker.ContainsKey(objName))
             minedTracker[objName]++;
         else

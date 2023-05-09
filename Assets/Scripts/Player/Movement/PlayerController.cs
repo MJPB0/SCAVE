@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerActions Controls {get; private set;}
 
-    private GameObject objectToHit;
+    [Header("Object to be hit")]
+    [SerializeField] private GameObject objectToHit;
     private Vector3 objectHitPos;
 
     private Player player;
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _leftHand;
     [SerializeField] private GameObject _rightHand;
+
+    public GameObject ObjectToHit { get { return objectToHit; } }
 
     public Vector3 HitPosition {get {return objectHitPos;}}
 
@@ -166,7 +169,6 @@ public class PlayerController : MonoBehaviour
 
         OnPickaxeHit?.Invoke();
 
-        // TODO fix error - move camera after triggering mine but before pickaxe hits the ore
         var mineable = objectToHit.GetComponent<MineableObject>();
 
         bool isCritical = Random.Range(0f, 1f) < player.CriticalChance;
