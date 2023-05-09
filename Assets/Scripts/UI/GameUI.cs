@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,9 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text _reachValue;
     [SerializeField] private Text _movementSpeedValue;
     [SerializeField] private Text _jumpForceValue;
+
+    [Header("Console")]
+    [SerializeField] private Text _logs;
 
     [Header("Debug")]
     [SerializeField] private bool showDebug;
@@ -160,5 +164,10 @@ public class GameUI : MonoBehaviour
         _pickaxeDamage.text = $"Damage: {player.Pickaxe.Damage}";
         _pickaxeTier.text = $"Tier: {player.Pickaxe.Tier}";
         _pickaxeIcon.sprite = player.Pickaxe.Icon;
+    }
+
+    public void AddLog(string log)
+    {
+        _logs.text += $"\n({DateTime.Now}) {log}";
     }
 }

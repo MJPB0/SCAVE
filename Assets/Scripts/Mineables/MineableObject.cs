@@ -26,11 +26,18 @@ public class MineableObject : MonoBehaviour
     [Space]
     [SerializeField] private MineableScriptableObject mineableSO;
 
+    private GameUI gameUI;
+
     private Vector3 playerPos;
     private Vector3 hitPos;
 
     public string Name() {
         return mineableSO.name;
+    }
+
+    private void Awake()
+    {
+        gameUI = FindObjectOfType<GameUI>();
     }
 
     private void Start() {
@@ -50,11 +57,14 @@ public class MineableObject : MonoBehaviour
 
     public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos) {
         if (!isMineable) {
+            gameUI.AddLog($"{gameObject.name} is not mineable by the Player");
             return;
         }
 
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
+
+        gameUI.AddLog($"{gameObject.name} received {damage}dmg");
 
         if (health > damage)
             ReduceHealth(damage);

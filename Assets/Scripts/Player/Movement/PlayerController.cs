@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 HitPosition {get {return objectHitPos;}}
 
+    private GameUI gameUI;
+
     private void Awake() {
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.Movement.canceled += cts => playerMovement.MovementInput = Vector2.zero;
 
         Controls.Gameplay.MouseMovement.performed += ctx => playerMovement.MouseInput = ctx.ReadValue<Vector2>();
+
+        gameUI = FindObjectOfType<GameUI>();
     }
 
     private void Start()
@@ -137,6 +141,9 @@ public class PlayerController : MonoBehaviour
         if (item.IsPickable){
             player.AddItemToInventory(item);
             OnItemPickup?.Invoke();
+
+            gameUI.AddLog($"Player picked {item.name}");
+
             Destroy(item.gameObject);
         }
         else
@@ -175,6 +182,8 @@ public class PlayerController : MonoBehaviour
         float damage = player.Pickaxe.Damage + player.Strength;
         float damageToBeDealt = isCritical ? damage * player.CriticalMultiplier : damage;
 
+        gameUI.AddLog($"Player tried dealing {damageToBeDealt}{(isCritical ? " critical" : "")} dmg to {mineable.name}");
+
         mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
 
         // TODO new impact system
@@ -182,6 +191,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ObjectMined() {
+        gameUI.AddLog($"Player mined {objectToHit.name}");
         player.AddMinedObjectToTracker();
     }
 }
