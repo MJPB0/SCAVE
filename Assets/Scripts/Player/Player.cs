@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float strength = 15f;
     [SerializeField] private float strengthModifier = 0f;
 
+    [Space]
+    [SerializeField] private float baseCriticalDamageMultiplier = 2f;
+    [SerializeField] private float criticalDamageMultiplierModifier = 2f;
+    [SerializeField][Range(0f,1f)] private float baseCriticalDamageChance = 0.5f;
+    [SerializeField][Range(0f,1f)] private float criticalDamageChanceModifier = 0.5f;
+
     [Header("Pickaxe Swing speed")]
     [SerializeField] private float defaultSwingSpeed = 2f;
     [SerializeField] private float swingSpeed = 2f;
@@ -128,7 +134,10 @@ public class Player : MonoBehaviour
     public float MaxStamina {get {return maxStamina + staminaModifier;}}
 
     public float BaseStrength {get {return strength;}}
-    public float Strength {get {return strength + strengthModifier;}}
+    public float Strength {get {return strength + strengthModifier;} }
+
+    public float CriticalChance { get { return baseCriticalDamageChance + criticalDamageChanceModifier > 1 ? 1 : baseCriticalDamageChance + criticalDamageChanceModifier; } }
+    public float CriticalMultiplier { get { return baseCriticalDamageMultiplier + criticalDamageMultiplierModifier; } }
 
     public float BaseSwingSpeed {get {return swingSpeed;}}
     public float SwingSpeed {get {return swingSpeed + swingSpeedModifier;}}
