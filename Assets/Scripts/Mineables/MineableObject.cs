@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class MineableObject : MonoBehaviour
@@ -26,18 +27,11 @@ public class MineableObject : MonoBehaviour
     [Space]
     [SerializeField] private MineableScriptableObject mineableSO;
 
-    private GameUI gameUI;
-
     private Vector3 playerPos;
     private Vector3 hitPos;
 
     public string Name() {
         return mineableSO.name;
-    }
-
-    private void Awake()
-    {
-        gameUI = FindObjectOfType<GameUI>();
     }
 
     private void Start() {
@@ -57,14 +51,13 @@ public class MineableObject : MonoBehaviour
 
     public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos) {
         if (!isMineable) {
-            gameUI.AddLog($"{gameObject.name} is not mineable by the Player");
+            Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> is not mineable by the <color=teal>Player</color>");
             return;
         }
-
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
 
-        gameUI.AddLog($"{gameObject.name} received {damage}dmg");
+        Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> received <color=maroon>{damage}dmg</color>");
 
         if (health > damage)
             ReduceHealth(damage);
@@ -103,6 +96,8 @@ public class MineableObject : MonoBehaviour
 
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
+
+            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
         }
     }
 
@@ -120,6 +115,8 @@ public class MineableObject : MonoBehaviour
 
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
+
+            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
         }
     }
 }

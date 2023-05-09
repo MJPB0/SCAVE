@@ -48,8 +48,6 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 HitPosition {get {return objectHitPos;}}
 
-    private GameUI gameUI;
-
     private void Awake() {
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -74,8 +72,6 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.Movement.canceled += cts => playerMovement.MovementInput = Vector2.zero;
 
         Controls.Gameplay.MouseMovement.performed += ctx => playerMovement.MouseInput = ctx.ReadValue<Vector2>();
-
-        gameUI = FindObjectOfType<GameUI>();
     }
 
     private void Start()
@@ -142,12 +138,12 @@ public class PlayerController : MonoBehaviour
             player.AddItemToInventory(item);
             OnItemPickup?.Invoke();
 
-            gameUI.AddLog($"Player picked {item.name}");
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
 
             Destroy(item.gameObject);
         }
         else
-            Debug.Log($"Can't pick up {gameObject.name}!");
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{gameObject.name}</color>!");
     }
 
     private void SwingPickaxe(){
@@ -182,7 +178,7 @@ public class PlayerController : MonoBehaviour
         float damage = player.Pickaxe.Damage + player.Strength;
         float damageToBeDealt = isCritical ? damage * player.CriticalMultiplier : damage;
 
-        gameUI.AddLog($"Player tried dealing {damageToBeDealt}{(isCritical ? " critical" : "")} dmg to {mineable.name}");
+        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> tried dealing <color=maroon>{damageToBeDealt}{(isCritical ? " critical" : "")} dmg</color> to <color=red>{mineable.name}</color>");
 
         mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
 
@@ -191,7 +187,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ObjectMined() {
-        gameUI.AddLog($"Player mined {objectToHit.name}");
+        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> mined <color=red>{objectToHit.name}</color>");
         player.AddMinedObjectToTracker();
     }
 }
