@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class MineableObject : MonoBehaviour
 {
@@ -49,23 +49,27 @@ public class MineableObject : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = mineableSO.Mesh;
     }
 
-    public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos) {
-        if (!isMineable) {
-            Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> is not mineable by the <color=teal>Player</color>");
-            return;
-        }
+    public bool Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos)
+    {
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
 
-        Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> received <color=maroon>{damage}dmg</color>");
+        if (!isMineable) {
+            Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> is not mineable by the <color=teal>Player</color>");
+            return false;
+        }
 
         if (health > damage)
             ReduceHealth(damage);
         else
             WasMined();
 
+        Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> received <color=maroon>{damage}dmg</color>");
+
         if (baseDrops.Length > 0)
             DropItems();
+
+        return true;
     }
 
     private void ReduceHealth(float value) {
@@ -118,5 +122,36 @@ public class MineableObject : MonoBehaviour
 
             Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
         }
+    }
+
+    public IEnumerator InstantiateImpactParticles(bool isSuccess)
+    {
+        Vector3 direction = playerPos - hitPos;
+        Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
+
+        GameObject impactParticles = isSuccess ? mineableSO.SuccessfulImpactParticles : mineableSO.FailedImpactParticles;
+        GameObject particles = Instantiate(impactParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
+
+        ParticleSystem system = particles.GetComponent<ParticleSystem>();
+
+        yield return new WaitUntil(() => !system.isPlaying);
+        Destroy(particles);
+    }
+
+    public IEnumerator InstantiateDebrisParticles()
+    {
+        Vector3 direction = playerPos - hitPos;
+        Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
+
+        GameObject particles = Instantiate(mineableSO.DebrisParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
+
+        ParticleSystem system = particles.GetComponent<ParticleSystem>();
+        var mainSystem = system.main;
+
+        Color materialColor = GetComponentInChildren<MeshRenderer>().material.color;
+        mainSystem.startColor = new Color(materialColor.r, materialColor.g, materialColor.b, 1);
+
+        yield return new WaitUntil(() => !system.isPlaying);
+        Destroy(particles);
     }
 }

@@ -15,3 +15,9 @@ MonoBehaviour:
   maxHealth: 500
   pickaxeTierRequired: 5
   mesh: {fileID: 4300000, guid: c00e191301447e14e8d2081f89deffff, type: 3}
+  debrisParticles: {fileID: 1298064758773288657, guid: 0a40cd7bdda1acb40ad21d95eb7749d1,
+    type: 3}
+  successfulImpactParticles: {fileID: 4434463226575703240, guid: e7dc0724091cec843ad7e5554b115f85,
+    type: 3}
+  failedImpactParticles: {fileID: 4037971861842861048, guid: 466034fa3b446a74cb1768730e75d2c9,
+    type: 3}

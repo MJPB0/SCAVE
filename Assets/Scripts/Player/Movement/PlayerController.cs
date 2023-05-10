@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using Unity.VisualScripting;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class PlayerController : MonoBehaviour
 {
@@ -180,10 +176,10 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> tried dealing <color=maroon>{damageToBeDealt}{(isCritical ? " critical" : "")} dmg</color> to <color=red>{mineable.name}</color>");
 
-        mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
+        bool result = mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
 
-        // TODO new impact system
-        // StartCoroutine(mineable.ImpactParticles());
+        StartCoroutine(mineable.InstantiateImpactParticles(result));
+        if (result) StartCoroutine(mineable.InstantiateDebrisParticles());
     }
 
     public void ObjectMined() {
