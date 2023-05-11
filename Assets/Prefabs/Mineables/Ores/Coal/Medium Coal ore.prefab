@@ -138,13 +138,13 @@ MonoBehaviour:
   maxDropOnHit: 6
   baseDrops:
   - {fileID: 5878020293945260852, guid: 1dedbf03575262c4285ac44bfc92d121, type: 3}
-  - {fileID: 5878020293945260852, guid: 77c8852094674764793610353b359432, type: 3}
+  - {fileID: 5878020293945260852, guid: bc0c2b6848b15fa4ea77bc1ed85b227d, type: 3}
   specialDropChance: 0.5
   minSpecialDrop: 0
   maxSpecialDrop: 2
   specialDrops:
-  - {fileID: 8071802800179038878, guid: 249e4d7046ab06a4582afdacc8213bad, type: 3}
-  mineableSO: {fileID: 11400000, guid: 53d1d43b80a508e439b795442b8965a7, type: 2}
+  - {fileID: 8071802800179038878, guid: 6d063086da63b4f4f887a694d2055daf, type: 3}
+  mineableSO: {fileID: 11400000, guid: 83fad96f8cde07a44a2d3c8ff1591c44, type: 2}
 --- !u!64 &6950314714173494420
 MeshCollider:
   m_ObjectHideFlags: 0
