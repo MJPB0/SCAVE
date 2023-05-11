@@ -705,6 +705,10 @@ MonoBehaviour:
   defaultStrength: 15
   strength: 15
   strengthModifier: 0
+  baseCriticalDamageMultiplier: 2
+  criticalDamageMultiplierModifier: 0
+  baseCriticalDamageChance: 0.5
+  criticalDamageChanceModifier: 0
   defaultSwingSpeed: 2
   swingSpeed: 2
   swingSpeedModifier: 0
@@ -798,7 +802,6 @@ MonoBehaviour:
   _camera: {fileID: 3819177533716778748}
   gravityMultiplier: 30
   _head: {fileID: 3819177532396062735}
-  maxSlopeAngle: 35
 --- !u!1 &3819177533022174473
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class MineableObject : MonoBehaviour
 {
@@ -11,16 +12,20 @@ public class MineableObject : MonoBehaviour
     [Space]
     [SerializeField] private float minOnMinedForceMultiplier = 0f;
     [SerializeField] private float maxOnMinedForceMultiplier = 15f;
-    
-    [Space]
-    [SerializeField] private int dropRate = 2;
-    [SerializeField] private float dropItemSizeMultiplier = 1f;
-    [SerializeField] private List<GameObject> itemDrops;
-    [SerializeField] private MineableScriptableObject mineableSO;
-    [Range(0, 1)][SerializeField] private List<float> itemDropChances;
+
+    [Header("Base drop")]
+    [SerializeField][Min(0)] private int minDropOnHit = 1;
+    [SerializeField] private int maxDropOnHit = 5;
+    [SerializeField] private GameObject[] baseDrops;
+
+    [Header("Special drop")]
+    [SerializeField][Range(0, 1)] private float specialDropChance = 0.5f;
+    [SerializeField][Min(1)] private int minSpecialDrop = 0;
+    [SerializeField] private int maxSpecialDrop = 3;
+    [SerializeField] private GameObject[] specialDrops;
 
     [Space]
-    [SerializeField] private GameObject impactParticles;
+    [SerializeField] private MineableScriptableObject mineableSO;
 
     private Vector3 playerPos;
     private Vector3 hitPos;
@@ -33,90 +38,118 @@ public class MineableObject : MonoBehaviour
         Setup();
     }
 
-    public void IsMineable(int pickaxeTier){
+    public void IsMineable(int pickaxeTier) {
         isMineable = pickaxeTier >= mineableSO.PickaxeTierRequired;
     }
 
-    private void Setup(){
-        if (itemDropChances.Count != itemDrops.Count)
-            Debug.LogError($"{gameObject.name}'s drops are not properly set!");
-
+    private void Setup() {
         health = mineableSO.Health;
-        GetComponentInChildren<MeshRenderer>().material = mineableSO.Material;
 
-        if (mineableSO.Meshes.Length < 1) return;
-        
-        Mesh mesh = mineableSO.Meshes[Random.Range(0, mineableSO.Meshes.Length - 1)];
-        GetComponentInChildren<MeshFilter>().mesh = mesh;
-        GetComponent<MeshCollider>().sharedMesh = mesh; 
+        GetComponentInChildren<MeshFilter>().mesh = mineableSO.Mesh;
+        GetComponent<MeshCollider>().sharedMesh = mineableSO.Mesh;
     }
 
-    public void Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos){
-        if (!isMineable) {
-            return;
-        }
-
+    public bool Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos)
+    {
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
+
+        if (!isMineable) {
+            Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> is not mineable by the <color=teal>Player</color>");
+            return false;
+        }
 
         if (health > damage)
             ReduceHealth(damage);
         else
             WasMined();
-    }
 
-    private void ReduceHealth(float value){
-        health -= value;
-        if (dropOnMine && itemDrops.Count > 0)
+        Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> received <color=maroon>{damage}dmg</color>");
+
+        if (baseDrops.Length > 0)
             DropItems();
+
+        return true;
     }
 
-    private void WasMined(){
+    private void ReduceHealth(float value) {
+        health -= value;
+    }
+
+    private void WasMined() {
         isMineable = false;
-        
+
         PlayerController.OnObjectMined?.Invoke();
 
-        if (itemDrops.Count > 0)
-            DropItems();
+        if (specialDrops.Length > 0 && Random.Range(0f, 1f) < specialDropChance)
+            DropSpecialItems();
+
         gameObject.SetActive(false);
     }
-  
-    public void DropItems(){
-        int amount = Random.Range(dropRate/2, dropRate+1);
 
-        for (int i = 0; i < amount; i++){
-            for (int j = 0; j < itemDrops.Count; j++){
-                float itemScale = dropItemSizeMultiplier * Random.Range(.5f,1.5f);
-                float chance = Random.Range(0f,1f);
+    public void DropItems() {
+        for (int i = 0; i < Random.Range(minDropOnHit, maxDropOnHit + 1); i++)
+        {
+            GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, transform.parent);
 
-                if (chance < 1 - itemDropChances[j]) continue;
+            Vector3 forceDirection = playerPos - instance.transform.position;
+            float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
 
-                GameObject instance = Instantiate(itemDrops[j], hitPos, Quaternion.identity, transform.parent);
-                
-                Vector3 forceDirection = playerPos - instance.transform.position;
-                float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-                float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-                float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-                Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
+            instance.GetComponent<Rigidbody>().AddForce(force);
+            instance.GetComponent<Item>().Setup(true);
 
-                instance.GetComponent<Rigidbody>().AddForce(force);
-                instance.GetComponent<Item>().Setup(true, itemScale);
-            }
+            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
         }
     }
-    
-    public IEnumerator ImpactParticles()
+
+    public void DropSpecialItems()
+    {
+        for (int i = 0; i < Random.Range(minSpecialDrop, maxSpecialDrop); i++)
+        {
+            GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, transform.parent);
+
+            Vector3 forceDirection = playerPos - instance.transform.position;
+            float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+            Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
+
+            instance.GetComponent<Rigidbody>().AddForce(force);
+            instance.GetComponent<Item>().Setup(true);
+
+            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
+        }
+    }
+
+    public IEnumerator InstantiateImpactParticles(bool isSuccess)
     {
         Vector3 direction = playerPos - hitPos;
         Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
 
+        GameObject impactParticles = isSuccess ? mineableSO.SuccessfulImpactParticles : mineableSO.FailedImpactParticles;
         GameObject particles = Instantiate(impactParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
 
         ParticleSystem system = particles.GetComponent<ParticleSystem>();
-        Color col = mineableSO.Material.color;
+
+        yield return new WaitUntil(() => !system.isPlaying);
+        Destroy(particles);
+    }
+
+    public IEnumerator InstantiateDebrisParticles()
+    {
+        Vector3 direction = playerPos - hitPos;
+        Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
+
+        GameObject particles = Instantiate(mineableSO.DebrisParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
+
+        ParticleSystem system = particles.GetComponent<ParticleSystem>();
         var mainSystem = system.main;
-        mainSystem.startColor = new Color(col.r, col.g, col.b);
-        system.Play();
+
+        Color materialColor = GetComponentInChildren<MeshRenderer>().material.color;
+        mainSystem.startColor = new Color(materialColor.r, materialColor.g, materialColor.b, 1);
 
         yield return new WaitUntil(() => !system.isPlaying);
         Destroy(particles);

@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e46f67cf46bebe4893bfdb485354438, type: 3}
   m_Name: Small Gold Ore
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 300
   pickaxeTierRequired: 1
-  material: {fileID: 2100000, guid: b2d74bec0e442ff4d991fd5853b45cb3, type: 2}
-  meshes:
-  - {fileID: 4300002, guid: 08746d293fd827e429733f5c209aee54, type: 3}
-  - {fileID: 4300000, guid: 60c9c19ace4c522459fb5d2243213bd5, type: 3}
-  - {fileID: 4300002, guid: a0071168e779c6a4591fac5de3ee9957, type: 3}
+  mesh: {fileID: 4300000, guid: c00e191301447e14e8d2081f89deffff, type: 3}
+  debrisParticles: {fileID: 1298064758773288657, guid: 0a40cd7bdda1acb40ad21d95eb7749d1,
+    type: 3}
+  successfulImpactParticles: {fileID: 4434463226575703240, guid: e7dc0724091cec843ad7e5554b115f85,
+    type: 3}
+  failedImpactParticles: {fileID: 4037971861842861048, guid: 466034fa3b446a74cb1768730e75d2c9,
+    type: 3}

@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 9163295556501208563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.429999, y: -4.2, z: -0.15487361}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9163295555191057006}
@@ -131,19 +131,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   isMineable: 1
-  wasMined: 0
   dropOnMine: 1
   minOnMinedForceMultiplier: 50
   maxOnMinedForceMultiplier: 150
-  dropRate: 4
-  sizeMultiplier: 1
-  itemDrops:
+  minDropOnHit: 2
+  maxDropOnHit: 5
+  baseDrops:
+  - {fileID: 6692337966150910294, guid: c1be6c906ea97434e9ddeed57a014b71, type: 3}
   - {fileID: 6692337966150910294, guid: 6a60abf7fe175594caa220d8da031f2c, type: 3}
+  specialDropChance: 0.5
+  minSpecialDrop: 0
+  maxSpecialDrop: 2
+  specialDrops:
+  - {fileID: 6692337966150910294, guid: dee9d9a842111da4fba179e662543f72, type: 3}
   mineableSO: {fileID: 11400000, guid: 83bbdf26a316adc43874ce119c47b30d, type: 2}
-  itemDropChances:
-  - 0.75
-  impactParticles: {fileID: 7401108098672244588, guid: 6393c541907fe49409186bf925727059,
-    type: 3}
 --- !u!64 &9163295556501208561
 MeshCollider:
   m_ObjectHideFlags: 0
