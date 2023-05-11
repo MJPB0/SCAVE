@@ -15,7 +15,7 @@ E:/Unity/SCAVE
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58545
+51166
 Successfully changed project path to: E:/Unity/SCAVE
 E:/Unity/SCAVE
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ E:/Unity/SCAVE
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [18180] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1237109015 [EditorId] 1237109015 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-C8B9G33) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [10832] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1380443812 [EditorId] 1380443812 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-C8B9G33) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [18180] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1237109015 [EditorId] 1237109015 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-C8B9G33) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [10832] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1380443812 [EditorId] 1380443812 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-C8B9G33) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 133.09 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 122.18 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.20f1 (577897200b8b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Resources/UnitySubsystems
@@ -67,92 +67,92 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56168
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56640
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.008345 seconds.
+Registered in 0.007559 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 133.21 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 129.33 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.671 seconds
+- Completed reload, in  1.091 seconds
 Domain Reload Profiling:
-	ReloadAssembly (671ms)
-		BeginReloadAssembly (79ms)
+	ReloadAssembly (1091ms)
+		BeginReloadAssembly (161ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (489ms)
-			LoadAssemblies (77ms)
+		EndReloadAssembly (695ms)
+			LoadAssemblies (157ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (100ms)
+			SetupTypeCache (304ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (24ms)
-			SetupLoadedEditorAssemblies (317ms)
+			RebuildScriptCaches (28ms)
+			SetupLoadedEditorAssemblies (314ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (9ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (133ms)
+				RefreshPlugins (129ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (133ms)
-				ProcessInitializeOnLoadMethodAttributes (40ms)
+				ProcessInitializeOnLoadAttributes (130ms)
+				ProcessInitializeOnLoadMethodAttributes (44ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.006834 seconds.
+Registered in 0.005921 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image E:\Unity\SCAVE\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image E:\Unity\SCAVE\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 134.05 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 142.33 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.001 seconds
+- Completed reload, in  2.182 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2001ms)
-		BeginReloadAssembly (122ms)
+	ReloadAssembly (2183ms)
+		BeginReloadAssembly (116ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (20ms)
-		EndReloadAssembly (1756ms)
-			LoadAssemblies (107ms)
+		EndReloadAssembly (1964ms)
+			LoadAssemblies (103ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (334ms)
+			SetupTypeCache (299ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (94ms)
-			SetupLoadedEditorAssemblies (1194ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (1446ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (7ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (134ms)
-				BeforeProcessingInitializeOnLoad (127ms)
-				ProcessInitializeOnLoadAttributes (869ms)
-				ProcessInitializeOnLoadMethodAttributes (45ms)
-				AfterProcessingInitializeOnLoad (11ms)
+				RefreshPlugins (142ms)
+				BeforeProcessingInitializeOnLoad (121ms)
+				ProcessInitializeOnLoadAttributes (1124ms)
+				ProcessInitializeOnLoadMethodAttributes (42ms)
+				AfterProcessingInitializeOnLoad (8ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 1.63 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.12 seconds
+Refreshing native plugins compatible for Editor in 1.29 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6200 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 192 unused Assets / (4.7 MB). Loaded Objects now: 6599.
-Memory consumption went from 256.1 MB to 251.3 MB.
-Total: 5.913300 ms (FindLiveObjects: 0.659300 ms CreateObjectMapping: 0.183900 ms MarkObjects: 3.533400 ms  DeleteObjects: 1.535600 ms)
+Unloading 6201 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 192 unused Assets / (4.7 MB). Loaded Objects now: 6600.
+Memory consumption went from 256.1 MB to 251.4 MB.
+Total: 5.932500 ms (FindLiveObjects: 0.649400 ms CreateObjectMapping: 0.202000 ms MarkObjects: 3.539200 ms  DeleteObjects: 1.540900 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -166,71 +166,84 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 691347.472482 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_PointGlow_01.tga
-  artifactKey: Guid(fe4136d6cf145b8459a9420ac0d0a17f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_PointGlow_01.tga using Guid(fe4136d6cf145b8459a9420ac0d0a17f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7c52f1af7181c8c8438a9ab8123fd9a') in 0.066807 seconds 
+  Time since last request: 773463.024956 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_02_HazeBlur_01.mat
+  artifactKey: Guid(1b53a3da271f62445a9b0409913ef0a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_02_HazeBlur_01.mat using Guid(1b53a3da271f62445a9b0409913ef0a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e69347e245b5fe724032e9e92497ee0') in 0.361163 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000042 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_03_Shockwave_2x2_01.tga
-  artifactKey: Guid(7e752a28bc352ab498bf2c97e4811c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_03_Shockwave_2x2_01.tga using Guid(7e752a28bc352ab498bf2c97e4811c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c8d5e9b877df97d41b91131c406a69d') in 0.017368 seconds 
+  Time since last request: 0.000041 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Guards
+  artifactKey: Guid(973cbb738b5281b4a98d77edfda0b5ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Guards using Guid(973cbb738b5281b4a98d77edfda0b5ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf5dbb00a38c601703fd77974c150e90') in 0.009059 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_03_Flash_2x2_01.tga
-  artifactKey: Guid(1a04758a87471c849ad403b1a94412d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_03_Flash_2x2_01.tga using Guid(1a04758a87471c849ad403b1a94412d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '159028599247010cc0a0b7a5d26cc254') in 0.016170 seconds 
+  Time since last request: 0.000047 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Demo Scene/Materials/HitImpactEffects_Floor.mat
+  artifactKey: Guid(b0b4e880ae2ab6540b044e0c0252a003) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Demo Scene/Materials/HitImpactEffects_Floor.mat using Guid(b0b4e880ae2ab6540b044e0c0252a003) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e2ba0b0fbcdb7933481631b01df105b') in 0.030066 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000051 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_PointBlur_01.tga
-  artifactKey: Guid(0b0313da3943afd4c88fe1ca7716385c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_PointBlur_01.tga using Guid(0b0313da3943afd4c88fe1ca7716385c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc5855841b08dfb83b765da595dcb917') in 0.013047 seconds 
+  Time since last request: 0.000028 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_02_HazeGlow_01.mat
+  artifactKey: Guid(a5a44e238f4fc2145a7fe8241f41ad40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_02_HazeGlow_01.mat using Guid(a5a44e238f4fc2145a7fe8241f41ad40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '587576594407d6f0241c4614dfa0e315') in 0.020671 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_01_Flash_01.tga
-  artifactKey: Guid(5b75f061f75167f459a08bbdf7bea1d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_01_Flash_01.tga using Guid(5b75f061f75167f459a08bbdf7bea1d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08d0db41a6e604f87d629dae58389389') in 0.017156 seconds 
+  Time since last request: 0.000034 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_04_FlashRays_01.mat
+  artifactKey: Guid(0f9a2e6c560af1f42ace29002a4bbea5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_04_FlashRays_01.mat using Guid(0f9a2e6c560af1f42ace29002a4bbea5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12edfafb31dc82718b633b0e707fb47e') in 0.027258 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_01_PointGlow_01.mat
+  artifactKey: Guid(72c7e2cef64f8b849b13451463e10a82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_01_PointGlow_01.mat using Guid(72c7e2cef64f8b849b13451463e10a82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0c796ad2be8e66fec35a71055db9bcc') in 0.025462 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000027 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Haze_01.tga
-  artifactKey: Guid(d8cd8d5b86acdf64e984de35d4a37b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Haze_01.tga using Guid(d8cd8d5b86acdf64e984de35d4a37b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f3a95d8fdf191c83923d5d9c42001a1') in 0.016748 seconds 
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_01_Smoke_01.mat
+  artifactKey: Guid(9097f20ba94d8734b8177e657244b84a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_01_Smoke_01.mat using Guid(9097f20ba94d8734b8177e657244b84a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1767f2b8ac4ecbab57f637fe88fb8924') in 0.031431 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_02_Flash_4x2_01.tga
-  artifactKey: Guid(6781d536704079c47a6d5151633b5815) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Textures/HIE_Hit_02_Flash_4x2_01.tga using Guid(6781d536704079c47a6d5151633b5815) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa04256e37cadd2dca425af39cee3128') in 0.016699 seconds 
+  Time since last request: 0.000026 seconds.
+  path: Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_04_PointGlow_01.mat
+  artifactKey: Guid(c787c5412f5eec24fa01e0c3b2105ea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Travis Game Assets/Hit Impact Effects/Materials/Hits/HIE_Hit_04_PointGlow_01.mat using Guid(c787c5412f5eec24fa01e0c3b2105ea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ff534c7a00adc4ed530926d65db5398') in 0.018763 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.832548 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Guards
-  artifactKey: Guid(ff19d3173dc01104aa538f09e9b41bb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Guards using Guid(ff19d3173dc01104aa538f09e9b41bb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '922b1a0a0c7e0f1ef01b4cf09ffbccc5') in 0.007943 seconds 
+  Time since last request: 413.195545 seconds.
+  path: Assets/FXIFIED/Stylized VFX Free Pack/Prefabs/Player.prefab
+  artifactKey: Guid(63795b60c0d0a174cbb78b6b40fe1ca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/FXIFIED/Stylized VFX Free Pack/Prefabs/Player.prefab using Guid(63795b60c0d0a174cbb78b6b40fe1ca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '118f4977b6bb66825ffbca4313038d2e') in 0.040111 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.057674 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Guards/Guard_01.prefab
-  artifactKey: Guid(a3e2c3406e02f2c4ba86cfb1604277bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Guards/Guard_01.prefab using Guid(a3e2c3406e02f2c4ba86cfb1604277bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d05817673f3f8647650d9dfd6e39a65') in 0.235661 seconds 
+  Time since last request: 630.239424 seconds.
+  path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
+  artifactKey: Guid(79459efec17a4d00a321bdcc27bbc385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat using Guid(79459efec17a4d00a321bdcc27bbc385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b02a3497f7dcea98c9ccefca4d75bef2') in 0.144108 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 20.602012 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Hits/Hit_02.prefab
-  artifactKey: Guid(ec3f674830402cc45bce805cf6493db7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Hits/Hit_02.prefab using Guid(ec3f674830402cc45bce805cf6493db7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9b8500e522fc4c8b5575c2444b9c569') in 0.021360 seconds 
+  Time since last request: 0.000040 seconds.
+  path: Packages/com.unity.probuilder/Content/Resources/Materials/VertexPickerHDRP.mat
+  artifactKey: Guid(7d5c9fc287a2aa945a98203d41282923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.probuilder/Content/Resources/Materials/VertexPickerHDRP.mat using Guid(7d5c9fc287a2aa945a98203d41282923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1343a96dfa79efe3b517a6cf70ae8c85') in 0.027334 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000042 seconds.
-  path: Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Hits/Hit_04.prefab
-  artifactKey: Guid(6ef35fa36e3a65043b2d800600204bdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Travis Game Assets/Hit Impact Effects/Prefabs/Hits/Hit_04.prefab using Guid(6ef35fa36e3a65043b2d800600204bdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '720d0eccb4d69f0fdc76a94b227ad1cf') in 0.056897 seconds 
+  Time since last request: 0.000039 seconds.
+  path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+  artifactKey: Guid(2e498d1c8094910479dc3e1b768306a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset using Guid(2e498d1c8094910479dc3e1b768306a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b564f3a865dd3318578548be59aed69') in 0.073978 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.551631 seconds.
+  path: Assets/FXIFIED/Stylized VFX Free Pack/Resources/font/hurry up.ttf
+  artifactKey: Guid(999d6718663be1340a0770a4e3a6741b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/FXIFIED/Stylized VFX Free Pack/Resources/font/hurry up.ttf using Guid(999d6718663be1340a0770a4e3a6741b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b78d410021befb2533c5a44c2a11b9a') in 0.038988 seconds 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
 AssetImportWorker is now disconnected from the server
 Process exiting
 Exiting without the bug reporter. Application will terminate with return code 0
