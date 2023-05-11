@@ -6,11 +6,15 @@ using UnityEngine;
 public class ItemScriptableObject : ScriptableObject
 {
     [SerializeField] private int id;
-    [SerializeField] private float unitWeight;
+
+    [SerializeField] private float weight;
+    [SerializeField] private float value;
+
     [SerializeField] private Mesh[] itemMeshes;
-    public float Value;
 
     public int ObjectId {get {return id;}}
-    public float UnitWeight {get {return unitWeight;}}
-    public Mesh[] ItemMeshes {get {return itemMeshes;}}
+    public float Weight {get {return weight;}}
+    public float Value {get {return value; } }
+    public Mesh[] ItemMeshes {get {return itemMeshes; }}
+    public Mesh RandomMesh { get { return itemMeshes[Random.Range(0, itemMeshes.Length - 1)]; } }
 }

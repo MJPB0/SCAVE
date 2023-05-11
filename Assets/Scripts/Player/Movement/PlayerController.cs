@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using Unity.VisualScripting;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,7 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerActions Controls {get; private set;}
 
-    private GameObject objectToHit;
+    [Header("Object to be hit")]
+    [SerializeField] private GameObject objectToHit;
     private Vector3 objectHitPos;
 
     private Player player;
@@ -42,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _leftHand;
     [SerializeField] private GameObject _rightHand;
+
+    public GameObject ObjectToHit { get { return objectToHit; } }
 
     public Vector3 HitPosition {get {return objectHitPos;}}
 
@@ -134,10 +133,13 @@ public class PlayerController : MonoBehaviour
         if (item.IsPickable){
             player.AddItemToInventory(item);
             OnItemPickup?.Invoke();
+
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
+
             Destroy(item.gameObject);
         }
         else
-            Debug.Log($"Can't pick up {gameObject.name}!");
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{gameObject.name}</color>!");
     }
 
     private void SwingPickaxe(){
@@ -166,12 +168,22 @@ public class PlayerController : MonoBehaviour
 
         OnPickaxeHit?.Invoke();
 
-        var mineable = objectToHit.GetComponent<MineableObject>();    
-        mineable.Mine(player.Pickaxe.Damage + player.Strength, player.transform.position, objectHitPos);
-        StartCoroutine(mineable.ImpactParticles());
+        var mineable = objectToHit.GetComponent<MineableObject>();
+
+        bool isCritical = Random.Range(0f, 1f) < player.CriticalChance;
+        float damage = player.Pickaxe.Damage + player.Strength;
+        float damageToBeDealt = isCritical ? damage * player.CriticalMultiplier : damage;
+
+        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> tried dealing <color=maroon>{damageToBeDealt}{(isCritical ? " critical" : "")} dmg</color> to <color=red>{mineable.name}</color>");
+
+        bool result = mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
+
+        StartCoroutine(mineable.InstantiateImpactParticles(result));
+        if (result) StartCoroutine(mineable.InstantiateDebrisParticles());
     }
 
     public void ObjectMined() {
+        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> mined <color=red>{objectToHit.name}</color>");
         player.AddMinedObjectToTracker();
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +24,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float defaultStrength = 15f;
     [SerializeField] private float strength = 15f;
     [SerializeField] private float strengthModifier = 0f;
+
+    [Space]
+    [SerializeField] private float baseCriticalDamageMultiplier = 2f;
+    [SerializeField] private float criticalDamageMultiplierModifier = 2f;
+    [SerializeField][Range(0f,1f)] private float baseCriticalDamageChance = 0.5f;
+    [SerializeField][Range(0f,1f)] private float criticalDamageChanceModifier = 0.5f;
 
     [Header("Pickaxe Swing speed")]
     [SerializeField] private float defaultSwingSpeed = 2f;
@@ -118,6 +123,8 @@ public class Player : MonoBehaviour
     [Space]
     public LayerMask WalkableLayerMask;
 
+    private PlayerController playerController;
+
     #region  Getters
     public float Health {get {return health;}}
     public float BaseHealth {get {return maxHealth;}}
@@ -128,7 +135,10 @@ public class Player : MonoBehaviour
     public float MaxStamina {get {return maxStamina + staminaModifier;}}
 
     public float BaseStrength {get {return strength;}}
-    public float Strength {get {return strength + strengthModifier;}}
+    public float Strength {get {return strength + strengthModifier;} }
+
+    public float CriticalChance { get { return baseCriticalDamageChance + criticalDamageChanceModifier > 1 ? 1 : baseCriticalDamageChance + criticalDamageChanceModifier; } }
+    public float CriticalMultiplier { get { return baseCriticalDamageMultiplier + criticalDamageMultiplierModifier; } }
 
     public float BaseSwingSpeed {get {return swingSpeed;}}
     public float SwingSpeed {get {return swingSpeed + swingSpeedModifier;}}
@@ -170,6 +180,8 @@ public class Player : MonoBehaviour
     private void Awake() {
         inventory = new Dictionary<int, float>();
         minedTracker = new Dictionary<string, int>();
+
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Start() {
@@ -325,7 +337,7 @@ public class Player : MonoBehaviour
     }
 
     public void AddMinedObjectToTracker(){
-        string objName = SelectedObject.gameObject.GetComponent<MineableObject>().Name();
+        string objName = playerController.ObjectToHit.gameObject.GetComponent<MineableObject>().Name();
         if (minedTracker.ContainsKey(objName))
             minedTracker[objName]++;
         else

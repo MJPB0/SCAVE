@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e46f67cf46bebe4893bfdb485354438, type: 3}
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 200
   pickaxeTierRequired: 1
-  material: {fileID: 2100000, guid: ba912efe1939d5f4b9a5575513c6d4cc, type: 2}
-  meshes:
-  - {fileID: 4300002, guid: 532788c369e551d44a067aa3c8bb182c, type: 3}
-  - {fileID: 4300002, guid: a7d8b4930aed6ec4c9fa956479d8716a, type: 3}
-  - {fileID: 4300002, guid: 5fb06f8a865bac84fb247bdc1ab373af, type: 3}
-  - {fileID: 4300002, guid: 78d8c60f364b56c468c7213af9ceda1e, type: 3}
+  mesh: {fileID: 4300000, guid: 27113a7a31e90b44ba19eec790fc2770, type: 3}
+  debrisParticles: {fileID: 1298064758773288657, guid: 0a40cd7bdda1acb40ad21d95eb7749d1,
+    type: 3}
+  successfulImpactParticles: {fileID: 4434463226575703240, guid: e7dc0724091cec843ad7e5554b115f85,
+    type: 3}
+  failedImpactParticles: {fileID: 4037971861842861048, guid: 466034fa3b446a74cb1768730e75d2c9,
+    type: 3}
