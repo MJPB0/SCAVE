@@ -126,7 +126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3462081630791681040}
-  m_LocalRotation: {x: -0, y: -0.72676194, z: -0, w: 0.6868894}
+  m_LocalRotation: {x: 0, y: -0.72676057, z: 0, w: 0.6868909}
   m_LocalPosition: {x: 8.53, y: -4.88, z: 2.57}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: 5878020293945260852, guid: 485bcce35c650ac43923860070f96043, type: 3}
   lootAmount: 10
   minForce: 0
-  maxForce: 0
+  maxForce: 50
   lootPos: {fileID: 3055265675662677625}
   lootedStateColliders:
   - {fileID: 5057263569307339517}
