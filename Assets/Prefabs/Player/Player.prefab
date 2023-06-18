@@ -777,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a85a8ba156c4141ad05e7a52984060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectToHit: {fileID: 0}
   _camera: {fileID: 3819177533716778748}
   reachMineableHitPos: {x: 0, y: 0, z: 0}
   _body: {fileID: 3819177532251211081}
@@ -1068,7 +1069,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
