@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInteractable: 1
   interactCollider: {fileID: 7438687825437121624}
-  doorBody: {fileID: 7132798420237729736}
+  doorBody: {fileID: 7438687825437121629}
   isOpen: 0
   rotateSpeed: 2
 --- !u!65 &7438687825437121624

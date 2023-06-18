@@ -13,19 +13,10 @@ public abstract class Interactable : MonoBehaviour
 
     protected Animator animator;
 
-    protected Vector3 rotation;
-    protected Vector3 forward;
-
     private void Awake()
     {
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        rotation = transform.rotation.eulerAngles;
-        forward = transform.forward;
     }
 
     public abstract void Interact();
