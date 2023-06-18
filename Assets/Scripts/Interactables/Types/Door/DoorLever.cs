@@ -16,6 +16,7 @@ public class DoorLever : Interactable
 
         PullLever();
         door.Interact();
+        isInteractable = !canInteractOnce;
     }
 
     private void PullLever()

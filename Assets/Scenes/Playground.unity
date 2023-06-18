@@ -1418,7 +1418,7 @@ MonoBehaviour:
   isInteractable: 1
   interactCollider: {fileID: 271471848}
   door: {fileID: 1132915774}
-  canInteractOnce: 0
+  canInteractOnce: 1
 --- !u!95 &271471847
 Animator:
   serializedVersion: 5
