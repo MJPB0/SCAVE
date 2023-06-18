@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -329,7 +330,14 @@ public class Player : MonoBehaviour
         PlayerController.OnPlayerHealthRestored?.Invoke();
     }
 
-    public void AddItemToInventory(Item item){
+    public void InteractWithObject(Interactable interactable)
+    {
+        // TODO add logic
+        interactable.Interact();
+    }
+
+    public void AddItemToInventory(Item item)
+    {
         if (inventory.ContainsKey(item.ItemId))
             inventory[item.ItemId] += item.Weight;
         else

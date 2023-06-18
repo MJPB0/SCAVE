@@ -92,11 +92,7 @@ public class MineableObject : MonoBehaviour
         {
             GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, transform.parent);
 
-            Vector3 forceDirection = playerPos - instance.transform.position;
-            float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
+            Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
 
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
@@ -111,11 +107,7 @@ public class MineableObject : MonoBehaviour
         {
             GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, transform.parent);
 
-            Vector3 forceDirection = playerPos - instance.transform.position;
-            float forceX = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            float forceY = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            float forceZ = Random.Range(minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-            Vector3 force = new Vector3(forceDirection.x * forceX, forceDirection.y * forceY, forceDirection.z * forceZ);
+            Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
 
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
