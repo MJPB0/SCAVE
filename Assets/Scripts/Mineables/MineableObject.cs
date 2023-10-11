@@ -127,9 +127,7 @@ public class MineableObject : MonoBehaviour
 
         GameObject impactParticles = isSuccess ? mineableSO.SuccessfulImpactParticles : mineableSO.FailedImpactParticles;
         GameObject particles = Instantiate(impactParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
-
         ParticleSystem system = particles.GetComponent<ParticleSystem>();
-        system.Play();
 
         yield return new WaitUntil(() => !system.isPlaying);
         Destroy(particles);

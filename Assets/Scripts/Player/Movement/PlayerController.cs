@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour {
 
         Controls.Gameplay.Mine.performed += ctx => SwingPickaxe();
 
-        Controls.Gameplay.Pickup.performed += ctx => TryPickingUpItem();
-        Controls.Gameplay.Interact.performed += ctx => TryInteractingWithObject();
+        Controls.Gameplay.Interact.performed += ctx => PlayerInteraction(InteractionType.TAP);
+        Controls.Gameplay.HoldInteract.performed += ctx => PlayerInteraction(InteractionType.HOLD);
 
         Controls.Gameplay.Inventory.performed += ctx => OnInventoryToggle?.Invoke();
 
@@ -123,44 +123,43 @@ public class PlayerController : MonoBehaviour {
             outline.enabled = false;
     }
 
-    private void TryPickingUpItem() {
+    private void PlayerInteraction(InteractionType interactionType) {
         if (!player.IsGrounded || !player.SelectedObject) return;
 
-        if (!player.SelectedObject.TryGetComponent<Item>(out Item item)) return;
-
-        if (item.IsPickable) {
-            player.AddItemToInventory(item);
-            OnItemPickup?.Invoke();
-
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
-
-            Destroy(item.gameObject);
-        } else
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{item.name}</color>!");
-
+        if (player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
+            TryInteractingWithObject(interactable, interactionType);
+        } else if (player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+            TryPickingUpItem(item, interactionType);
+        }
     }
 
-    private void TryInteractingWithObject() {
-        if (!player.IsGrounded || !player.SelectedObject) return;
+    private void TryPickingUpItem(Item item, InteractionType interactionType) {
+        if (!item.IsPickable) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{item.name}</color>!");
+            return;
+        }
 
-        if (!player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) return;
+        if (item.RequireHoldInteraction && interactionType != InteractionType.HOLD) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> has to hold interact button to pick up <color=yellow>{item.name}</color>!");
+            return;
+        }
 
+        player.AddItemToInventory(item);
+        OnItemPickup?.Invoke();
+
+        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
+
+        Destroy(item.gameObject);
+    }
+
+    private void TryInteractingWithObject(Interactable interactable, InteractionType interactionType) {
         if (!interactable.IsInteractable || (interactable.CanInteractOnce && interactable.AlreadyInteracted)) {
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
             return;
         }
 
-        player.InteractWithObject(interactable);
-        OnObjectInteract?.Invoke();
-
-        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> interacted with <color=yellow>{interactable.name}</color>");
-    }
-
-    public void TryInteractingWithObject(Interactable interactable) {
-        if (!player.IsGrounded || !player.SelectedObject) return;
-
-        if (!interactable.IsInteractable || (interactable.CanInteractOnce && interactable.AlreadyInteracted)) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
+        if (interactable.RequireHoldInteraction && interactionType != InteractionType.HOLD) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> has to hold interact button to interact with <color=yellow>{interactable.name}</color>!");
             return;
         }
 

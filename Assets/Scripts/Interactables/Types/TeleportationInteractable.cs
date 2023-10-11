@@ -9,37 +9,17 @@ public class TeleportationInteractable : Interactable {
     [SerializeField] private Transform teleportationVFXParent;
 
     private void Start() {
-        Setup(false);
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (!other.gameObject.CompareTag("Player")) return;
-
-        isInteractable = true;
-    }
-
-    private void OnTriggerStay(Collider other) {
-        if (!other.gameObject.CompareTag("Player")) return;
-         
-        player.Controller.TryInteractingWithObject(this);
-    }
-
-    private void OnTriggerExit(Collider other) {
-        if (!other.gameObject.CompareTag("Player")) return;
-
-        isInteractable = false;
+        Setup();
     }
 
     public override void Interact() {
-        player.transform.position = new Vector3(teleportPos.position.x, teleportPos.position.y + player.PlayerBodyHeight / 2, teleportPos.position.z);
-
-        StartCoroutine(TeleportationParticles());
-
         alreadyInteracted = true;
+        player.transform.position = new(teleportPos.position.x, teleportPos.position.y + player.PlayerBodyHeight / 2, teleportPos.position.z);
+        StartCoroutine(TeleportationParticles());
     }
 
     private IEnumerator TeleportationParticles() {
-        Vector3 vfxPos = new Vector3(player.transform.position.x, player.transform.position.y - player.PlayerBodyHeight / 2, player.transform.position.z);
+        Vector3 vfxPos = new(player.transform.position.x, player.transform.position.y - player.PlayerBodyHeight, player.transform.position.z);
         GameObject particles = Instantiate(teleportationVFX, vfxPos, Quaternion.identity, teleportationVFXParent);
         ParticleSystem system = particles.GetComponent<ParticleSystem>();
 
