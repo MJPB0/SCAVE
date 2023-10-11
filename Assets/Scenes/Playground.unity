@@ -1321,7 +1321,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 469354864}
   m_Father: {fileID: 761580921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &168562485 stripped
@@ -3059,6 +3060,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a823eeb4f2edd9b45b07cfe2f7b4856c, type: 3}
+--- !u!1001 &326730522
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 162362545}
+    m_Modifications:
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.8607693
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.8799996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.262271
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772115289934750679, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: requireHoldInteraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878020293945260852, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+        type: 3}
+      propertyPath: m_Name
+      value: Medium Coal Nugget
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bc0c2b6848b15fa4ea77bc1ed85b227d, type: 3}
 --- !u!1001 &362958736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4465,6 +4539,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5892702609883632615, guid: a823eeb4f2edd9b45b07cfe2f7b4856c,
     type: 3}
   m_PrefabInstance: {fileID: 1661195325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &469354864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3235380999484853694, guid: bc0c2b6848b15fa4ea77bc1ed85b227d,
+    type: 3}
+  m_PrefabInstance: {fileID: 326730522}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &474833080
 PrefabInstance:

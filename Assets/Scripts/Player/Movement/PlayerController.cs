@@ -128,9 +128,15 @@ public class PlayerController : MonoBehaviour {
 
         if (player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
             TryInteractingWithObject(interactable, interactionType);
-        } else if (player.SelectedObject.TryGetComponent<Item>(out Item item)) {
-            TryPickingUpItem(item, interactionType);
+            return;
         }
+
+        if (player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+            TryPickingUpItem(item, interactionType);
+            return;
+        }
+
+        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> tried to interact with <color=yellow>{player.SelectedObject.name}</color> but it doesn't have neither Interactable nor Item scripts attached!");
     }
 
     private void TryPickingUpItem(Item item, InteractionType interactionType) {
