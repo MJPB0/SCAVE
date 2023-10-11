@@ -4,19 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameUI : MonoBehaviour
-{
+public class GameUI : MonoBehaviour {
     [SerializeField] private Player player;
 
     [Header("Sliders")]
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private Slider _staminaSlider;
     [SerializeField] private Slider _swingTimerSlider;
-    
+
     [Header("Pickaxe")]
     [SerializeField] private Text _pickaxeTier;
     [SerializeField] private Text _pickaxeDamage;
     [SerializeField] private Image _pickaxeIcon;
+
+    [Header("Interaction")]
+    [SerializeField] private Text _interactionText;
+    [SerializeField] private GameObject interactionPanel;
 
     [Header("Inventory")]
     [SerializeField] private bool isInventoryVisible = false;
@@ -56,6 +59,9 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text _isRegeneratingHealth;
     [SerializeField] private Text _isRegeneratingStamina;
 
+    private const string TAP_INTERACT_TEXT = "Press 'E'";
+    private const string HOLD_INTERACT_TEXT = "Hold 'E'";
+
     private void Start() {
         PlayerController.OnPlayerHealthLost += UpdateHealthSlider;
         PlayerController.OnPlayerHealthRestored += UpdateHealthSlider;
@@ -76,25 +82,48 @@ public class GameUI : MonoBehaviour
     }
 
     private void Update() {
-        if(showDebug)
+        if (showDebug)
             PlayerDebug();
         if (isInventoryVisible)
             UpdatePlayerInfo();
+
+        CanPlayerInteract();
     }
 
-    private void ToggleInventory(){
-        if (isInventoryVisible){
+    private void ToggleInventory() {
+        if (isInventoryVisible) {
             inventoryPanel.SetActive(false);
             pickaxePanel.SetActive(false);
             isInventoryVisible = false;
-        }else{
+        } else {
             inventoryPanel.SetActive(true);
             pickaxePanel.SetActive(true);
             isInventoryVisible = true;
         }
     }
 
-    private void PlayerDebug(){
+    private void CanPlayerInteract() {
+        if (!player.SelectedObject) {
+            interactionPanel.SetActive(false);
+            return;
+        }
+
+        bool requiresHoldInteraction = false;
+        bool canInteract = false;
+
+        if (player.SelectedObject.CompareTag(Constants.PICKABLE_TAG) && player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+            requiresHoldInteraction = item.RequireHoldInteraction;
+            canInteract = item.IsPickable;
+        } else if (player.SelectedObject.CompareTag(Constants.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
+            requiresHoldInteraction = interactable.RequireHoldInteraction;
+            canInteract = interactable.CanInteract();
+        }
+
+        _interactionText.text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;
+        interactionPanel.SetActive(canInteract);
+    }
+
+    private void PlayerDebug() {
         _selectedObject.text = $"selected object: {player.SelectedObject}";
         _canSwing.text = $"can swing: {player.CanSwing}";
         _canStand.text = $"can stand: {player.CanStand}";
@@ -109,14 +138,14 @@ public class GameUI : MonoBehaviour
         _isRegeneratingStamina.text = $"is regenerating stamina: {player.IsRegeneratingStamina}";
     }
 
-    private void UpdatePlayerInfo(){
+    private void UpdatePlayerInfo() {
         Dictionary<int, float> inv = player.Inventory;
 
         //todo restructure this when game manager is introduced
-        _coalWeight.text = $"{(inv.ContainsKey(0)?inv[0]:0).ToString("F2")}kg";
-        _ironWeight.text = $"{(inv.ContainsKey(1)?inv[1]:0).ToString("F2")}kg";
-        _goldWeight.text = $"{(inv.ContainsKey(2)?inv[2]:0).ToString("F2")}kg";
-        _emeraldWeight.text = $"{(inv.ContainsKey(3)?inv[3]:0).ToString("F2")}kg";
+        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0).ToString("F2")}kg";
+        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0).ToString("F2")}kg";
+        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0).ToString("F2")}kg";
+        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0).ToString("F2")}kg";
 
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
@@ -128,36 +157,36 @@ public class GameUI : MonoBehaviour
         _jumpForceValue.text = $"{player.BaseJumpForce} + {player.JumpForce - player.BaseJumpForce} - {player.JumpForce}";
     }
 
-    private void SlidersSetup(){
+    private void SlidersSetup() {
         _healthSlider.minValue = 0f;
         _healthSlider.wholeNumbers = false;
         _healthSlider.interactable = false;
-        
+
         _staminaSlider.minValue = 0f;
         _staminaSlider.wholeNumbers = false;
         _staminaSlider.interactable = false;
-        
+
         _swingTimerSlider.minValue = 0f;
         _swingTimerSlider.wholeNumbers = false;
         _swingTimerSlider.interactable = false;
     }
 
-    private void UpdateHealthSlider(){
+    private void UpdateHealthSlider() {
         _healthSlider.maxValue = player.MaxHealth;
         _healthSlider.value = player.Health;
     }
 
-    private void UpdateStaminaSlider(){
+    private void UpdateStaminaSlider() {
         _staminaSlider.maxValue = player.MaxStamina;
         _staminaSlider.value = player.Stamina;
     }
 
-    private void UpdateSwingTimeSlider(){
+    private void UpdateSwingTimeSlider() {
         _swingTimerSlider.maxValue = player.TimeBetweenSwings;
         _swingTimerSlider.value = player.TimeToNextSwing;
     }
 
-    private void UpdatePickaxeInfo(){
+    private void UpdatePickaxeInfo() {
         _pickaxeDamage.text = $"Damage: {player.Pickaxe.Damage}";
         _pickaxeTier.text = $"Tier: {player.Pickaxe.Tier}";
         _pickaxeIcon.sprite = player.Pickaxe.Icon;

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPickable: 1
-  itemSO: {fileID: 11400000, guid: d68645de0fe4de7489282861e164fe5b, type: 2}
+  itemSO: {fileID: 11400000, guid: a93f0431bb82c1e45b1f3d63e64a945b, type: 2}
 --- !u!114 &3797165638035909427
 MonoBehaviour:
   m_ObjectHideFlags: 0

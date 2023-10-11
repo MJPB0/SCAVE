@@ -69,12 +69,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pickup",
+                    "name": "HoldInteract",
                     "type": "Button",
-                    "id": "428e3e06-58d2-44fb-a360-54c406d8a463",
+                    "id": "8e668a99-a5c1-42d7-8cb8-ac036f247306",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -211,23 +211,23 @@
                 },
                 {
                     "name": "",
-                    "id": "5a4a1d66-943c-4037-b67d-068990ea850d",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pickup",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "455cc688-26aa-4392-98c6-802349ac715d",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5c52ea2-4359-4992-9352-7526a7e97e03",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

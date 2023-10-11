@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPickable: 1
-  itemSO: {fileID: 11400000, guid: 6296fca0f2a75784f9c371db92b82016, type: 2}
+  itemSO: {fileID: 11400000, guid: 8b1cd53615be2c24295e926672d925bd, type: 2}
 --- !u!114 &3906555701905095670
 MonoBehaviour:
   m_ObjectHideFlags: 0
