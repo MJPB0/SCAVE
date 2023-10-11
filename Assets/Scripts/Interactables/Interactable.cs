@@ -30,4 +30,8 @@ public abstract class Interactable : MonoBehaviour {
     public void Setup() {
         alreadyInteracted = false;
     }
+
+    public bool CanInteract() {
+        return IsInteractable && (!CanInteractOnce || (CanInteractOnce && !AlreadyInteracted));
+    }
 }

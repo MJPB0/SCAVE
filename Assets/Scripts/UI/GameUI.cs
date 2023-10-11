@@ -116,7 +116,7 @@ public class GameUI : MonoBehaviour {
             canInteract = item.IsPickable;
         } else if (player.SelectedObject.CompareTag(Constants.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
             requiresHoldInteraction = interactable.RequireHoldInteraction;
-            canInteract = interactable.IsInteractable && (!interactable.CanInteractOnce || (interactable.CanInteractOnce && !interactable.AlreadyInteracted));
+            canInteract = interactable.CanInteract();
         }
 
         _interactionText.text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;

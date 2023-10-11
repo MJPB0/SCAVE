@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TryInteractingWithObject(Interactable interactable, InteractionType interactionType) {
-        if (!interactable.IsInteractable || (interactable.CanInteractOnce && interactable.AlreadyInteracted)) {
+        if (!interactable.CanInteract()) {
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
             return;
         }
