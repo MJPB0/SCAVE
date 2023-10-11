@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class LootInteractable : Interactable
-{
+public class LootInteractable : Interactable {
     private const string LOOT_ANIMATION = "lootAnimation";
 
     [SerializeField] private GameObject[] loot;
@@ -16,22 +15,20 @@ public class LootInteractable : Interactable
     [SerializeField] private Collider[] lootedStateColliders;
     [SerializeField] private GameObject chestLock;
 
-    public override void Interact()
-    {
+    public override void Interact() {
         ManageColliders();
         LootAnimation();
+
+        alreadyInteracted = true;
     }
 
-    private void ManageColliders()
-    {
+    private void ManageColliders() {
         interactCollider.enabled = false;
-        foreach (Collider collider in lootedStateColliders)
-        {
+        foreach (Collider collider in lootedStateColliders) {
             collider.enabled = true;
         }
 
-        if (chestLock != null)
-        {
+        if (chestLock != null) {
             chestLock.GetComponent<Collider>().isTrigger = false;
             chestLock.GetComponent<Rigidbody>().useGravity = true;
 
@@ -39,10 +36,8 @@ public class LootInteractable : Interactable
         }
     }
 
-    public void DropLoot()
-    {
-        for (int i = 0; i < lootAmount; i++)
-        {
+    public void DropLoot() {
+        for (int i = 0; i < lootAmount; i++) {
             GameObject objectToDrop = loot[Random.Range(0, loot.Length)];
             GameObject instance = Instantiate(objectToDrop, lootPos.position, Quaternion.identity, transform.parent);
 
@@ -50,20 +45,17 @@ public class LootInteractable : Interactable
 
             instance.GetComponent<Rigidbody>().AddForce(force);
 
-            if (instance.TryGetComponent(out Item item))
-            {
+            if (instance.TryGetComponent(out Item item)) {
                 item.Setup(true);
             }
         }
     }
 
-    private void LootAnimation()
-    {
+    private void LootAnimation() {
         animator.SetTrigger(LOOT_ANIMATION);
     }
 
-    public void Looted()
-    {
+    public void Looted() {
         isInteractable = false;
     }
 }

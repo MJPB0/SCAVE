@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static UnityEditor.Progress;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public static UnityAction OnPickaxeSwing;
     public static UnityAction OnSwingTimeChanged;
     public static UnityAction OnPickaxeHit;
@@ -45,8 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 HitPosition { get { return objectHitPos; } }
 
-    private void Awake()
-    {
+    private void Awake() {
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
         Controls = new PlayerActions();
@@ -73,21 +71,18 @@ public class PlayerController : MonoBehaviour
         Controls.Gameplay.MouseMovement.performed += ctx => playerMovement.MouseInput = ctx.ReadValue<Vector2>();
     }
 
-    private void Start()
-    {
+    private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         OnObjectMined += ObjectMined;
     }
 
-    private void Update()
-    {
+    private void Update() {
         PlayerReach();
     }
 
-    private void PlayerReach()
-    {
+    private void PlayerReach() {
         float raycastLength = player.Reach;
         Vector3 originRay = _camera.transform.position;
 
@@ -97,13 +92,10 @@ public class PlayerController : MonoBehaviour
             ? hit.collider.gameObject
             : null;
 
-        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG))
-        {
+        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
             MineableSelected(hit);
             rayColor = Color.green;
-        }
-        else if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.PICKABLE_TAG))
-        {
+        } else if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.PICKABLE_TAG)) {
             PickableSelected();
             rayColor = Color.green;
         }
@@ -111,21 +103,18 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(originRay, _camera.transform.forward * raycastLength, rayColor);
     }
 
-    private void MineableSelected(RaycastHit hit)
-    {
+    private void MineableSelected(RaycastHit hit) {
         reachMineableHitPos = hit.point;
         player.SelectedObject.GetComponent<MineableObject>().IsMineable(player.Pickaxe.Tier);
         OnMineableObjectSelected?.Invoke();
     }
 
-    private void PickableSelected()
-    {
+    private void PickableSelected() {
         StartCoroutine(ItemOutline(player.SelectedObject));
         OnPickableObjectSelected?.Invoke();
     }
 
-    private IEnumerator ItemOutline(GameObject item)
-    {
+    private IEnumerator ItemOutline(GameObject item) {
         Outline outline = item.GetComponent<Outline>();
         outline.enabled = true;
         yield return new WaitUntil(() => player.SelectedObject != item);
@@ -134,45 +123,54 @@ public class PlayerController : MonoBehaviour
             outline.enabled = false;
     }
 
-    private void TryPickingUpItem()
-    {
+    private void TryPickingUpItem() {
         if (!player.IsGrounded || !player.SelectedObject) return;
 
         if (!player.SelectedObject.TryGetComponent<Item>(out Item item)) return;
 
-        if (item.IsPickable)
-        {
+        if (item.IsPickable) {
             player.AddItemToInventory(item);
             OnItemPickup?.Invoke();
 
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
 
             Destroy(item.gameObject);
-        }
-        else
+        } else
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{item.name}</color>!");
 
     }
 
-    private void TryInteractingWithObject()
-    {
+    private void TryInteractingWithObject() {
         if (!player.IsGrounded || !player.SelectedObject) return;
 
         if (!player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) return;
 
-        if (interactable.IsInteractable)
-        {
-            player.InteractWithObject(interactable);
-            OnObjectInteract?.Invoke();
-
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> interacted with <color=yellow>{interactable.name}</color>");
-        }
-        else
+        if (!interactable.IsInteractable || (interactable.CanInteractOnce && interactable.AlreadyInteracted)) {
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
+            return;
+        }
+
+        player.InteractWithObject(interactable);
+        OnObjectInteract?.Invoke();
+
+        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> interacted with <color=yellow>{interactable.name}</color>");
     }
 
-    private void SwingPickaxe()
-    {
+    public void TryInteractingWithObject(Interactable interactable) {
+        if (!player.IsGrounded || !player.SelectedObject) return;
+
+        if (!interactable.IsInteractable || (interactable.CanInteractOnce && interactable.AlreadyInteracted)) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
+            return;
+        }
+
+        player.InteractWithObject(interactable);
+        OnObjectInteract?.Invoke();
+
+        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> interacted with <color=yellow>{interactable.name}</color>");
+    }
+
+    private void SwingPickaxe() {
         if (!player.CanSwing || player.Stamina < player.SwingStaminaLoss) return;
 
         player.CanSwing = false;
@@ -180,8 +178,7 @@ public class PlayerController : MonoBehaviour
 
         OnPickaxeSwing?.Invoke();
 
-        if (!player.SelectedObject || !player.SelectedObject.CompareTag(Constants.MINEABLE_TAG))
-        {
+        if (!player.SelectedObject || !player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
             player.Pickaxe.SwingPickaxe(false);
             return;
         }
@@ -191,10 +188,8 @@ public class PlayerController : MonoBehaviour
         player.Pickaxe.SwingPickaxe(true);
     }
 
-    public void PickaxeHit()
-    {
-        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG))
-        {
+    public void PickaxeHit() {
+        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
             objectHitPos = reachMineableHitPos;
             objectToHit = player.SelectedObject;
         }
@@ -209,14 +204,16 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> tried dealing <color=maroon>{damageToBeDealt}{(isCritical ? " critical" : "")} dmg</color> to <color=red>{mineable.name}</color>");
 
-        bool result = mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
+        mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
 
-        StartCoroutine(mineable.InstantiateImpactParticles(result));
-        if (result) StartCoroutine(mineable.InstantiateDebrisParticles());
+        // TODO: Fix this shit. It doesn't crash the game but logs a shit ton of "errors"
+        //StartCoroutine(mineable.InstantiateImpactParticles(result));
+
+        StartCoroutine(mineable.InstantiateDebrisParticles());
+        // TODO: flying numbers
     }
 
-    public void ObjectMined()
-    {
+    public void ObjectMined() {
         Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> mined <color=red>{objectToHit.name}</color>");
         player.AddMinedObjectToTracker();
     }

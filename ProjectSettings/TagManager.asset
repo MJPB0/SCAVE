@@ -7,6 +7,7 @@ TagManager:
   - Interactable
   - Mineable
   - Pickable
+  - Ore drops
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Item
   - Wall
   - Ignore Light
-  - 
+  - Ignore all but player
   - 
   - 
   - 

@@ -1,11 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class OpenDoorInteractable : Interactable
-{
+public class OpenDoorInteractable : Interactable {
     private const float ROTATION_AMOUNT = 90;
-
-    [SerializeField] private bool canInteractOnce = false;
 
     [SerializeField] private GameObject doorBody;
 
@@ -21,45 +18,39 @@ public class OpenDoorInteractable : Interactable
     public bool InteractionInProgress { get { return interactionInProgress; } }
     public bool IsOpen { get { return isOpen; } }
 
-    private void Start()
-    {
+    private void Start() {
         rotation = doorBody.transform.rotation.eulerAngles;
         forward = doorBody.transform.forward;
     }
 
-    public override void Interact()
-    {
+    public override void Interact() {
         isInteractable = false;
         interactionInProgress = true;
 
-        if (isOpen)
-        {
+        if (isOpen) {
             StartCoroutine(Close());
-        } else
-        {
+        } else {
             float dot = Vector3.Dot(forward, (player.transform.position - doorBody.transform.position).normalized);
             StartCoroutine(Open(dot));
         }
+
+        alreadyInteracted = true;
     }
 
-    private IEnumerator Open(float forwardAmount)
-    {
+    private IEnumerator Open(float forwardAmount) {
         Quaternion startRotation = doorBody.transform.rotation;
         Quaternion endRotation;
 
-        if (forwardAmount >= 0)
-        {
+        if (forwardAmount >= 0) {
             endRotation = Quaternion.Euler(new Vector3(0, rotation.y - ROTATION_AMOUNT, 0));
-        } else
-        {
+        } else {
             endRotation = Quaternion.Euler(new Vector3(0, rotation.y + ROTATION_AMOUNT, 0));
         }
 
         isOpen = true;
 
         float time = 0f;
-        while (time < 1)
-        {
+        while (time < 1) {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * rotateSpeed;
@@ -69,16 +60,14 @@ public class OpenDoorInteractable : Interactable
         interactionInProgress = false;
     }
 
-    private IEnumerator Close()
-    {
+    private IEnumerator Close() {
         Quaternion startRotation = doorBody.transform.rotation;
         Quaternion endRotation = Quaternion.Euler(rotation);
 
         isOpen = false;
 
         float time = 0f;
-        while (time < 1)
-        {
+        while (time < 1) {
             doorBody.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * rotateSpeed;

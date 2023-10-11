@@ -88,9 +88,11 @@ public class MineableObject : MonoBehaviour
     }
 
     public void DropItems() {
+        Transform dropsParent = GameObject.FindGameObjectWithTag(Constants.ORE_PARENT_TAG).transform;
+
         for (int i = 0; i < Random.Range(minDropOnHit, maxDropOnHit + 1); i++)
         {
-            GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, transform.parent);
+            GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, dropsParent);
 
             Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
 
@@ -103,9 +105,11 @@ public class MineableObject : MonoBehaviour
 
     public void DropSpecialItems()
     {
+        Transform dropsParent = GameObject.FindGameObjectWithTag(Constants.ORE_PARENT_TAG).transform;
+
         for (int i = 0; i < Random.Range(minSpecialDrop, maxSpecialDrop); i++)
         {
-            GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, transform.parent);
+            GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, dropsParent);
 
             Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
 
@@ -125,6 +129,7 @@ public class MineableObject : MonoBehaviour
         GameObject particles = Instantiate(impactParticles, hitPos, Quaternion.LookRotation(rotation), transform.parent);
 
         ParticleSystem system = particles.GetComponent<ParticleSystem>();
+        system.Play();
 
         yield return new WaitUntil(() => !system.isPlaying);
         Destroy(particles);

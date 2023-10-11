@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.Image;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     private Rigidbody rbody;
     [SerializeField] private GameObject playerBody;
     [SerializeField] private GameObject playerCrouchBody;
@@ -31,42 +30,36 @@ public class PlayerMovement : MonoBehaviour
     [Header("Body")]
     [SerializeField] private GameObject _head;
 
-    private void Awake()
-    {
+    private void Awake() {
         player = GetComponent<Player>();
         rbody = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
+    private void Start() {
         UpdatePlayerHeight();
     }
 
 
-    private void Update()
-    {
+    private void Update() {
         if (player.IsCrouching)
             CanStandUp();
-        CameraFollow();
         IsGrounded();
         LimitSpeed();
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
+        CameraFollow();
         if (player.CanMove)
             Move();
         if (!player.IsGrounded)
             ApplyGravity();
     }
 
-    private void UpdatePlayerHeight()
-    {
+    private void UpdatePlayerHeight() {
         playerHeight = (player.IsCrouching ? playerCrouchBody : playerBody).GetComponent<CapsuleCollider>().height;
     }
 
-    private void IsGrounded()
-    {
+    private void IsGrounded() {
         bool isGrounded = Physics.Raycast(
             transform.position,
             Vector3.down,
@@ -75,22 +68,18 @@ public class PlayerMovement : MonoBehaviour
         );
         player.IsGrounded = isGrounded;
 
-        if (isGrounded)
-        {
+        if (isGrounded) {
             player.IsGrounded = true;
             player.CanJump = true;
             rbody.drag = player.GroundDrag;
-        }
-        else
-        {
+        } else {
             player.IsGrounded = false;
             player.CanJump = false;
             rbody.drag = 0f;
         }
     }
 
-    private void CameraFollow()
-    {
+    private void CameraFollow() {
         _view.transform.position = _head.transform.position;
 
         if (MouseInput.magnitude < .1f) return;
@@ -105,10 +94,8 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(Vector3.up * cameraX);
     }
 
-    private void Move()
-    {
-        if (MovementInput.magnitude < .1f)
-        {
+    private void Move() {
+        if (MovementInput.magnitude < .1f) {
             player.IsMoving = false;
             return;
         }
@@ -118,8 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveForce = moveDirection.normalized * player.MovementSpeed * player.MovementSpeedForceMultiplier;
 
-        if (player.IsGrounded)
-        {
+        if (player.IsGrounded) {
             moveForce *= player.IsCrouching ? player.CrouchMultiplier : 1;
             moveForce *= player.IsSprinting ? player.SprintMultiplier : 1;
         }
@@ -127,19 +113,16 @@ public class PlayerMovement : MonoBehaviour
         rbody.AddForce(moveForce, ForceMode.Force);
     }
 
-    private void LimitSpeed()
-    {
+    private void LimitSpeed() {
         Vector3 flatVel = new Vector3(rbody.velocity.x, 0f, rbody.velocity.z);
 
-        if (flatVel.magnitude > player.MovementSpeed)
-        {
+        if (flatVel.magnitude > player.MovementSpeed) {
             Vector3 limitedVel = flatVel.normalized * player.MovementSpeed;
             rbody.velocity = new Vector3(limitedVel.x, rbody.velocity.y, limitedVel.z);
         }
     }
 
-    public void Jump()
-    {
+    public void Jump() {
         if (!player.CanJump || player.IsCrouching || !player.IsGrounded || player.Stamina < player.JumpStaminaLoss) return;
 
         Vector3 jumpTranslationForce = new Vector3(MovementInput.x, 1, MovementInput.y);
@@ -149,31 +132,26 @@ public class PlayerMovement : MonoBehaviour
         player.ReduceStamina(player.JumpStaminaLoss);
     }
 
-    private void ApplyGravity()
-    {
+    private void ApplyGravity() {
         if (rbody.velocity.y > 0) return;
 
         rbody.AddForce(new Vector3(0f, -gravityMultiplier, 0f), ForceMode.Force);
     }
 
 
-    public void StartSprinting()
-    {
+    public void StartSprinting() {
         if (player.CanSprint)
             StartCoroutine(Sprint());
     }
 
-    public void StopSprinting()
-    {
+    public void StopSprinting() {
         if (player.IsSprinting)
             player.IsSprinting = false;
     }
 
-    private IEnumerator Sprint()
-    {
+    private IEnumerator Sprint() {
         player.IsSprinting = true;
-        while (player.IsSprinting && player.CanSprint)
-        {
+        while (player.IsSprinting && player.CanSprint) {
             if (player.IsGrounded)
                 player.ReduceStamina(player.SprintStaminaLoss * Time.deltaTime);
             yield return new WaitForEndOfFrame();
@@ -182,8 +160,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void ToggleCrouch()
-    {
+    public void ToggleCrouch() {
         if (player.IsCrouching)
             StopCrouching();
         else
@@ -192,8 +169,7 @@ public class PlayerMovement : MonoBehaviour
         UpdatePlayerHeight();
     }
 
-    private void StartCrouching()
-    {
+    private void StartCrouching() {
         playerBody.SetActive(false);
         playerCrouchBody.SetActive(true);
         player.IsCrouching = true;
@@ -201,18 +177,15 @@ public class PlayerMovement : MonoBehaviour
         rbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
     }
 
-    private void StopCrouching()
-    {
-        if (player.CanStand)
-        {
+    private void StopCrouching() {
+        if (player.CanStand) {
             playerBody.SetActive(true);
             playerCrouchBody.SetActive(false);
             player.IsCrouching = false;
         }
     }
 
-    private void CanStandUp()
-    {
+    private void CanStandUp() {
         float raycastLength = playerBody.GetComponent<CapsuleCollider>().height / 2 + .1f;
         float originRayY = transform.position.y + playerBody.GetComponent<CapsuleCollider>().height / 2;
         float destinationRayY = transform.position.y + raycastLength;

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418435701888130352}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.713, z: -0.0004}
+  m_LocalPosition: {x: 0, y: 1.097, z: -0.0004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51,7 +51,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -82,7 +82,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingLayerMask: 1
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
@@ -9775,7 +9775,7 @@ GameObject:
   - component: {fileID: 8821195512507735841}
   - component: {fileID: 8821195512511160067}
   - component: {fileID: 8821195512510029251}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Village_Firepit01_LOD03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9862,7 +9862,7 @@ GameObject:
   - component: {fileID: 8821195512507735843}
   - component: {fileID: 8821195512511160069}
   - component: {fileID: 8821195512510029253}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Village_Firepit01_LOD02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9949,7 +9949,7 @@ GameObject:
   - component: {fileID: 8821195512507735845}
   - component: {fileID: 8821195512511160071}
   - component: {fileID: 8821195512510029255}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Village_Firepit01_LOD01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
