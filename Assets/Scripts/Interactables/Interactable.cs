@@ -20,7 +20,7 @@ public abstract class Interactable : MonoBehaviour {
 
     protected Animator animator;
 
-    private void Awake() {
+    protected void Awake() {
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
     }

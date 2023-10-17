@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour {
     //ItemId, amount
@@ -12,8 +11,7 @@ public class Player : MonoBehaviour {
 
     [Header("Mining")]
     public bool CanSwing = true;
-    [SerializeField] private PlayerPickaxe playerPickaxe;
-    [SerializeField] private PickaxeScriptableObject startingPickaxe;
+    [SerializeField] private Pickaxe playerPickaxe;
 
     [Space]
     [SerializeField] private float timeBetweenSwings = 3f;
@@ -177,7 +175,7 @@ public class Player : MonoBehaviour {
 
     public PlayerController Controller { get { return playerController; } }
 
-    public PlayerPickaxe Pickaxe { get { return playerPickaxe; } }
+    public Pickaxe Pickaxe { get { return playerPickaxe; } }
     public Dictionary<int, float> Inventory { get { return inventory; } }
     #endregion
 
@@ -186,13 +184,13 @@ public class Player : MonoBehaviour {
         minedTracker = new Dictionary<string, int>();
 
         playerController = GetComponent<PlayerController>();
+        playerPickaxe = GetComponentInChildren<Pickaxe>();
     }
 
     private void Start() {
         SetDefaultValues();
 
         TimeToNextSwing = timeBetweenSwings;
-        playerPickaxe.ChangePickaxe(startingPickaxe);
     }
 
     private void Update() {
@@ -348,5 +346,39 @@ public class Player : MonoBehaviour {
             minedTracker[objName]++;
         else
             minedTracker.Add(objName, 1);
+    }
+
+    public bool CanUpgradePickaxe() {
+        if (Pickaxe.IsFullyUpgraded()) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color>'s <color=yellow>{gameObject.name}</color> is fully upgraded!");
+            return false;
+        }
+        UpgradeCost upgradeCost = Pickaxe.NextLevelUpgradeCost;
+        inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
+
+        if (upgradeCost.goldCost > playerGold) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> doesn't have enough gold to upgrade his <color=yellow>{gameObject.name}</color>");
+            return false;
+        }
+
+        bool canUpgrade = true;
+        foreach (MaterialCost materialCost in upgradeCost.materialsCost) {
+            inventory.TryGetValue(materialCost.itemId, out float playerMaterial);
+
+            if (materialCost.weight > playerMaterial) {
+                canUpgrade = false;
+                Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> doesn't have enough resources to upgrade his <color=yellow>{gameObject.name}</color>");
+                break;
+            }
+        }
+
+        return canUpgrade;
+    }
+
+    public void TryUpgradePickaxe() {
+        if (!CanUpgradePickaxe()) return;
+
+        Pickaxe.Upgrade();
+        PlayerController.OnPickaxeUpgraded?.Invoke();
     }
 }

@@ -1,14 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour {
     public static UnityAction OnPickaxeSwing;
     public static UnityAction OnSwingTimeChanged;
     public static UnityAction OnPickaxeHit;
-    public static UnityAction OnPickaxeChange;
     public static UnityAction OnObjectMined;
+
+    public static UnityAction OnPickaxeChange;
+    public static UnityAction OnPickaxeUpgraded;
 
     public static UnityAction OnMineableObjectSelected;
     public static UnityAction OnPickableObjectSelected;
