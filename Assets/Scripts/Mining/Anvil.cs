@@ -7,10 +7,10 @@ public class Anvil : Interactable {
     [SerializeField] private GameObject upgradeVFX;
     [SerializeField] private Transform upgradeVFXParent;
 
-    private void Awake() {
-        base.Awake();
-        PlayerController.OnPickaxeUpgraded += SuccessfulUpgrade;
-    }
+    [Space]
+    [SerializeField] private int tier;
+
+    public int Tier { get { return tier; } }
 
     public override void Interact() {
         // TODO: add UI

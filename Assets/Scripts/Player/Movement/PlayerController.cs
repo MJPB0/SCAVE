@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
     public static UnityAction OnObjectMined;
 
     public static UnityAction OnPickaxeChange;
-    public static UnityAction OnPickaxeUpgraded;
 
     public static UnityAction OnMineableObjectSelected;
     public static UnityAction OnPickableObjectSelected;

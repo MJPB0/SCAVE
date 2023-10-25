@@ -348,14 +348,19 @@ public class Player : MonoBehaviour {
             minedTracker.Add(objName, 1);
     }
 
-    public bool CanUpgradePickaxe() {
+    public bool CanUpgradePickaxe(int anvilTier) {
         if (Pickaxe.IsFullyUpgraded()) {
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color>'s <color=yellow>{gameObject.name}</color> is fully upgraded!");
             return false;
         }
-        UpgradeCost upgradeCost = Pickaxe.NextLevelUpgradeCost;
-        inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
 
+        UpgradeCost upgradeCost = Pickaxe.NextLevelUpgradeCost;
+        if (anvilTier < upgradeCost.anvilTier) {
+            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color>'s <color=yellow>{gameObject.name}</color> requires higher anvil tier! Anvil tier: {anvilTier}, required {upgradeCost.anvilTier}");
+            return false;
+        }
+
+        inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
         if (upgradeCost.goldCost > playerGold) {
             Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> doesn't have enough gold to upgrade his <color=yellow>{gameObject.name}</color>");
             return false;
@@ -376,9 +381,12 @@ public class Player : MonoBehaviour {
     }
 
     public void TryUpgradePickaxe() {
-        if (!CanUpgradePickaxe()) return;
+        SelectedObject.TryGetComponent(out Anvil anvil);
+        if (anvil == null) return;
+
+        if (!CanUpgradePickaxe(anvil.Tier)) return;
 
         Pickaxe.Upgrade();
-        PlayerController.OnPickaxeUpgraded?.Invoke();
+        anvil.SuccessfulUpgrade();
     }
 }

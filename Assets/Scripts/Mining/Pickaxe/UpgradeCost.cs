@@ -4,4 +4,6 @@ public class UpgradeCost {
 
     public MaterialCost[] materialsCost;
     public int goldCost;
+
+    public int anvilTier;
 }

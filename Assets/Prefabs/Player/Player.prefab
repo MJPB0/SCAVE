@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 3819177532986523831}
   - component: {fileID: 3819177532986523824}
   m_Layer: 3
-  m_Name: Pickaxe
+  m_Name: Stone Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,7 +647,7 @@ Transform:
   m_GameObject: {fileID: 3819177532986523829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.15, y: -1, z: 1.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -667,28 +667,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickaxeSO: {fileID: 11400000, guid: 817821b04d009cc47b81716d3813f07b, type: 2}
-  currentLevel: 0
-  maxLevel: 0
+  currentLevel: 1
+  maxLevel: 4
   upgradeCosts:
   - upgradeToLevel: 2
-    materialsCost:
-    - itemId: 0
-      weight: 0
-    goldCost: 0
+    materialsCost: []
+    goldCost: 2
+    anvilTier: 1
+  - upgradeToLevel: 3
+    materialsCost: []
+    goldCost: 2
+    anvilTier: 1
+  - upgradeToLevel: 4
+    materialsCost: []
+    goldCost: 5
+    anvilTier: 2
   values:
-  - level: 0
-    tier: 0
-    damage: 0
-    sellValue: 0
-    buyValue: 0
+  - level: 1
+    tier: 1
+    damage: 5
+    sellValue: 2
+    buyValue: 5
+  - level: 2
+    tier: 1
+    damage: 15
+    sellValue: 5
+    buyValue: 7
+  - level: 3
+    tier: 2
+    damage: 25
+    sellValue: 15
+    buyValue: 35
+  - level: 4
+    tier: 3
+    damage: 50
+    sellValue: 50
+    buyValue: 75
   swingAnimations:
   - {fileID: 7400000, guid: 7b962eeea04b9e34380aba23e979be40, type: 2}
-  - {fileID: 7400000, guid: 96d1a3c3ef1d4d44bae901a4eb57eaeb, type: 2}
   swingHitAnimations:
-  - {fileID: 7400000, guid: df65e11480a62be419447b51aacba46e, type: 2}
   - {fileID: 7400000, guid: ca1ad22a91ebcb44b84fc4c0b97606c1, type: 2}
-  - {fileID: 7400000, guid: 180eb4b793b30d74ca1843645cf79fef, type: 2}
-  - {fileID: 7400000, guid: 7b1eff4bc283e41458a987641dc729c3, type: 2}
 --- !u!95 &3819177532986523824
 Animator:
   serializedVersion: 5
@@ -1260,7 +1278,7 @@ Transform:
   m_GameObject: {fileID: 3819177533952796936}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17171307, y: 0.77454764, z: -0.13176008, w: -0.59433144}
-  m_LocalPosition: {x: 0.1, y: 0.7, z: -0.3}
+  m_LocalPosition: {x: -1.044, y: 1.732, z: -1.67}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
