@@ -152,7 +152,6 @@ public class PlayerController : MonoBehaviour {
 
         player.AddItemToInventory(item);
         OnItemPickup?.Invoke();
-        Logger.Log(LogType.ITEM_PICKUP, item.name);
 
         Destroy(item.gameObject);
     }
@@ -170,7 +169,6 @@ public class PlayerController : MonoBehaviour {
 
         player.InteractWithObject(interactable);
         OnObjectInteract?.Invoke();
-        Logger.Log(LogType.OBJECT_INTERACTION, interactable.name);
     }
 
     private void SwingPickaxe() {
@@ -179,6 +177,7 @@ public class PlayerController : MonoBehaviour {
         player.CanSwing = false;
         player.ReduceStamina(player.SwingStaminaLoss);
 
+        Logger.Log(LogType.PICKAXE_SWUNG, player.Pickaxe.name);
         OnPickaxeSwing?.Invoke();
 
         if (!player.SelectedObject || !player.SelectedObject.CompareTag(Tags.MINEABLE_TAG)) {
@@ -197,9 +196,10 @@ public class PlayerController : MonoBehaviour {
             objectToHit = player.SelectedObject;
         }
 
-        OnPickaxeHit?.Invoke();
-
         var mineable = objectToHit.GetComponent<MineableObject>();
+
+        Logger.Log(LogType.PICKAXE_HIT, mineable.name);
+        OnPickaxeHit?.Invoke();
 
         bool isCritical = Random.Range(0f, 1f) < player.CriticalChance;
         float damage = player.Pickaxe.Damage + player.Strength;
@@ -216,7 +216,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void ObjectMined() {
-        Logger.Log(LogType.OBJECT_MINED, objectToHit.name);
         player.AddMinedObjectToTracker();
     }
 }

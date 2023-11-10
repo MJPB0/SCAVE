@@ -330,10 +330,12 @@ public class Player : MonoBehaviour {
     }
 
     public void InteractWithObject(Interactable interactable) {
+        Logger.Log(LogType.OBJECT_INTERACTION, interactable.name);
         interactable.Interact();
     }
 
     public void AddItemToInventory(Item item) {
+        Logger.Log(LogType.ITEM_PICKUP, item.name);
         if (inventory.ContainsKey(item.ItemId))
             inventory[item.ItemId] += item.Weight;
         else

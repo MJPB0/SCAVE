@@ -62,8 +62,6 @@ public class MineableObject : MonoBehaviour {
         else
             WasMined();
 
-        Logger.Log(LogType.DAMAGE_DEALT, gameObject.name, damage.ToString());
-
         if (baseDrops.Length > 0)
             DropItems();
 
@@ -71,12 +69,14 @@ public class MineableObject : MonoBehaviour {
     }
 
     private void ReduceHealth(float value) {
+        Logger.Log(LogType.DAMAGE_DEALT, gameObject.name, value.ToString());
         health -= value;
     }
 
     private void WasMined() {
         isMineable = false;
 
+        Logger.Log(LogType.OBJECT_MINED, gameObject.name);
         PlayerController.OnObjectMined?.Invoke();
 
         if (specialDrops.Length > 0 && Random.Range(0f, 1f) < specialDropChance)

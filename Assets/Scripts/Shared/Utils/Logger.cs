@@ -47,7 +47,7 @@ public static class Logger {
     private static readonly string UPGRADE_WARNING = $"{UPGRADE} {WARNING}";
     private static readonly string UPGRADE_FAILURE = $"{UPGRADE} {FAILURE}";
 
-    public static void Log(LogType logType, string target, string additionalValue = VALUE_NOT_PROVIDED_TEXT, string secondAdditionalValue = VALUE_NOT_PROVIDED_TEXT) {
+    public static void Log(LogType logType, string target = VALUE_NOT_PROVIDED_TEXT, string additionalValue = VALUE_NOT_PROVIDED_TEXT, string secondAdditionalValue = VALUE_NOT_PROVIDED_TEXT) {
         switch (logType) {
             case LogType.OBJECT_INTERACTION:
                 Debug.Log($"{INTERACTION_SUCCESS} {PLAYER} interacted with <color={TARGET_COLOR}>{target}</color>");
@@ -81,6 +81,12 @@ public static class Logger {
                 break;
             case LogType.DAMAGE_DEALT:
                 Debug.Log($"{COMBAT_SUCCESS} <color={COMBAT_COLOR}>{target}</color> received <color={DAMAGE_COLOR}>{additionalValue} damage</color>");
+                break;
+            case LogType.PICKAXE_SWUNG:
+                Debug.Log($"{COMBAT_SUCCESS} {PLAYER} swung his <color={TARGET_COLOR}>{target}</color>");
+                break;
+            case LogType.PICKAXE_HIT:
+                Debug.Log($"{COMBAT_SUCCESS} {PLAYER} hit <color={COMBAT_COLOR}>{target}</color>");
                 break;
             case LogType.LOOT_DROPPED:
                 Debug.Log($"{DROP_SUCCESS} <color={COMBAT_COLOR}>{target}</color> dropped <color={TARGET_COLOR}>{additionalValue}</color>");
