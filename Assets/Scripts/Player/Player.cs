@@ -341,7 +341,7 @@ public class Player : MonoBehaviour {
     }
 
     public void AddMinedObjectToTracker() {
-        string objName = playerController.ObjectToHit.gameObject.GetComponent<MineableObject>().Name();
+        string objName = playerController.ObjectToHit.GetComponent<MineableObject>().Name();
         if (minedTracker.ContainsKey(objName))
             minedTracker[objName]++;
         else
@@ -350,19 +350,19 @@ public class Player : MonoBehaviour {
 
     public bool CanUpgradePickaxe(int anvilTier) {
         if (Pickaxe.IsFullyUpgraded()) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color>'s <color=yellow>{gameObject.name}</color> is fully upgraded!");
+            Logger.Log(LogType.PICKAXE_FULLY_UPGRADED_WARNING, gameObject.name);
             return false;
         }
 
         UpgradeCost upgradeCost = Pickaxe.NextLevelUpgradeCost;
         if (anvilTier < upgradeCost.anvilTier) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color>'s <color=yellow>{gameObject.name}</color> requires higher anvil tier! Anvil tier: {anvilTier}, required {upgradeCost.anvilTier}");
+            Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_HIGHER_ANVIL_TIER_WARNING, gameObject.name, anvilTier.ToString(), upgradeCost.anvilTier.ToString());
             return false;
         }
 
         inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
         if (upgradeCost.goldCost > playerGold) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> doesn't have enough gold to upgrade his <color=yellow>{gameObject.name}</color>");
+            Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_GOLD_WARNING, gameObject.name);
             return false;
         }
 
@@ -372,7 +372,7 @@ public class Player : MonoBehaviour {
 
             if (materialCost.weight > playerMaterial) {
                 canUpgrade = false;
-                Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> doesn't have enough resources to upgrade his <color=yellow>{gameObject.name}</color>");
+                Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_RESOURCES_WARNING, gameObject.name);
                 break;
             }
         }

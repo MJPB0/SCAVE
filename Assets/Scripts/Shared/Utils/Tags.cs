@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Constants {
+public class Tags {
     public static string MINEABLE_TAG { get; } = "Mineable";
     public static string PICKABLE_TAG { get; } = "Pickable";
     public static string INTERACTABLE_TAG { get; } = "Interactable";

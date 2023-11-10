@@ -67,7 +67,7 @@ public class Pickaxe : MonoBehaviour {
     }
 
     public void Upgrade() {
+        Logger.Log(LogType.PICKAXE_UPGRADED, gameObject.name);
         this.currentLevel++;
-        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> upgraded his <color=yellow>{gameObject.name}</color>");
     }
 }

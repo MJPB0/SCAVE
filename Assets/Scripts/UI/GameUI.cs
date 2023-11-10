@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -111,10 +109,10 @@ public class GameUI : MonoBehaviour {
         bool requiresHoldInteraction = false;
         bool canInteract = false;
 
-        if (player.SelectedObject.CompareTag(Constants.PICKABLE_TAG) && player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+        if (player.SelectedObject.CompareTag(Tags.PICKABLE_TAG) && player.SelectedObject.TryGetComponent<Item>(out Item item)) {
             requiresHoldInteraction = item.RequireHoldInteraction;
             canInteract = item.IsPickable;
-        } else if (player.SelectedObject.CompareTag(Constants.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
+        } else if (player.SelectedObject.CompareTag(Tags.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
             requiresHoldInteraction = interactable.RequireHoldInteraction;
             canInteract = interactable.CanInteract();
         }
@@ -142,10 +140,10 @@ public class GameUI : MonoBehaviour {
         Dictionary<int, float> inv = player.Inventory;
 
         //todo restructure this when game manager is introduced
-        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0).ToString("F2")}kg";
-        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0).ToString("F2")}kg";
-        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0).ToString("F2")}kg";
-        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0).ToString("F2")}kg";
+        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0):F2}kg";
+        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0):F2}kg";
+        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0):F2}kg";
+        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0):F2}kg";
 
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";

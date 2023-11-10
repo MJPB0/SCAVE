@@ -3,8 +3,7 @@ using UnityEngine;
 using static UnityEngine.ParticleSystem;
 using UnityEngine.Rendering.VirtualTexturing;
 
-public class MineableObject : MonoBehaviour
-{
+public class MineableObject : MonoBehaviour {
     [SerializeField] private float health;
     [SerializeField] private bool isMineable = true;
     [SerializeField] private bool dropOnMine = true;
@@ -49,13 +48,12 @@ public class MineableObject : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = mineableSO.Mesh;
     }
 
-    public bool Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos)
-    {
+    public bool Mine(float damage, Vector3 currentPlayerPos, Vector3 currentHitPos) {
         playerPos = currentPlayerPos;
         hitPos = currentHitPos;
 
         if (!isMineable) {
-            Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> is not mineable by the <color=teal>Player</color>");
+            Logger.Log(LogType.NOT_MINEABLE_WARNING, gameObject.name);
             return false;
         }
 
@@ -64,7 +62,7 @@ public class MineableObject : MonoBehaviour
         else
             WasMined();
 
-        Debug.Log($"<color=red>[COMBAT]</color> <color=red>{gameObject.name}</color> received <color=maroon>{damage}dmg</color>");
+        Logger.Log(LogType.DAMAGE_DEALT, gameObject.name, damage.ToString());
 
         if (baseDrops.Length > 0)
             DropItems();
@@ -88,10 +86,9 @@ public class MineableObject : MonoBehaviour
     }
 
     public void DropItems() {
-        Transform dropsParent = GameObject.FindGameObjectWithTag(Constants.ORE_PARENT_TAG).transform;
+        Transform dropsParent = GameObject.FindGameObjectWithTag(Tags.ORE_PARENT_TAG).transform;
 
-        for (int i = 0; i < Random.Range(minDropOnHit, maxDropOnHit + 1); i++)
-        {
+        for (int i = 0; i < Random.Range(minDropOnHit, maxDropOnHit + 1); i++) {
             GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, dropsParent);
 
             Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
@@ -99,16 +96,14 @@ public class MineableObject : MonoBehaviour
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
 
-            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
+            Logger.Log(LogType.LOOT_DROPPED, gameObject.name, instance.name);
         }
     }
 
-    public void DropSpecialItems()
-    {
-        Transform dropsParent = GameObject.FindGameObjectWithTag(Constants.ORE_PARENT_TAG).transform;
+    public void DropSpecialItems() {
+        Transform dropsParent = GameObject.FindGameObjectWithTag(Tags.ORE_PARENT_TAG).transform;
 
-        for (int i = 0; i < Random.Range(minSpecialDrop, maxSpecialDrop); i++)
-        {
+        for (int i = 0; i < Random.Range(minSpecialDrop, maxSpecialDrop); i++) {
             GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, dropsParent);
 
             Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
@@ -116,12 +111,11 @@ public class MineableObject : MonoBehaviour
             instance.GetComponent<Rigidbody>().AddForce(force);
             instance.GetComponent<Item>().Setup(true);
 
-            Debug.Log($"<color=yellow>[DROP]</color> <color=red>{gameObject.name}</color> dropped <color=yellow>{instance.name}</color>");
+            Logger.Log(LogType.SPECIAL_LOOT_DOPPED, gameObject.name, instance.name);
         }
     }
 
-    public IEnumerator InstantiateImpactParticles(bool isSuccess)
-    {
+    public IEnumerator InstantiateImpactParticles(bool isSuccess) {
         Vector3 direction = playerPos - hitPos;
         Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
 
@@ -133,8 +127,7 @@ public class MineableObject : MonoBehaviour
         Destroy(particles);
     }
 
-    public IEnumerator InstantiateDebrisParticles()
-    {
+    public IEnumerator InstantiateDebrisParticles() {
         Vector3 direction = playerPos - hitPos;
         Vector3 rotation = Vector3.RotateTowards(Vector3.one, direction, 360f, 0f);
 
