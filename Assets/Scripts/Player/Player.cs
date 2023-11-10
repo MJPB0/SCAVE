@@ -388,7 +388,6 @@ public class Player : MonoBehaviour {
 
         if (!CanUpgradePickaxe(anvil.Tier)) return;
 
-        Pickaxe.Upgrade();
-        anvil.SuccessfulUpgrade();
+        anvil.SuccessfulUpgrade(Pickaxe);
     }
 }

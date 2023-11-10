@@ -177,11 +177,23 @@ public class GameUI : MonoBehaviour {
     private void UpdateStaminaSlider() {
         _staminaSlider.maxValue = player.MaxStamina;
         _staminaSlider.value = player.Stamina;
+
+        if (_staminaSlider.value == _staminaSlider.maxValue) {
+            _staminaSlider.gameObject.SetActive(false);
+        } else {
+            _staminaSlider.gameObject.SetActive(true);
+        }
     }
 
     private void UpdateSwingTimeSlider() {
         _swingTimerSlider.maxValue = player.TimeBetweenSwings;
         _swingTimerSlider.value = player.TimeToNextSwing;
+
+        if (_swingTimerSlider.value == _swingTimerSlider.maxValue) {
+            _swingTimerSlider.gameObject.SetActive(false);
+        } else {
+            _swingTimerSlider.gameObject.SetActive(true);
+        }
     }
 
     private void UpdatePickaxeInfo() {

@@ -101,7 +101,7 @@ public static class Logger {
                 Debug.Log($"{UPGRADE_WARNING} {PLAYER}'s <color={TARGET_COLOR}>{target}</color> is fully upgraded!");
                 break;
             case LogType.PICKAXE_UPGRADE_REQUIRES_HIGHER_ANVIL_TIER_WARNING:
-                Debug.Log($"{UPGRADE_FAILURE} {PLAYER}'s <color={TARGET_COLOR}>{target}</color> requires higher anvil tier! Anvil tier: {additionalValue}, requi{COMBAT_COLOR} {secondAdditionalValue}");
+                Debug.Log($"{UPGRADE_FAILURE} {PLAYER}'s <color={TARGET_COLOR}>{target}</color> requires higher anvil tier! Anvil tier: {additionalValue}, required: {secondAdditionalValue}");
                 break;
             case LogType.PICKAXE_UPGRADE_REQUIRES_MORE_GOLD_WARNING:
                 Debug.Log($"{UPGRADE_FAILURE} {PLAYER} doesn't have enough gold to upgrade his <color={TARGET_COLOR}>{target}</color>");

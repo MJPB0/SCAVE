@@ -342,7 +342,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.5
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -668,19 +668,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickaxeSO: {fileID: 11400000, guid: 817821b04d009cc47b81716d3813f07b, type: 2}
   currentLevel: 1
-  maxLevel: 4
+  maxLevel: 5
   upgradeCosts:
   - upgradeToLevel: 2
     materialsCost: []
-    goldCost: 2
+    goldCost: 0
     anvilTier: 1
   - upgradeToLevel: 3
     materialsCost: []
-    goldCost: 2
+    goldCost: 0
     anvilTier: 1
   - upgradeToLevel: 4
     materialsCost: []
-    goldCost: 5
+    goldCost: 0
+    anvilTier: 2
+  - upgradeToLevel: 5
+    materialsCost: []
+    goldCost: 0
     anvilTier: 2
   values:
   - level: 1
@@ -703,6 +707,11 @@ MonoBehaviour:
     damage: 50
     sellValue: 50
     buyValue: 75
+  - level: 5
+    tier: 3
+    damage: 75
+    sellValue: 100
+    buyValue: 150
   swingAnimations:
   - {fileID: 7400000, guid: 7b962eeea04b9e34380aba23e979be40, type: 2}
   swingHitAnimations:

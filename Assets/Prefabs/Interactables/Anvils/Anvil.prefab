@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2151102399087342381}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.8781869, z: -0, w: 0.47831762}
-  m_LocalPosition: {x: 0, y: 1.222, z: 0.0343}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalScale: {x: 0.19999999, y: 0.2, z: 0.19999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4764276015001407781}
-  m_LocalEulerAnglesHint: {x: 0, y: -122.849, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &9217765633003659210
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -83,6 +83,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2400824387564623714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8578423616241176187}
+  m_Layer: 6
+  m_Name: sparkles VFX position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8578423616241176187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400824387564623714}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.001, y: 1.18, z: 0.051}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4764276015001407781}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &4870138689559326754
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +209,7 @@ GameObject:
   - component: {fileID: 367714290061871797}
   - component: {fileID: 7425190599035891199}
   - component: {fileID: 4271481298787651811}
+  - component: {fileID: 4834741828109574871}
   m_Layer: 6
   m_Name: Anvil
   m_TagString: Interactable
@@ -198,8 +230,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2638341556116420754}
   - {fileID: 8691875592718202216}
+  - {fileID: 2638341556116420754}
+  - {fileID: 8578423616241176187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 89.863, z: 0}
 --- !u!54 &367714290061871797
@@ -267,8 +300,28 @@ MonoBehaviour:
   canInteractOnce: 0
   alreadyInteracted: 0
   interactCollider: {fileID: 7425190599035891199}
-  transformVFX: {fileID: 2638341556116420754}
-  upgradeVFX: {fileID: 61372599121861011, guid: 8304107c169485749a0a2256e35cec69,
+  transformVFX: {fileID: 8578423616241176187}
+  upgradeVFX: {fileID: 8534184428504025998, guid: 64cc6c63cc97e9f4898e5eb3531a9ee8,
     type: 3}
-  upgradeVFXParent: {fileID: 0}
   tier: 1
+--- !u!95 &4834741828109574871
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858451179337724911}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9764a8d903456374696eec85339363bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
