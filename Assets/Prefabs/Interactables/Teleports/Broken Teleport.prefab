@@ -341,7 +341,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1732697235838255419}
-  - component: {fileID: 2780093812153104180}
   m_Layer: 6
   m_Name: Broken Teleport
   m_TagString: Interactable
@@ -366,27 +365,6 @@ Transform:
   - {fileID: 5694477630193190682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2780093812153104180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248001281298061078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51851e9c722030142992c9a94839557d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: Broken teleport
-  requireHoldInteraction: 0
-  isInteractable: 0
-  canInteractOnce: 0
-  alreadyInteracted: 0
-  interactCollider: {fileID: 0}
-  teleportPos: {fileID: 0}
-  teleportationVFX: {fileID: 0}
-  teleportationVFXParent: {fileID: 0}
 --- !u!1 &285346707882041176
 GameObject:
   m_ObjectHideFlags: 0
@@ -6317,9 +6295,10 @@ GameObject:
   - component: {fileID: 5410410982444910443}
   - component: {fileID: 4905432579849213065}
   - component: {fileID: 1250069109670511972}
+  - component: {fileID: 6256460285535427215}
   m_Layer: 6
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6411,6 +6390,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3750b896b58829b47b9e26f5ceef3dad, type: 3}
+--- !u!114 &6256460285535427215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457755506164733275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51851e9c722030142992c9a94839557d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Broken teleport
+  requireHoldInteraction: 0
+  isInteractable: 0
+  canInteractOnce: 0
+  alreadyInteracted: 0
+  interactCollider: {fileID: 0}
+  teleportPos: {fileID: 0}
+  teleportationVFX: {fileID: 0}
+  teleportationVFXParent: {fileID: 0}
 --- !u!1 &8479675160007802141
 GameObject:
   m_ObjectHideFlags: 0

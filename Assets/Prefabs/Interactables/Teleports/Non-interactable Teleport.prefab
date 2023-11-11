@@ -1340,6 +1340,7 @@ GameObject:
   - component: {fileID: 2101355875193676222}
   - component: {fileID: 5522585763708070588}
   - component: {fileID: 3362562323343620196}
+  - component: {fileID: 4099506034608902468}
   m_Layer: 6
   m_Name: body
   m_TagString: Untagged
@@ -1434,6 +1435,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3750b896b58829b47b9e26f5ceef3dad, type: 3}
+--- !u!114 &4099506034608902468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666712755739808831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51851e9c722030142992c9a94839557d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: End teleport
+  requireHoldInteraction: 0
+  isInteractable: 0
+  canInteractOnce: 0
+  alreadyInteracted: 0
+  interactCollider: {fileID: 0}
+  teleportPos: {fileID: 0}
+  teleportationVFX: {fileID: 0}
+  teleportationVFXParent: {fileID: 0}
 --- !u!1 &1751089350333691494
 GameObject:
   m_ObjectHideFlags: 0
@@ -5593,7 +5615,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6113289322169060693}
-  - component: {fileID: 114544198332696767}
   m_Layer: 6
   m_Name: Non-interactable Teleport
   m_TagString: Interactable
@@ -5618,27 +5639,6 @@ Transform:
   - {fileID: 7513844154984844550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114544198332696767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7666758458867707152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51851e9c722030142992c9a94839557d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: End teleport
-  requireHoldInteraction: 0
-  isInteractable: 0
-  canInteractOnce: 0
-  alreadyInteracted: 0
-  interactCollider: {fileID: 0}
-  teleportPos: {fileID: 0}
-  teleportationVFX: {fileID: 0}
-  teleportationVFXParent: {fileID: 0}
 --- !u!1 &7683464185194133497
 GameObject:
   m_ObjectHideFlags: 0
