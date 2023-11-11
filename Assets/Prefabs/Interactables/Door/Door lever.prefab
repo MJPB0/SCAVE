@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3755768021422084043}
   - component: {fileID: 3755768021422084042}
   m_Layer: 0
-  m_Name: Door Lever
+  m_Name: Door lever
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356752033172391118}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.92528254, z: 0, w: 0.37927863}
   m_LocalPosition: {x: -13.267947, y: -4.847216, z: 4.8051443}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 291924847772337772}
   - {fileID: 9147063709470523143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 135.422, z: 0}
 --- !u!65 &3755768021422084040
 BoxCollider:
@@ -44,9 +44,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356752033172391118}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.30479738, y: 1.1815567, z: 0.49712187}
   m_Center: {x: -0.011088959, y: 0.63406754, z: 0.15668389}
 --- !u!95 &3755768021422084043
@@ -82,10 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b2f3fb4acd67547a2bea17c0c23da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: Door lever
+  requireHoldInteraction: 0
   isInteractable: 1
+  canInteractOnce: 0
+  alreadyInteracted: 0
   interactCollider: {fileID: 3755768021422084040}
   door: {fileID: 0}
-  canInteractOnce: 0
 --- !u!1 &7509112877609551105
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,13 +122,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7509112877609551105}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.000000057601167, y: 0.7071067, z: -0.000000057601156, w: 0.7071068}
   m_LocalPosition: {x: 0.00089495664, y: 0.99733603, z: 0.16808398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1652685429242951389}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2638840548675116691
 MeshFilter:
@@ -196,13 +207,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8472937829970628191}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0038933088, y: 0.99769384, z: 0.12363574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1652685429242951389}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6817518682717513725
 MeshFilter:

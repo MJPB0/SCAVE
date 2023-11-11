@@ -17,6 +17,7 @@ public class GameUI : MonoBehaviour {
 
     [Header("Interaction")]
     [SerializeField] private Text _interactionText;
+    [SerializeField] private Text _interactionTargetText;
     [SerializeField] private GameObject interactionPanel;
 
     [Header("Inventory")]
@@ -106,20 +107,38 @@ public class GameUI : MonoBehaviour {
             return;
         }
 
+        interactionPanel.SetActive(true);
+        _interactionText.gameObject.SetActive(false);
+        _interactionTargetText.gameObject.SetActive(true);
+
         bool requiresHoldInteraction = false;
         bool canInteract = false;
 
-        if (player.SelectedObject.CompareTag(Tags.PICKABLE_TAG) && player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+        string interactionAdditionalText = "";
+        string interactionTargetText = ShouldDisplaySelectedObjectName(player.SelectedObject) ? player.SelectedObject.name.Split("(")[0] : "";
+
+        if (player.SelectedObject.CompareTag(Tags.PICKABLE_TAG) && player.SelectedObject.TryGetComponent(out Item item)) {
             requiresHoldInteraction = item.RequireHoldInteraction;
             canInteract = item.IsPickable;
-        } else if (player.SelectedObject.CompareTag(Tags.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
+
+            interactionTargetText = item.DisplayName;
+            interactionAdditionalText = "to pick up";
+        } else if (player.SelectedObject.CompareTag(Tags.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent(out Interactable interactable)) {
             requiresHoldInteraction = interactable.RequireHoldInteraction;
             canInteract = interactable.CanInteract();
+
+            interactionTargetText = interactable.DisplayName;
+            interactionAdditionalText = "to interact";
         }
 
-        _interactionText.text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;
-        interactionPanel.SetActive(canInteract);
+        _interactionTargetText.text = interactionTargetText;
+
+        string text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;
+        _interactionText.text = $"{text} {interactionAdditionalText}";
+        _interactionText.gameObject.SetActive(canInteract);
     }
+
+    private bool ShouldDisplaySelectedObjectName(GameObject selectedObject) => selectedObject.CompareTag(Tags.PICKABLE_TAG) || selectedObject.CompareTag(Tags.INTERACTABLE_TAG) || selectedObject.CompareTag(Tags.MINEABLE_TAG);
 
     private void PlayerDebug() {
         _selectedObject.text = $"selected object: {player.SelectedObject}";

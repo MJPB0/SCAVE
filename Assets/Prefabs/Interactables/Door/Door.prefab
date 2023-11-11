@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7132798420237729736}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7438687825437121630}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4838453308653581888
 MeshFilter:
@@ -108,6 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7438687825437121629}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.835, y: -4.867, z: 5.91}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
@@ -115,7 +116,6 @@ Transform:
   m_Children:
   - {fileID: 4028376260473673319}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7438687825437121631
 MonoBehaviour:
@@ -129,9 +129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4addb9d5e2b8c1f4db3de4ff0ee1e9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: Door
+  requireHoldInteraction: 0
   isInteractable: 1
-  interactCollider: {fileID: 7438687825437121624}
   canInteractOnce: 0
+  alreadyInteracted: 0
+  interactCollider: {fileID: 7438687825437121624}
   doorBody: {fileID: 7438687825437121629}
   isOpen: 0
   isOpenableByLever: 0
@@ -145,8 +148,16 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7438687825437121629}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1.3540447, y: 2.301507, z: 0.25414485}
   m_Center: {x: -0.90091723, y: 1.1440587, z: 0.0014339883}

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Item : MonoBehaviour
-{
+public class Item : MonoBehaviour {
+    [SerializeField] protected string displayName;
+
+    [Space]
     [SerializeField] private bool requireHoldInteraction;
 
     [SerializeField] private bool isPickable;
@@ -11,7 +13,8 @@ public class Item : MonoBehaviour
     public int ItemId {get {return itemSO.ObjectId;}}
     public bool RequireHoldInteraction { get {return requireHoldInteraction; }}
     public bool IsPickable {get {return isPickable;} }
-    public float Weight { get { return itemSO.Weight;}}
+    public float Weight { get { return itemSO.Weight;} }
+    public string DisplayName { get { return displayName; } }
 
     private void Awake() {
         GetComponent<MeshCollider>().sharedMesh = itemSO.RandomMesh;
