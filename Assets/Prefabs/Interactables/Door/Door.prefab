@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Door
+  objectRequiredToInteract: 9999
   requireHoldInteraction: 0
   isInteractable: 1
   canInteractOnce: 0

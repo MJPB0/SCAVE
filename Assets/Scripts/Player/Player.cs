@@ -342,6 +342,8 @@ public class Player : MonoBehaviour {
             inventory.Add(item.ItemId, item.Weight);
     }
 
+    public bool HasInInventory(int id, float amount) => inventory.TryGetValue(id, out float value) && value >= amount;
+
     public void AddMinedObjectToTracker() {
         string objName = playerController.ObjectToHit.GetComponent<MineableObject>().Name();
         if (minedTracker.ContainsKey(objName))
@@ -362,17 +364,17 @@ public class Player : MonoBehaviour {
             return false;
         }
 
-        inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
+        inventory.TryGetValue((int)ObjectId.GOLD, out float playerGold);
         if (upgradeCost.goldCost > playerGold) {
             Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_GOLD_WARNING, gameObject.name);
             return false;
         }
 
         bool canUpgrade = true;
-        foreach (MaterialCost materialCost in upgradeCost.materialsCost) {
+        foreach (ObjectRequirement materialCost in upgradeCost.materialsCost) {
             inventory.TryGetValue((int)materialCost.itemId, out float playerMaterial);
 
-            if (materialCost.weight > playerMaterial) {
+            if (materialCost.amount > playerMaterial) {
                 canUpgrade = false;
                 Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_RESOURCES_WARNING, gameObject.name);
                 break;

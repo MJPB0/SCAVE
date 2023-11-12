@@ -1448,6 +1448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: End teleport
+  objectRequiredToInteract: 9999
   requireHoldInteraction: 0
   isInteractable: 0
   canInteractOnce: 0

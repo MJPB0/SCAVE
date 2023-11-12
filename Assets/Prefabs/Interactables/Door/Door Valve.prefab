@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 8571369667661376071}
   m_Layer: 0
   m_Name: Door Valve
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 2.92, y: -4.847216, z: 5.34}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 121385201889512194}
@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Door valve
+  objectRequiredToInteract: 9999
   requireHoldInteraction: 0
   isInteractable: 1
   canInteractOnce: 1

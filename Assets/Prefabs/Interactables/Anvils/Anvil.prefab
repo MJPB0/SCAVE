@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Anvil
+  objectsRequiredToInteract: []
   requireHoldInteraction: 1
   isInteractable: 1
   canInteractOnce: 0
