@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 8440421678151469078}
   - component: {fileID: 6675240441227713364}
   m_Layer: 0
-  m_Name: Base Iron Chest
+  m_Name: Iron Chest
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
