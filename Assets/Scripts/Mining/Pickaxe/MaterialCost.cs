@@ -1,5 +1,5 @@
 [System.Serializable]
 public class MaterialCost {
-    public int itemId;
+    public ItemId itemId;
     public float weight;
 }

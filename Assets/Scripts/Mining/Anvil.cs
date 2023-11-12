@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Anvil : Interactable {
     private const string SWING_HAMMER = "swingHammer";
@@ -9,11 +10,23 @@ public class Anvil : Interactable {
     [SerializeField] private GameObject upgradeVFX;
 
     [Space]
+    [SerializeField] private GameObject requirementsUI;
+    [SerializeField] private Text requirementsText;
+
+    [Space]
     [SerializeField] private int tier;
 
     private Pickaxe upgradedPickaxe;
 
     public int Tier { get { return tier; } }
+
+    private void Update() {
+        if (player.SelectedObject == gameObject) {
+            DisplayUpgradeRequirements(player.Pickaxe.GetUpgradeRequirementsList());
+        } else {
+            HideUpgradeRequirements();
+        }
+    }
 
     public override void Interact() {
         player.TryUpgradePickaxe();
@@ -35,5 +48,14 @@ public class Anvil : Interactable {
 
         yield return new WaitUntil(() => !system.isPlaying);
         Destroy(particles);
+    }
+
+    public void DisplayUpgradeRequirements(string text) {
+        requirementsUI.SetActive(true);
+        requirementsText.text = text;
+    }
+
+    public void HideUpgradeRequirements() {
+        requirementsUI.SetActive(false);
     }
 }

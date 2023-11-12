@@ -70,4 +70,31 @@ public class Pickaxe : MonoBehaviour {
         Logger.Log(LogType.PICKAXE_UPGRADED, gameObject.name);
         this.currentLevel++;
     }
+
+    public string GetUpgradeRequirementsList() {
+        if (IsFullyUpgraded()) {
+            return $"{gameObject.name} \nis fully upgraded";
+        }
+
+        bool requiresGold = NextLevelUpgradeCost.goldCost > 0;
+        bool requiresResources = NextLevelUpgradeCost.materialsCost.Length > 0;
+
+        if (!requiresGold && !requiresResources) {
+            return "Free";
+        }
+
+        string text = "";
+
+        if (requiresGold) {
+            string pluralGold = NextLevelUpgradeCost.goldCost > 1 ? "s" : "";
+            text += $"{NextLevelUpgradeCost.goldCost} Gold nugget{pluralGold}\n";
+        }
+
+        foreach (MaterialCost material in NextLevelUpgradeCost.materialsCost) {
+            string pluralMaterial = material.weight > 1 ? "s" : "";
+            text += $"{material.weight} {material.itemId} nugget{pluralMaterial}\n";
+        }
+
+        return text;
+    }
 }

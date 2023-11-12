@@ -1,8 +1,8 @@
 
 public enum ItemId
 {
-    COAL,
-    IRON,
-    GOLD,
-    EMERALD
+    COAL = 0,
+    IRON = 1,
+    GOLD = 2,
+    EMERALD = 3
 }

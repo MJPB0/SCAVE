@@ -370,7 +370,7 @@ public class Player : MonoBehaviour {
 
         bool canUpgrade = true;
         foreach (MaterialCost materialCost in upgradeCost.materialsCost) {
-            inventory.TryGetValue(materialCost.itemId, out float playerMaterial);
+            inventory.TryGetValue((int)materialCost.itemId, out float playerMaterial);
 
             if (materialCost.weight > playerMaterial) {
                 canUpgrade = false;

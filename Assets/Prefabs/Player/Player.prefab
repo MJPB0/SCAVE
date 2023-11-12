@@ -675,16 +675,20 @@ MonoBehaviour:
     goldCost: 0
     anvilTier: 1
   - upgradeToLevel: 3
-    materialsCost: []
-    goldCost: 0
+    materialsCost:
+    - itemId: 0
+      weight: 2
+    - itemId: 1
+      weight: 1
+    goldCost: 2
     anvilTier: 1
   - upgradeToLevel: 4
     materialsCost: []
-    goldCost: 0
+    goldCost: 3
     anvilTier: 2
   - upgradeToLevel: 5
     materialsCost: []
-    goldCost: 0
+    goldCost: 4
     anvilTier: 2
   values:
   - level: 1
