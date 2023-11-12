@@ -677,9 +677,9 @@ MonoBehaviour:
   - upgradeToLevel: 3
     materialsCost:
     - itemId: 0
-      weight: 2
+      amount: 2
     - itemId: 1
-      weight: 1
+      amount: 1
     goldCost: 2
     anvilTier: 1
   - upgradeToLevel: 4
