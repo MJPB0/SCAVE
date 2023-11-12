@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "Item", order = 3)]
 public class ItemScriptableObject : ScriptableObject {
-    [SerializeField] private ItemId id;
+    [SerializeField] private ObjectId id;
 
     [SerializeField] private float weight;
     [SerializeField] private float value;

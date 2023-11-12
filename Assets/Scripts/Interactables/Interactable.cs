@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour {
     [SerializeField] protected string displayName;
+
+    [Space]
+    [SerializeField] protected ObjectRequirement[] objectsRequiredToInteract;
 
     [Space]
     [SerializeField] protected bool requireHoldInteraction;
@@ -35,7 +39,20 @@ public abstract class Interactable : MonoBehaviour {
         alreadyInteracted = false;
     }
 
-    public bool CanInteract() {
-        return IsInteractable && (!CanInteractOnce || (CanInteractOnce && !AlreadyInteracted));
+    public bool CanInteract() => IsInteractable && (!CanInteractOnce || (CanInteractOnce && !AlreadyInteracted)) && PlayerHasRequiredObjects();
+
+    private bool PlayerHasRequiredObjects() {
+        bool hasRequiredObject = true;
+
+        if (objectsRequiredToInteract.Length > 0) {
+            Array.ForEach(objectsRequiredToInteract, (requirement) => {
+                if (!player.HasInInventory((int)requirement.itemId, requirement.amount)) {
+                    hasRequiredObject = false;
+                    return;
+                }
+            });
+        }
+
+        return hasRequiredObject;
     }
 }

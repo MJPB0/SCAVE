@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2218158267059945707}
   - component: {fileID: 2218158267059945705}
   - component: {fileID: 2218158267059945704}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: Interactable Teleport
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Teleport
+  objectRequiredToInteract: 9999
   requireHoldInteraction: 0
   isInteractable: 1
   canInteractOnce: 0
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 2695223214479052163}
   - component: {fileID: 2695223214478305561}
   - component: {fileID: 2695223214477123597}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (51)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +175,7 @@ GameObject:
   - component: {fileID: 2695223214479078701}
   - component: {fileID: 2695223214478297885}
   - component: {fileID: 2695223214477121067}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +258,7 @@ GameObject:
   - component: {fileID: 2695223214479024007}
   - component: {fileID: 2695223214478258503}
   - component: {fileID: 2695223214477175693}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +341,7 @@ GameObject:
   - component: {fileID: 2695223214479055585}
   - component: {fileID: 2695223214478230021}
   - component: {fileID: 2695223214477167543}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: stem (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +424,7 @@ GameObject:
   - component: {fileID: 2695223214479026473}
   - component: {fileID: 2695223214478287533}
   - component: {fileID: 2695223214477180259}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +507,7 @@ GameObject:
   - component: {fileID: 2695223214479050411}
   - component: {fileID: 2695223214478227961}
   - component: {fileID: 2695223214477192759}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +590,7 @@ GameObject:
   - component: {fileID: 2695223214479001891}
   - component: {fileID: 2695223214478251203}
   - component: {fileID: 2695223214477130329}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +673,7 @@ GameObject:
   - component: {fileID: 2695223214479039393}
   - component: {fileID: 2695223214478259389}
   - component: {fileID: 2695223214477131217}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +756,7 @@ GameObject:
   - component: {fileID: 2695223214479108177}
   - component: {fileID: 2695223214478276951}
   - component: {fileID: 2695223214477147035}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +839,7 @@ GameObject:
   - component: {fileID: 2695223214479099911}
   - component: {fileID: 2695223214478226341}
   - component: {fileID: 2695223214477144185}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,7 +922,7 @@ GameObject:
   - component: {fileID: 2695223214479070767}
   - component: {fileID: 2695223214478220015}
   - component: {fileID: 2695223214477139997}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (55)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1005,7 @@ GameObject:
   - component: {fileID: 2695223214479067329}
   - component: {fileID: 2695223214478234309}
   - component: {fileID: 2695223214477138471}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1088,7 @@ GameObject:
   - component: {fileID: 2695223214479088525}
   - component: {fileID: 2695223214478213641}
   - component: {fileID: 2695223214477182655}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1170,7 +1171,7 @@ GameObject:
   - component: {fileID: 2695223214479067807}
   - component: {fileID: 2695223214478262757}
   - component: {fileID: 2695223214477190583}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1253,7 +1254,7 @@ GameObject:
   - component: {fileID: 2695223214479106423}
   - component: {fileID: 2695223214478237951}
   - component: {fileID: 2695223214477171813}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1336,7 +1337,7 @@ GameObject:
   - component: {fileID: 2695223214479040651}
   - component: {fileID: 2695223214478261299}
   - component: {fileID: 2695223214477154129}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1419,7 +1420,7 @@ GameObject:
   - component: {fileID: 2695223214479003837}
   - component: {fileID: 2695223214478197209}
   - component: {fileID: 2695223214477182515}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: stem (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1502,7 +1503,7 @@ GameObject:
   - component: {fileID: 2695223214479077607}
   - component: {fileID: 2695223214478226965}
   - component: {fileID: 2695223214477189233}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (50)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1585,7 +1586,7 @@ GameObject:
   - component: {fileID: 2695223214479094763}
   - component: {fileID: 2695223214478278241}
   - component: {fileID: 2695223214477126747}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: stem (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1668,7 +1669,7 @@ GameObject:
   - component: {fileID: 2695223214479092147}
   - component: {fileID: 2695223214478232017}
   - component: {fileID: 2695223214477130761}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1751,7 +1752,7 @@ GameObject:
   - component: {fileID: 2695223214479017673}
   - component: {fileID: 2695223214478305147}
   - component: {fileID: 2695223214477155483}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1834,7 +1835,7 @@ GameObject:
   - component: {fileID: 2695223214479068183}
   - component: {fileID: 2695223214478235271}
   - component: {fileID: 2695223214477180769}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1917,7 +1918,7 @@ GameObject:
   - component: {fileID: 2695223214479048955}
   - component: {fileID: 2695223214478287443}
   - component: {fileID: 2695223214477178181}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2000,7 +2001,7 @@ GameObject:
   - component: {fileID: 2695223214479061251}
   - component: {fileID: 2695223214478284483}
   - component: {fileID: 2695223214477185397}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2083,7 +2084,7 @@ GameObject:
   - component: {fileID: 2695223214479078351}
   - component: {fileID: 2695223214478261375}
   - component: {fileID: 2695223214477171055}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2166,7 +2167,7 @@ GameObject:
   - component: {fileID: 2695223214479037519}
   - component: {fileID: 2695223214478250065}
   - component: {fileID: 2695223214477193565}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2249,7 +2250,7 @@ GameObject:
   - component: {fileID: 2695223214479007345}
   - component: {fileID: 2695223214478213677}
   - component: {fileID: 2695223214477125579}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (52)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2332,7 +2333,7 @@ GameObject:
   - component: {fileID: 2695223214479044449}
   - component: {fileID: 2695223214478218539}
   - component: {fileID: 2695223214477156337}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2415,7 +2416,7 @@ GameObject:
   - component: {fileID: 2695223214479112339}
   - component: {fileID: 2695223214478265375}
   - component: {fileID: 2695223214477147135}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2498,7 +2499,7 @@ GameObject:
   - component: {fileID: 2695223214479092601}
   - component: {fileID: 2695223214478230193}
   - component: {fileID: 2695223214477160179}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2581,7 +2582,7 @@ GameObject:
   - component: {fileID: 2695223214479109379}
   - component: {fileID: 2695223214478285275}
   - component: {fileID: 2695223214477152907}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (54)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2664,7 +2665,7 @@ GameObject:
   - component: {fileID: 2695223214479029297}
   - component: {fileID: 2695223214478247559}
   - component: {fileID: 2695223214477187511}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2747,7 +2748,7 @@ GameObject:
   - component: {fileID: 2695223214479083143}
   - component: {fileID: 2695223214478218867}
   - component: {fileID: 2695223214477122185}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2830,7 +2831,7 @@ GameObject:
   - component: {fileID: 2695223214479026613}
   - component: {fileID: 2695223214478234917}
   - component: {fileID: 2695223214477207647}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (36)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2913,7 +2914,7 @@ GameObject:
   - component: {fileID: 2695223214479093225}
   - component: {fileID: 2695223214478241043}
   - component: {fileID: 2695223214477186649}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2996,7 +2997,7 @@ GameObject:
   - component: {fileID: 2695223214479004287}
   - component: {fileID: 2695223214478273941}
   - component: {fileID: 2695223214477102161}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3079,7 +3080,7 @@ GameObject:
   - component: {fileID: 2695223214478999953}
   - component: {fileID: 2695223214478307991}
   - component: {fileID: 2695223214477183709}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3162,7 +3163,7 @@ GameObject:
   - component: {fileID: 2695223214479110211}
   - component: {fileID: 2695223214478274465}
   - component: {fileID: 2695223214477123289}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3245,7 +3246,7 @@ GameObject:
   - component: {fileID: 2695223214479072951}
   - component: {fileID: 2695223214478203039}
   - component: {fileID: 2695223214477160565}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (48)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3328,7 +3329,7 @@ GameObject:
   - component: {fileID: 2695223214479019395}
   - component: {fileID: 2695223214478203305}
   - component: {fileID: 2695223214477193561}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3411,7 +3412,7 @@ GameObject:
   - component: {fileID: 2695223214479000921}
   - component: {fileID: 2695223214478290481}
   - component: {fileID: 2695223214477133605}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3494,7 +3495,7 @@ GameObject:
   - component: {fileID: 2695223214479042373}
   - component: {fileID: 2695223214478298387}
   - component: {fileID: 2695223214477146627}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_small (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3577,7 +3578,7 @@ GameObject:
   - component: {fileID: 2695223214479045659}
   - component: {fileID: 2695223214478294075}
   - component: {fileID: 2695223214477164001}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: stem (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3660,7 +3661,7 @@ GameObject:
   - component: {fileID: 2695223214479043993}
   - component: {fileID: 2695223214478297533}
   - component: {fileID: 2695223214477099651}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3743,7 +3744,7 @@ GameObject:
   - component: {fileID: 2695223214479068387}
   - component: {fileID: 2695223214478268181}
   - component: {fileID: 2695223214477152887}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3826,7 +3827,7 @@ GameObject:
   - component: {fileID: 2695223214479097421}
   - component: {fileID: 2695223214478214441}
   - component: {fileID: 2695223214477184397}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3909,7 +3910,7 @@ GameObject:
   - component: {fileID: 2695223214479067273}
   - component: {fileID: 2695223214478245971}
   - component: {fileID: 2695223214477177501}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thin (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3992,7 +3993,7 @@ GameObject:
   - component: {fileID: 2695223214479043411}
   - component: {fileID: 2695223214478221363}
   - component: {fileID: 2695223214477208057}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4075,7 +4076,7 @@ GameObject:
   - component: {fileID: 2695223214479049185}
   - component: {fileID: 2695223214478216891}
   - component: {fileID: 2695223214477190831}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4158,7 +4159,7 @@ GameObject:
   - component: {fileID: 2695223214479042293}
   - component: {fileID: 2695223214478289295}
   - component: {fileID: 2695223214477188807}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4242,7 +4243,7 @@ GameObject:
   - component: {fileID: 2695223214478238889}
   - component: {fileID: 2695223214477208343}
   - component: {fileID: 2695223214477208340}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4347,7 +4348,7 @@ GameObject:
   - component: {fileID: 2695223214479032243}
   - component: {fileID: 2695223214478218399}
   - component: {fileID: 2695223214477142297}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thik (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4430,7 +4431,7 @@ GameObject:
   - component: {fileID: 2695223214479087999}
   - component: {fileID: 2695223214478309663}
   - component: {fileID: 2695223214477106809}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4513,7 +4514,7 @@ GameObject:
   - component: {fileID: 2695223214479023817}
   - component: {fileID: 2695223214478216191}
   - component: {fileID: 2695223214477153047}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4596,7 +4597,7 @@ GameObject:
   - component: {fileID: 2695223214479067607}
   - component: {fileID: 2695223214478227735}
   - component: {fileID: 2695223214477178965}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4679,7 +4680,7 @@ GameObject:
   - component: {fileID: 2695223214479088543}
   - component: {fileID: 2695223214478244265}
   - component: {fileID: 2695223214477156493}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4762,7 +4763,7 @@ GameObject:
   - component: {fileID: 2695223214479005711}
   - component: {fileID: 2695223214478214301}
   - component: {fileID: 2695223214477105699}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4845,7 +4846,7 @@ GameObject:
   - component: {fileID: 2695223214479108779}
   - component: {fileID: 2695223214478198501}
   - component: {fileID: 2695223214477121029}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (53)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4926,7 +4927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2695223214479023451}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: decorations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5036,7 +5037,7 @@ GameObject:
   - component: {fileID: 2695223214479017797}
   - component: {fileID: 2695223214478200523}
   - component: {fileID: 2695223214477142533}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5119,7 +5120,7 @@ GameObject:
   - component: {fileID: 2695223214479022593}
   - component: {fileID: 2695223214478255813}
   - component: {fileID: 2695223214477167351}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_long (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5202,7 +5203,7 @@ GameObject:
   - component: {fileID: 2695223214479003825}
   - component: {fileID: 2695223214478305333}
   - component: {fileID: 2695223214477140255}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5285,7 +5286,7 @@ GameObject:
   - component: {fileID: 2695223214479005041}
   - component: {fileID: 2695223214478252387}
   - component: {fileID: 2695223214477200901}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5368,7 +5369,7 @@ GameObject:
   - component: {fileID: 2695223214479091791}
   - component: {fileID: 2695223214478250771}
   - component: {fileID: 2695223214477119069}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5451,7 +5452,7 @@ GameObject:
   - component: {fileID: 2695223214479087643}
   - component: {fileID: 2695223214478285113}
   - component: {fileID: 2695223214477155689}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (47)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5534,7 +5535,7 @@ GameObject:
   - component: {fileID: 2695223214479079661}
   - component: {fileID: 2695223214478199371}
   - component: {fileID: 2695223214477130335}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thik (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5617,7 +5618,7 @@ GameObject:
   - component: {fileID: 2695223214479047663}
   - component: {fileID: 2695223214478275499}
   - component: {fileID: 2695223214477145909}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thin (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5700,7 +5701,7 @@ GameObject:
   - component: {fileID: 2695223214479037707}
   - component: {fileID: 2695223214478233619}
   - component: {fileID: 2695223214477136925}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5783,7 +5784,7 @@ GameObject:
   - component: {fileID: 2695223214479051425}
   - component: {fileID: 2695223214478265239}
   - component: {fileID: 2695223214477184199}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (49)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5866,7 +5867,7 @@ GameObject:
   - component: {fileID: 2695223214479036767}
   - component: {fileID: 2695223214478235007}
   - component: {fileID: 2695223214477149917}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: stem (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5949,7 +5950,7 @@ GameObject:
   - component: {fileID: 2695223214479091471}
   - component: {fileID: 2695223214478280357}
   - component: {fileID: 2695223214477145017}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6032,7 +6033,7 @@ GameObject:
   - component: {fileID: 2695223214479046521}
   - component: {fileID: 2695223214478275361}
   - component: {fileID: 2695223214477165837}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6115,7 +6116,7 @@ GameObject:
   - component: {fileID: 2695223214479044805}
   - component: {fileID: 2695223214478282889}
   - component: {fileID: 2695223214477160387}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6198,7 +6199,7 @@ GameObject:
   - component: {fileID: 2695223214479078661}
   - component: {fileID: 2695223214478310877}
   - component: {fileID: 2695223214477211321}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: rock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6281,7 +6282,7 @@ GameObject:
   - component: {fileID: 2695223214479028017}
   - component: {fileID: 2695223214478289359}
   - component: {fileID: 2695223214477155407}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6364,7 +6365,7 @@ GameObject:
   - component: {fileID: 2695223214479024667}
   - component: {fileID: 2695223214478280259}
   - component: {fileID: 2695223214477154389}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6447,7 +6448,7 @@ GameObject:
   - component: {fileID: 2695223214479107443}
   - component: {fileID: 2695223214478203439}
   - component: {fileID: 2695223214477151433}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: mushroom_thik (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6530,7 +6531,7 @@ GameObject:
   - component: {fileID: 2695223214479082227}
   - component: {fileID: 2695223214478237931}
   - component: {fileID: 2695223214477185819}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6613,7 +6614,7 @@ GameObject:
   - component: {fileID: 2695223214479047875}
   - component: {fileID: 2695223214478281897}
   - component: {fileID: 2695223214477117599}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: leaf_short (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

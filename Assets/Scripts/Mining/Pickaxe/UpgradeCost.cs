@@ -2,7 +2,7 @@
 public class UpgradeCost {
     public int upgradeToLevel;
 
-    public MaterialCost[] materialsCost;
+    public ObjectRequirement[] materialsCost;
     public int goldCost;
 
     public int anvilTier;

@@ -90,9 +90,9 @@ public class Pickaxe : MonoBehaviour {
             text += $"{NextLevelUpgradeCost.goldCost} Gold nugget{pluralGold}\n";
         }
 
-        foreach (MaterialCost material in NextLevelUpgradeCost.materialsCost) {
-            string pluralMaterial = material.weight > 1 ? "s" : "";
-            text += $"{material.weight} {material.itemId} nugget{pluralMaterial}\n";
+        foreach (ObjectRequirement material in NextLevelUpgradeCost.materialsCost) {
+            string pluralMaterial = material.amount > 1 ? "s" : "";
+            text += $"{material.amount} {material.itemId} nugget{pluralMaterial}\n";
         }
 
         return text;

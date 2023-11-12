@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Chest
+  objectsRequiredToInteract: []
   requireHoldInteraction: 0
   isInteractable: 1
   canInteractOnce: 0
@@ -406,8 +407,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7236782, y: 0.43799627, z: 0.49809524}
-  m_Center: {x: -0.37349248, y: 0.2294535, z: 0.2016453}
+  m_Size: {x: 0.7236782, y: 0.43799627, z: 0.5525534}
+  m_Center: {x: -0.37349248, y: 0.2294535, z: 0.2288743}
 --- !u!1 &8976595268278300430
 GameObject:
   m_ObjectHideFlags: 0
