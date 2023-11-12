@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +17,7 @@ public class GameUI : MonoBehaviour {
 
     [Header("Interaction")]
     [SerializeField] private Text _interactionText;
+    [SerializeField] private Text _interactionTargetText;
     [SerializeField] private GameObject interactionPanel;
 
     [Header("Inventory")]
@@ -108,20 +107,38 @@ public class GameUI : MonoBehaviour {
             return;
         }
 
+        interactionPanel.SetActive(true);
+        _interactionText.gameObject.SetActive(false);
+        _interactionTargetText.gameObject.SetActive(true);
+
         bool requiresHoldInteraction = false;
         bool canInteract = false;
 
-        if (player.SelectedObject.CompareTag(Constants.PICKABLE_TAG) && player.SelectedObject.TryGetComponent<Item>(out Item item)) {
+        string interactionAdditionalText = "";
+        string interactionTargetText = ShouldDisplaySelectedObjectName(player.SelectedObject) ? player.SelectedObject.name.Split("(")[0] : "";
+
+        if (player.SelectedObject.CompareTag(Tags.PICKABLE_TAG) && player.SelectedObject.TryGetComponent(out Item item)) {
             requiresHoldInteraction = item.RequireHoldInteraction;
             canInteract = item.IsPickable;
-        } else if (player.SelectedObject.CompareTag(Constants.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent<Interactable>(out Interactable interactable)) {
+
+            interactionTargetText = item.DisplayName;
+            interactionAdditionalText = "to pick up";
+        } else if (player.SelectedObject.CompareTag(Tags.INTERACTABLE_TAG) && player.SelectedObject.TryGetComponent(out Interactable interactable)) {
             requiresHoldInteraction = interactable.RequireHoldInteraction;
             canInteract = interactable.CanInteract();
+
+            interactionTargetText = interactable.DisplayName;
+            interactionAdditionalText = "to interact";
         }
 
-        _interactionText.text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;
-        interactionPanel.SetActive(canInteract);
+        _interactionTargetText.text = interactionTargetText;
+
+        string text = requiresHoldInteraction ? HOLD_INTERACT_TEXT : TAP_INTERACT_TEXT;
+        _interactionText.text = $"{text} {interactionAdditionalText}";
+        _interactionText.gameObject.SetActive(canInteract);
     }
+
+    private bool ShouldDisplaySelectedObjectName(GameObject selectedObject) => selectedObject.CompareTag(Tags.PICKABLE_TAG) || selectedObject.CompareTag(Tags.INTERACTABLE_TAG) || selectedObject.CompareTag(Tags.MINEABLE_TAG);
 
     private void PlayerDebug() {
         _selectedObject.text = $"selected object: {player.SelectedObject}";
@@ -142,10 +159,10 @@ public class GameUI : MonoBehaviour {
         Dictionary<int, float> inv = player.Inventory;
 
         //todo restructure this when game manager is introduced
-        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0).ToString("F2")}kg";
-        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0).ToString("F2")}kg";
-        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0).ToString("F2")}kg";
-        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0).ToString("F2")}kg";
+        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0):F2}kg";
+        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0):F2}kg";
+        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0):F2}kg";
+        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0):F2}kg";
 
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
@@ -179,11 +196,23 @@ public class GameUI : MonoBehaviour {
     private void UpdateStaminaSlider() {
         _staminaSlider.maxValue = player.MaxStamina;
         _staminaSlider.value = player.Stamina;
+
+        if (_staminaSlider.value == _staminaSlider.maxValue) {
+            _staminaSlider.gameObject.SetActive(false);
+        } else {
+            _staminaSlider.gameObject.SetActive(true);
+        }
     }
 
     private void UpdateSwingTimeSlider() {
         _swingTimerSlider.maxValue = player.TimeBetweenSwings;
         _swingTimerSlider.value = player.TimeToNextSwing;
+
+        if (_swingTimerSlider.value == _swingTimerSlider.maxValue) {
+            _swingTimerSlider.gameObject.SetActive(false);
+        } else {
+            _swingTimerSlider.gameObject.SetActive(true);
+        }
     }
 
     private void UpdatePickaxeInfo() {

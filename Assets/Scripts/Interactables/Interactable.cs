@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour {
+    [SerializeField] protected string displayName;
+
+    [Space]
     [SerializeField] protected bool requireHoldInteraction;
 
     [Space]
@@ -12,6 +15,7 @@ public abstract class Interactable : MonoBehaviour {
     public bool IsInteractable { get { return isInteractable; } }
     public bool CanInteractOnce { get { return canInteractOnce; } }
     public bool AlreadyInteracted { get { return alreadyInteracted; } }
+    public string DisplayName { get { return displayName; } }
 
     [Space]
     [SerializeField] protected Collider interactCollider;
@@ -20,7 +24,7 @@ public abstract class Interactable : MonoBehaviour {
 
     protected Animator animator;
 
-    private void Awake() {
+    protected void Awake() {
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
     }

@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour {
     public static UnityAction OnPickaxeSwing;
     public static UnityAction OnSwingTimeChanged;
     public static UnityAction OnPickaxeHit;
-    public static UnityAction OnPickaxeChange;
     public static UnityAction OnObjectMined;
+
+    public static UnityAction OnPickaxeChange;
 
     public static UnityAction OnMineableObjectSelected;
     public static UnityAction OnPickableObjectSelected;
@@ -92,10 +92,10 @@ public class PlayerController : MonoBehaviour {
             ? hit.collider.gameObject
             : null;
 
-        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
+        if (player.SelectedObject && player.SelectedObject.CompareTag(Tags.MINEABLE_TAG)) {
             MineableSelected(hit);
             rayColor = Color.green;
-        } else if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.PICKABLE_TAG)) {
+        } else if (player.SelectedObject && player.SelectedObject.CompareTag(Tags.PICKABLE_TAG)) {
             PickableSelected();
             rayColor = Color.green;
         }
@@ -136,43 +136,39 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> tried to interact with <color=yellow>{player.SelectedObject.name}</color> but it doesn't have neither Interactable nor Item scripts attached!");
+        Logger.Log(LogType.WRONG_INTERACTION_TARGET_WARNING, player.SelectedObject.name);
     }
 
     private void TryPickingUpItem(Item item, InteractionType interactionType) {
         if (!item.IsPickable) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't pick up <color=yellow>{item.name}</color>!");
+            Logger.Log(LogType.ITEM_PICKUP_INABILITY, item.name);
             return;
         }
 
         if (item.RequireHoldInteraction && interactionType != InteractionType.HOLD) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> has to hold interact button to pick up <color=yellow>{item.name}</color>!");
+            Logger.Log(LogType.ITEM_PICKUP_HOLD_INTERACTION_WARNING, item.name);
             return;
         }
 
         player.AddItemToInventory(item);
         OnItemPickup?.Invoke();
 
-        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> picked up <color=yellow>{item.name}</color>");
-
         Destroy(item.gameObject);
     }
 
     private void TryInteractingWithObject(Interactable interactable, InteractionType interactionType) {
         if (!interactable.CanInteract()) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> can't interact with <color=yellow>{interactable.name}</color>!");
+            Logger.Log(LogType.ITEM_INTERACTION_INABILITY, interactable.name);
             return;
         }
 
         if (interactable.RequireHoldInteraction && interactionType != InteractionType.HOLD) {
-            Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> has to hold interact button to interact with <color=yellow>{interactable.name}</color>!");
+            Logger.Log(LogType.ITEM_INTERACTION_HOLD_INTERACTION_WARNING, interactable.name);
             return;
         }
 
         player.InteractWithObject(interactable);
         OnObjectInteract?.Invoke();
-
-        Debug.Log($"<color=orange>[LOOT]</color> <color=teal>Player</color> interacted with <color=yellow>{interactable.name}</color>");
     }
 
     private void SwingPickaxe() {
@@ -181,9 +177,10 @@ public class PlayerController : MonoBehaviour {
         player.CanSwing = false;
         player.ReduceStamina(player.SwingStaminaLoss);
 
+        Logger.Log(LogType.PICKAXE_SWUNG, player.Pickaxe.name);
         OnPickaxeSwing?.Invoke();
 
-        if (!player.SelectedObject || !player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
+        if (!player.SelectedObject || !player.SelectedObject.CompareTag(Tags.MINEABLE_TAG)) {
             player.Pickaxe.SwingPickaxe(false);
             return;
         }
@@ -194,21 +191,21 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void PickaxeHit() {
-        if (player.SelectedObject && player.SelectedObject.CompareTag(Constants.MINEABLE_TAG)) {
+        if (player.SelectedObject && player.SelectedObject.CompareTag(Tags.MINEABLE_TAG)) {
             objectHitPos = reachMineableHitPos;
             objectToHit = player.SelectedObject;
         }
 
-        OnPickaxeHit?.Invoke();
-
         var mineable = objectToHit.GetComponent<MineableObject>();
+
+        Logger.Log(LogType.PICKAXE_HIT, mineable.name);
+        OnPickaxeHit?.Invoke();
 
         bool isCritical = Random.Range(0f, 1f) < player.CriticalChance;
         float damage = player.Pickaxe.Damage + player.Strength;
         float damageToBeDealt = isCritical ? damage * player.CriticalMultiplier : damage;
 
-        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> tried dealing <color=maroon>{damageToBeDealt}{(isCritical ? " critical" : "")} dmg</color> to <color=red>{mineable.name}</color>");
-
+        Logger.Log(LogType.ATTEMPT_TO_DEAL_DAMAGE, mineable.name, damageToBeDealt.ToString(), isCritical ? " critical" : "");
         mineable.Mine(damageToBeDealt, player.transform.position, objectHitPos);
 
         // TODO: Fix this shit. It doesn't crash the game but logs a shit ton of "errors"
@@ -219,7 +216,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void ObjectMined() {
-        Debug.Log($"<color=red>[COMBAT]</color> <color=teal>Player</color> mined <color=red>{objectToHit.name}</color>");
         player.AddMinedObjectToTracker();
     }
 }

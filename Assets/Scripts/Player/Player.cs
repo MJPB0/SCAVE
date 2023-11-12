@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour {
     //ItemId, amount
@@ -12,8 +11,7 @@ public class Player : MonoBehaviour {
 
     [Header("Mining")]
     public bool CanSwing = true;
-    [SerializeField] private PlayerPickaxe playerPickaxe;
-    [SerializeField] private PickaxeScriptableObject startingPickaxe;
+    [SerializeField] private Pickaxe playerPickaxe;
 
     [Space]
     [SerializeField] private float timeBetweenSwings = 3f;
@@ -177,7 +175,7 @@ public class Player : MonoBehaviour {
 
     public PlayerController Controller { get { return playerController; } }
 
-    public PlayerPickaxe Pickaxe { get { return playerPickaxe; } }
+    public Pickaxe Pickaxe { get { return playerPickaxe; } }
     public Dictionary<int, float> Inventory { get { return inventory; } }
     #endregion
 
@@ -186,13 +184,13 @@ public class Player : MonoBehaviour {
         minedTracker = new Dictionary<string, int>();
 
         playerController = GetComponent<PlayerController>();
+        playerPickaxe = GetComponentInChildren<Pickaxe>();
     }
 
     private void Start() {
         SetDefaultValues();
 
         TimeToNextSwing = timeBetweenSwings;
-        playerPickaxe.ChangePickaxe(startingPickaxe);
     }
 
     private void Update() {
@@ -332,10 +330,12 @@ public class Player : MonoBehaviour {
     }
 
     public void InteractWithObject(Interactable interactable) {
+        Logger.Log(LogType.OBJECT_INTERACTION, interactable.name);
         interactable.Interact();
     }
 
     public void AddItemToInventory(Item item) {
+        Logger.Log(LogType.ITEM_PICKUP, item.name);
         if (inventory.ContainsKey(item.ItemId))
             inventory[item.ItemId] += item.Weight;
         else
@@ -343,10 +343,51 @@ public class Player : MonoBehaviour {
     }
 
     public void AddMinedObjectToTracker() {
-        string objName = playerController.ObjectToHit.gameObject.GetComponent<MineableObject>().Name();
+        string objName = playerController.ObjectToHit.GetComponent<MineableObject>().Name();
         if (minedTracker.ContainsKey(objName))
             minedTracker[objName]++;
         else
             minedTracker.Add(objName, 1);
+    }
+
+    public bool CanUpgradePickaxe(int anvilTier) {
+        if (Pickaxe.IsFullyUpgraded()) {
+            Logger.Log(LogType.PICKAXE_FULLY_UPGRADED_WARNING, gameObject.name);
+            return false;
+        }
+
+        UpgradeCost upgradeCost = Pickaxe.NextLevelUpgradeCost;
+        if (anvilTier < upgradeCost.anvilTier) {
+            Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_HIGHER_ANVIL_TIER_WARNING, gameObject.name, anvilTier.ToString(), upgradeCost.anvilTier.ToString());
+            return false;
+        }
+
+        inventory.TryGetValue((int)ItemId.GOLD, out float playerGold);
+        if (upgradeCost.goldCost > playerGold) {
+            Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_GOLD_WARNING, gameObject.name);
+            return false;
+        }
+
+        bool canUpgrade = true;
+        foreach (MaterialCost materialCost in upgradeCost.materialsCost) {
+            inventory.TryGetValue((int)materialCost.itemId, out float playerMaterial);
+
+            if (materialCost.weight > playerMaterial) {
+                canUpgrade = false;
+                Logger.Log(LogType.PICKAXE_UPGRADE_REQUIRES_MORE_RESOURCES_WARNING, gameObject.name);
+                break;
+            }
+        }
+
+        return canUpgrade;
+    }
+
+    public void TryUpgradePickaxe() {
+        SelectedObject.TryGetComponent(out Anvil anvil);
+        if (anvil == null) return;
+
+        if (!CanUpgradePickaxe(anvil.Tier)) return;
+
+        anvil.SuccessfulUpgrade(Pickaxe);
     }
 }
