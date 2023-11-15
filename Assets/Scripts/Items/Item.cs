@@ -17,6 +17,7 @@ public class Item : MonoBehaviour {
     public string DisplayName { get { return displayName; } }
 
     private void Awake() {
+        GetComponentInChildren<MeshRenderer>().material = itemSO.MeshMaterial;
         GetComponent<MeshCollider>().sharedMesh = itemSO.RandomMesh;
         GetComponentInChildren<MeshFilter>().mesh = itemSO.RandomMesh;
     }
