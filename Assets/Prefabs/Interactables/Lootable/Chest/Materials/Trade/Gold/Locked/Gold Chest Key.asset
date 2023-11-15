@@ -17,3 +17,4 @@ MonoBehaviour:
   value: 0
   itemMeshes:
   - {fileID: 4300000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
+  meshMaterial: {fileID: 2100000, guid: b2d74bec0e442ff4d991fd5853b45cb3, type: 2}
