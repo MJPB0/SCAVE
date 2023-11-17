@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class MineableObject : MonoBehaviour {
     [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
+
+    [Space]
     [SerializeField] private bool isMineable = true;
     [SerializeField] private bool dropOnMine = true;
 
@@ -32,8 +35,6 @@ public class MineableObject : MonoBehaviour {
     }
 
     private void Setup() {
-        health = mineableSO.Health;
-
         GetComponentInChildren<MeshFilter>().mesh = mineableSO.Mesh;
         GetComponent<MeshCollider>().sharedMesh = mineableSO.Mesh;
     }
