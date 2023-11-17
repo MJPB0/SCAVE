@@ -134,17 +134,16 @@ MonoBehaviour:
   dropOnMine: 1
   minOnMinedForceMultiplier: 50
   maxOnMinedForceMultiplier: 150
-  minDropOnHit: 1
-  maxDropOnHit: 3
-  baseDrops:
-  - {fileID: 6692337966150910294, guid: 98bf922ea4df52144a5cf26abccff986, type: 3}
-  - {fileID: 6692337966150910294, guid: dee9d9a842111da4fba179e662543f72, type: 3}
-  specialDropChance: 0.5
-  minSpecialDrop: 1
-  maxSpecialDrop: 3
-  specialDrops:
-  - {fileID: 6692337966150910294, guid: dee9d9a842111da4fba179e662543f72, type: 3}
-  - {fileID: 5878020293945260852, guid: 485bcce35c650ac43923860070f96043, type: 3}
+  drops:
+  - item: {fileID: 6692337966150910294, guid: c1be6c906ea97434e9ddeed57a014b71, type: 3}
+    chance: 1
+    amount: 2
+  - item: {fileID: 6692337966150910294, guid: 98bf922ea4df52144a5cf26abccff986, type: 3}
+    chance: 0.8
+    amount: 2
+  - item: {fileID: 6692337966150910294, guid: dee9d9a842111da4fba179e662543f72, type: 3}
+    chance: 0.5
+    amount: 1
   mineableSO: {fileID: 11400000, guid: ce41a8c1647fb564f9d337635b6cc0d0, type: 2}
 --- !u!64 &3118382023329298031
 MeshCollider:

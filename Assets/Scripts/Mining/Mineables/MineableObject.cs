@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
-using UnityEngine.Rendering.VirtualTexturing;
 
 public class MineableObject : MonoBehaviour {
     [SerializeField] private float health;
@@ -12,16 +10,8 @@ public class MineableObject : MonoBehaviour {
     [SerializeField] private float minOnMinedForceMultiplier = 0f;
     [SerializeField] private float maxOnMinedForceMultiplier = 15f;
 
-    [Header("Base drop")]
-    [SerializeField][Min(0)] private int minDropOnHit = 1;
-    [SerializeField] private int maxDropOnHit = 5;
-    [SerializeField] private GameObject[] baseDrops;
-
-    [Header("Special drop")]
-    [SerializeField][Range(0, 1)] private float specialDropChance = 0.5f;
-    [SerializeField][Min(1)] private int minSpecialDrop = 0;
-    [SerializeField] private int maxSpecialDrop = 3;
-    [SerializeField] private GameObject[] specialDrops;
+    [Space]
+    [SerializeField] private DropChance[] drops;
 
     [Space]
     [SerializeField] private MineableScriptableObject mineableSO;
@@ -62,7 +52,7 @@ public class MineableObject : MonoBehaviour {
         else
             WasMined();
 
-        if (baseDrops.Length > 0)
+        if (drops.Length > 0)
             DropItems();
 
         return true;
@@ -79,39 +69,25 @@ public class MineableObject : MonoBehaviour {
         Logger.Log(LogType.OBJECT_MINED, gameObject.name);
         PlayerController.OnObjectMined?.Invoke();
 
-        if (specialDrops.Length > 0 && Random.Range(0f, 1f) < specialDropChance)
-            DropSpecialItems();
-
         gameObject.SetActive(false);
     }
 
     public void DropItems() {
         Transform dropsParent = GameObject.FindGameObjectWithTag(Tags.ORE_PARENT_TAG).transform;
 
-        for (int i = 0; i < Random.Range(minDropOnHit, maxDropOnHit + 1); i++) {
-            GameObject instance = Instantiate(baseDrops[Random.Range(0, baseDrops.Length - 1)], hitPos, Quaternion.identity, dropsParent);
+        foreach (DropChance dropChance in drops) {
+            for (int i = 0; i < dropChance.amount; i++) {
+                if (Random.Range(0f, 1f) < dropChance.chance) continue;
 
-            Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
+                GameObject instance = Instantiate(dropChance.item, hitPos, Quaternion.identity, dropsParent);
 
-            instance.GetComponent<Rigidbody>().AddForce(force);
-            instance.GetComponent<Item>().Setup(true);
+                Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
 
-            Logger.Log(LogType.LOOT_DROPPED, gameObject.name, instance.name);
-        }
-    }
+                instance.GetComponent<Rigidbody>().AddForce(force);
+                instance.GetComponent<Item>().Setup(true);
 
-    public void DropSpecialItems() {
-        Transform dropsParent = GameObject.FindGameObjectWithTag(Tags.ORE_PARENT_TAG).transform;
-
-        for (int i = 0; i < Random.Range(minSpecialDrop, maxSpecialDrop); i++) {
-            GameObject instance = Instantiate(specialDrops[Random.Range(0, specialDrops.Length)], hitPos, Quaternion.identity, dropsParent);
-
-            Vector3 force = LootUtils.CalculateLootForce(playerPos, instance.transform.position, minOnMinedForceMultiplier, maxOnMinedForceMultiplier);
-
-            instance.GetComponent<Rigidbody>().AddForce(force);
-            instance.GetComponent<Item>().Setup(true);
-
-            Logger.Log(LogType.SPECIAL_LOOT_DOPPED, gameObject.name, instance.name);
+                Logger.Log(LogType.LOOT_DROPPED, gameObject.name, instance.name);
+            }
         }
     }
 

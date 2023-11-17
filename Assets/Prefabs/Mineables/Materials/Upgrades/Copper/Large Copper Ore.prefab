@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4359380354232200562}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.41, y: -4.8, z: -3.86}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
@@ -134,17 +134,16 @@ MonoBehaviour:
   dropOnMine: 1
   minOnMinedForceMultiplier: 50
   maxOnMinedForceMultiplier: 150
-  minDropOnHit: 5
-  maxDropOnHit: 10
-  baseDrops:
-  - {fileID: 8071802800179038878, guid: 915ccaff37826d64488b71641e702f90, type: 3}
-  - {fileID: 8071802800179038878, guid: 9489648366cb8a343a3088e129a9b1b2, type: 3}
-  - {fileID: 8071802800179038878, guid: 6d063086da63b4f4f887a694d2055daf, type: 3}
-  specialDropChance: 0.5
-  minSpecialDrop: 1
-  maxSpecialDrop: 3
-  specialDrops:
-  - {fileID: 8071802800179038878, guid: 915ccaff37826d64488b71641e702f90, type: 3}
+  drops:
+  - item: {fileID: 8071802800179038878, guid: 76d3f0215bae2994f82b575d36c4e15d, type: 3}
+    chance: 1
+    amount: 2
+  - item: {fileID: 8071802800179038878, guid: 7f997c8bbfcf3fb41b844f9673523eea, type: 3}
+    chance: 0.8
+    amount: 2
+  - item: {fileID: 8071802800179038878, guid: 8791d22361a468c48ab42605935b325b, type: 3}
+    chance: 0.5
+    amount: 1
   mineableSO: {fileID: 11400000, guid: 3d5ac03ecc8a8f841b82d0f9c760941c, type: 2}
 --- !u!64 &5755459170638702606
 MeshCollider:
