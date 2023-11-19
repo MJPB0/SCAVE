@@ -18,18 +18,13 @@ public class GameUI : MonoBehaviour {
     [Header("Interaction")]
     [SerializeField] private Text _interactionText;
     [SerializeField] private Text _interactionTargetText;
+    [SerializeField] private Slider _interactionHealthSlider;
     [SerializeField] private GameObject interactionPanel;
 
     [Header("Inventory")]
     [SerializeField] private bool isInventoryVisible = false;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject pickaxePanel;
-
-    [Space]
-    [SerializeField] private Text _ironWeight;
-    [SerializeField] private Text _goldWeight;
-    [SerializeField] private Text _coalWeight;
-    [SerializeField] private Text _emeraldWeight;
 
     [Space]
     [SerializeField] private Text _healthValue;
@@ -40,23 +35,6 @@ public class GameUI : MonoBehaviour {
     [SerializeField] private Text _reachValue;
     [SerializeField] private Text _movementSpeedValue;
     [SerializeField] private Text _jumpForceValue;
-
-    [Header("Debug")]
-    [SerializeField] private bool showDebug;
-    [SerializeField] private Text _selectedObject;
-    [SerializeField] private Text _canSwing;
-    [SerializeField] private Text _isSwinging;
-    [SerializeField] private Text _canStand;
-    [SerializeField] private Text _isCrouching;
-    [SerializeField] private Text _canSprint;
-    [SerializeField] private Text _isSprinting;
-    [SerializeField] private Text _canJump;
-    [SerializeField] private Text _isGrounded;
-    [SerializeField] private Text _canMove;
-    [SerializeField] private Text _isMoving;
-    [SerializeField] private Text _isChangingPosition;
-    [SerializeField] private Text _isRegeneratingHealth;
-    [SerializeField] private Text _isRegeneratingStamina;
 
     private const string TAP_INTERACT_TEXT = "Press 'E'";
     private const string HOLD_INTERACT_TEXT = "Hold 'E'";
@@ -81,8 +59,6 @@ public class GameUI : MonoBehaviour {
     }
 
     private void Update() {
-        if (showDebug)
-            PlayerDebug();
         if (isInventoryVisible)
             UpdatePlayerInfo();
 
@@ -108,6 +84,7 @@ public class GameUI : MonoBehaviour {
         }
 
         interactionPanel.SetActive(true);
+        _interactionHealthSlider.gameObject.SetActive(false);
         _interactionText.gameObject.SetActive(false);
         _interactionTargetText.gameObject.SetActive(true);
 
@@ -129,6 +106,10 @@ public class GameUI : MonoBehaviour {
 
             interactionTargetText = interactable.DisplayName;
             interactionAdditionalText = "to interact";
+        } else if (player.SelectedObject.CompareTag(Tags.MINEABLE_TAG) && player.SelectedObject.TryGetComponent(out MineableObject mineable)) {
+            _interactionHealthSlider.maxValue = mineable.MaxHealth;
+            _interactionHealthSlider.value = mineable.Health;
+            _interactionHealthSlider.gameObject.SetActive(true);
         }
 
         _interactionTargetText.text = interactionTargetText;
@@ -140,30 +121,7 @@ public class GameUI : MonoBehaviour {
 
     private bool ShouldDisplaySelectedObjectName(GameObject selectedObject) => selectedObject.CompareTag(Tags.PICKABLE_TAG) || selectedObject.CompareTag(Tags.INTERACTABLE_TAG) || selectedObject.CompareTag(Tags.MINEABLE_TAG);
 
-    private void PlayerDebug() {
-        _selectedObject.text = $"selected object: {player.SelectedObject}";
-        _canSwing.text = $"can swing: {player.CanSwing}";
-        _canStand.text = $"can stand: {player.CanStand}";
-        _isCrouching.text = $"is crouching: {player.IsCrouching}";
-        _canSprint.text = $"can sprint: {player.CanSprint}";
-        _isSprinting.text = $"is sprinting: {player.IsSprinting}";
-        _canJump.text = $"can jump: {player.CanJump}";
-        _isGrounded.text = $"is grounded: {player.IsGrounded}";
-        _canMove.text = $"can move: {player.CanMove}";
-        _isMoving.text = $"is moving: {player.IsMoving}";
-        _isRegeneratingHealth.text = $"is regenerating health: {player.IsRegeneratingHealth}";
-        _isRegeneratingStamina.text = $"is regenerating stamina: {player.IsRegeneratingStamina}";
-    }
-
     private void UpdatePlayerInfo() {
-        Dictionary<int, float> inv = player.Inventory;
-
-        //todo restructure this when game manager is introduced
-        _coalWeight.text = $"{(inv.ContainsKey(0) ? inv[0] : 0):F2}kg";
-        _ironWeight.text = $"{(inv.ContainsKey(1) ? inv[1] : 0):F2}kg";
-        _goldWeight.text = $"{(inv.ContainsKey(2) ? inv[2] : 0):F2}kg";
-        _emeraldWeight.text = $"{(inv.ContainsKey(3) ? inv[3] : 0):F2}kg";
-
         _healthValue.text = $"{player.BaseHealth} + {player.MaxHealth - player.BaseHealth} - {player.MaxHealth}";
         _healthRegenerationValue.text = $"{player.BaseHealthRegenerationRate} + {player.HealthRegenerationRate - player.BaseHealthRegenerationRate} - {player.HealthRegenerationRate}";
         _staminaValue.text = $"{player.BaseStamina} + {player.MaxStamina - player.BaseStamina} - {player.MaxStamina}";

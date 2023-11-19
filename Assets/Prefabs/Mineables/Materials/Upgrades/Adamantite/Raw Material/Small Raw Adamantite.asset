@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dea9510832b1224a9bc61448e5e828e, type: 3}
+  m_Name: Small Raw Adamantite
+  m_EditorClassIdentifier: 
+  id: 14
+  weight: 1
+  value: 0.5
+  itemMeshes:
+  - {fileID: 4300000, guid: 6ae3259b8a06be247bf01664f9e5ba85, type: 3}
+  meshMaterial: {fileID: 2100000, guid: ca7ac0a26ae986b45b7c46c43bdcf991, type: 2}
