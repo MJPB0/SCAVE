@@ -18,6 +18,7 @@ public class GameUI : MonoBehaviour {
     [Header("Interaction")]
     [SerializeField] private Text _interactionText;
     [SerializeField] private Text _interactionTargetText;
+    [SerializeField] private Slider _interactionHealthSlider;
     [SerializeField] private GameObject interactionPanel;
 
     [Header("Inventory")]
@@ -83,6 +84,7 @@ public class GameUI : MonoBehaviour {
         }
 
         interactionPanel.SetActive(true);
+        _interactionHealthSlider.gameObject.SetActive(false);
         _interactionText.gameObject.SetActive(false);
         _interactionTargetText.gameObject.SetActive(true);
 
@@ -104,6 +106,10 @@ public class GameUI : MonoBehaviour {
 
             interactionTargetText = interactable.DisplayName;
             interactionAdditionalText = "to interact";
+        } else if (player.SelectedObject.CompareTag(Tags.MINEABLE_TAG) && player.SelectedObject.TryGetComponent(out MineableObject mineable)) {
+            _interactionHealthSlider.maxValue = mineable.MaxHealth;
+            _interactionHealthSlider.value = mineable.Health;
+            _interactionHealthSlider.gameObject.SetActive(true);
         }
 
         _interactionTargetText.text = interactionTargetText;

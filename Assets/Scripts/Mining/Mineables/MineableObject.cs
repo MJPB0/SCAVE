@@ -22,6 +22,9 @@ public class MineableObject : MonoBehaviour {
     private Vector3 playerPos;
     private Vector3 hitPos;
 
+    public float Health { get { return health; } }
+    public float MaxHealth { get { return maxHealth; } }
+
     public string Name() {
         return mineableSO.name;
     }
