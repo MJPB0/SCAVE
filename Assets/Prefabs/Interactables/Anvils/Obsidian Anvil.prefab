@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da98536b878f804b96fb776f7eaacbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Anvil
+  displayName: Obsidian Anvil
   objectsRequiredToInteract: []
   requireHoldInteraction: 1
   isInteractable: 1
