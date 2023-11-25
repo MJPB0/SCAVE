@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dea9510832b1224a9bc61448e5e828e, type: 3}
   m_Name: Copper Chest Key
   m_EditorClassIdentifier: 
-  id: 101
+  id: 110
   weight: 1
   value: 0
   itemMeshes:
   - {fileID: 4300000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
-  meshMaterial: {fileID: 2100000, guid: 96d134c12e0979043a669b10dd0afea6, type: 2}
+  meshMaterial: {fileID: 2100000, guid: 705e7a582c3b77147a71f232fc7b7d40, type: 2}
