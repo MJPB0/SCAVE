@@ -1,2 +1,4 @@
 # SCAVE
- eSCape the cAVE
+ 3D first person game in Unity.
+
+ **[DEVELOPMENT PAUSED]**
